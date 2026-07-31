@@ -1,0 +1,153 @@
+---
+title: "Intro to Data Visualization in Python"
+author: "Sarah Stueve"
+toc: true
+date-modified: last-modified
+---
+
+This tutorial will demonstrate how to read in data from a file in Python and create a basic plot using three different tools: [matplotlib](https://matplotlib.org/), [seaborn](https://seaborn.pydata.org/), and [plotnine](https://plotnine.org/). 
+
+#### Learning Objectives
+
+1. Gain familiarity with Python
+2. Read in data from a file using Pandas
+3. Visualize data in a graph (scatterplot)
+
+For this tutorial, we'll be using data from [gapminder](https://en.wikipedia.org/wiki/Gapminder_Foundation). gapminder promotes sustainable development goals by increasing use of statistics about social, economic, and environmental development. This dataset is at the national level and includes GDP per capita, life expectancy, and population statistics. 
+
+Use [this link](https://raw.githubusercontent.com/resbaz/r-novice-gapminder-files/master/data/gapminder-FiveYearData.csv) to download the dataset (right-click on the link and select `Save As...`). Make sure to save it somewhere you'll remember, like your Desktop or Downloads. We'll be moving it somewhere else later.
+
+## Setup
+
+Before we get into the nitty-gritty of this tutorial, first we need to set up our development environment. 
+
+We will first create two folders, one called `data` and one called `output`, inside the project folder we just created. To do this using Python, we can run the following code:
+
+```{python}
+#| eval: false
+import os # os for "operating system"
+# "mkdir" stands for "make directory" (a "directory" is just a folder!)
+os.mkdir('data')
+os.mkdir('output')
+```
+
+:::{.callout-important title="Package installation for Using Google Colab"}
+If you're using Google Colab, run the below code to make sure these packages are installed. Otherwise, skip this!
+:::
+```{python }
+#| code-fold: true
+#| eval: false
+!pip3 install pandas matplotlib seaborn plotnine
+```
+
+### Import packages
+
+Importing packages in Python is like opening an application on your phone or your computer. When you want to write a paper or something similar, you might open Microsoft Word or Google Docs and then create your document. We open the application so we can *use it*, and importing is the same idea!
+
+```{python}
+import pandas as pd # pd is an "alias" for pandas, basically shorthand!
+import matplotlib.pyplot as plt
+import seaborn as sns
+# Below is a different type of import, we're importing "all" (aka *) the contents of plotnine, 
+# so we won't have to refer to "plotnine" the whole time.
+from plotnine import * 
+```
+
+## Reading in our data
+
+
+```{python}
+gap_5_yr = pd.read_csv('../data/gapminder-FiveYearData.csv')
+gap_5_yr.head()
+```
+
+We can learn about the columns in our data using the [`pd.DataFrame.info()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.info.html) method.
+```{python}
+gap_5_yr.info()
+```
+
+We can also access a table of summary statistics for numeric variables in our dataset using the [`pd.DataFrame.describe()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.describe.html) method.
+```{python}
+gap_5_yr.describe()
+```
+
+Let's investigate the relationship between life expectancy and GDP as part of creating our first plot.
+
+## Your first plot in Python!
+
+We'll start by using matplotlib, which is the base plotting package in Python! It sorta underpins all other tools, it was definitely the first.
+
+```{python}
+ax_plt1 = gap_5_yr.plot(x = 'gdpPercap', y = 'lifeExp', kind = 'scatter')
+plt.show()
+```
+
+### Making it pretty
+
+#### Change the scale: log-transform GDP per capita
+
+It's difficult to see the relationship between GDP and life expectancy because of the scale of GDP, but it doesn't look linear. Let's log-transform GDP so we can see the relationship better.
+
+```{python}
+ax_plt1 = gap_5_yr.plot(x = 'gdpPercap', 
+                        y = 'lifeExp', 
+                        kind = 'scatter',
+                        logx = True)
+plt.show()
+```
+
+#### Update axis labels and title
+We can also update the labels on the X and Y axes to be easier to read by referring to the variable `ax_plt1`, which refers to the axes of this plot. It contains a bunch of methods we can use to edit the plot itself.
+
+We'll use `ax.set_xlabel`, `ax.set_ylabel`, and `ax.set_title`:
+
+```{python}
+# previous plot code
+ax_plt1 = gap_5_yr.plot(x = 'gdpPercap', 
+                        y = 'lifeExp', 
+                        kind = 'scatter',
+                        logx = True)
+# set the labels
+ax_plt1.set_xlabel('GDP per capita (Log($))')
+ax_plt1.set_ylabel('Life expectancy (years)')
+ax_plt1.set_title('Life expectancy vs. GDP')
+plt.show()
+```
+
+### Make it *prettier*
+#### Changing colors
+
+By default, matplotlib generally will use blue as the initial color for the points or lines in your plot. We aren't restricted to that! For this plot, let's assign point colors based on the continent a country belongs to. The lines where '# added' follows the code indicate the changes made:
+
+```{python}
+# we're going to ignore the warning for this plot
+import warnings
+warnings.filterwarnings('ignore')
+
+# create plot
+ax_plt1 = gap_5_yr.plot(x = 'gdpPercap', 
+                        y = 'lifeExp', 
+                        kind = 'scatter',
+                        logx = True,
+                        c = 'continent', # added
+                        cmap = 'Accent') # added
+# set the labels
+ax_plt1.set_xlabel('GDP per capita (Log($))')
+ax_plt1.set_ylabel('Life expectancy (years)')
+ax_plt1.set_title('Life expectancy vs. GDP')
+plt.show()
+```
+
+### Saving graphical output
+(with `matplotlib`)
+
+```{python}
+#| eval: false
+plt.savefig('output/lifeExp_vs_log_GDP.jpg')
+```
+
+## Another one! Plotting with Seaborn
+![source: https://makeagif.com/i/USm_yJ](../figures/DJ_Khaled_Another_One_Gif.gif)
+
+
+## Plotting with plotnine (this one's for you, R friends)

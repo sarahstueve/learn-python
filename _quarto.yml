@@ -10,6 +10,15 @@ website:
         text: Home
       - href: setup.qmd
         text: Getting started
+  page-footer: 
+    left: 
+      - text: Copyright 2026, Sarah Stueve
+    center: 
+      - text: CC BY 4.0 Deed
+        href: https://creativecommons.org/licenses/by/4.0/
+    right: 
+      - icon: github
+        href: https://github.com/sarahstueve
 
 format:
   html:

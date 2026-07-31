@@ -11,6 +11,83 @@
     "href": "index.html",
     "title": "learn-python",
     "section": "",
-    "text": "This page is in development, but will hold workshops on several Python topics."
+    "text": "This page is in development, but will hold workshops on several Python topics.\nIntro to Data Viz"
+  },
+  {
+    "objectID": "tutorials/000_intro_to_visualization.html",
+    "href": "tutorials/000_intro_to_visualization.html",
+    "title": "Intro to Data Visualization in Python",
+    "section": "",
+    "text": "This tutorial will demonstrate how to read in data from a file in Python and create a basic plot using three different tools: matplotlib, seaborn, and plotnine."
+  },
+  {
+    "objectID": "tutorials/000_intro_to_visualization.html#getting-started",
+    "href": "tutorials/000_intro_to_visualization.html#getting-started",
+    "title": "Intro to Data Visualization in Python",
+    "section": "",
+    "text": "ImportantPackage installation for Using Google Colab\n\n\n\nFirst, required installation. If you’re using Google Colab, run the below code to make sure these packages are installed. Otherwise, skip this!\n\n\n\n\nCode\n!pip3 install pandas matplotlib seaborn plotnine\n\n\n\n\nImporting packages in Python is like opening an application on your phone or your computer. When you want to write a paper or something similar, you might open Microsoft Word or Google Docs and then create your document. We open the application so we can use it, and importing is the same idea!\n\nimport pandas as pd # pd is an \"alias\" for pandas, basically shorthand!\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n# Below is a different type of import, we're importing \"all\" (aka *) the contents of plotnine, \n# so we won't have to refer to \"plotnine\" the whole time.\nfrom plotnine import *"
+  },
+  {
+    "objectID": "tutorials/000_intro_to_visualization.html#reading-in-our-data",
+    "href": "tutorials/000_intro_to_visualization.html#reading-in-our-data",
+    "title": "Intro to Data Visualization in Python",
+    "section": "Reading in our data",
+    "text": "Reading in our data\n\ngap_5_yr = pd.read_csv('../data/gapminder-FiveYearData.csv')\ngap_5_yr.head()\n\n\n\n\n\n\n\n\ncountry\nyear\npop\ncontinent\nlifeExp\ngdpPercap\n\n\n\n\n0\nAfghanistan\n1952\n8425333.0\nAsia\n28.801\n779.445314\n\n\n1\nAfghanistan\n1957\n9240934.0\nAsia\n30.332\n820.853030\n\n\n2\nAfghanistan\n1962\n10267083.0\nAsia\n31.997\n853.100710\n\n\n3\nAfghanistan\n1967\n11537966.0\nAsia\n34.020\n836.197138\n\n\n4\nAfghanistan\n1972\n13079460.0\nAsia\n36.088\n739.981106\n\n\n\n\n\n\n\nWe can learn about the columns in our data using the pd.DataFrame.info() method.\n\ngap_5_yr.info()\n\n&lt;class 'pandas.DataFrame'&gt;\nRangeIndex: 1704 entries, 0 to 1703\nData columns (total 6 columns):\n #   Column     Non-Null Count  Dtype  \n---  ------     --------------  -----  \n 0   country    1704 non-null   str    \n 1   year       1704 non-null   int64  \n 2   pop        1704 non-null   float64\n 3   continent  1704 non-null   str    \n 4   lifeExp    1704 non-null   float64\n 5   gdpPercap  1704 non-null   float64\ndtypes: float64(3), int64(1), str(2)\nmemory usage: 80.0 KB\n\n\nWe can also access a table of summary statistics for numeric variables in our dataset using the pd.DataFrame.describe() method.\n\ngap_5_yr.describe()\n\n\n\n\n\n\n\n\nyear\npop\nlifeExp\ngdpPercap\n\n\n\n\ncount\n1704.00000\n1.704000e+03\n1704.000000\n1704.000000\n\n\nmean\n1979.50000\n2.960121e+07\n59.474439\n7215.327081\n\n\nstd\n17.26533\n1.061579e+08\n12.917107\n9857.454543\n\n\nmin\n1952.00000\n6.001100e+04\n23.599000\n241.165876\n\n\n25%\n1965.75000\n2.793664e+06\n48.198000\n1202.060309\n\n\n50%\n1979.50000\n7.023596e+06\n60.712500\n3531.846988\n\n\n75%\n1993.25000\n1.958522e+07\n70.845500\n9325.462346\n\n\nmax\n2007.00000\n1.318683e+09\n82.603000\n113523.132900\n\n\n\n\n\n\n\nLet’s investigate the relationship between life expectancy and GDP as part of creating our first plot."
+  },
+  {
+    "objectID": "tutorials/000_intro_to_visualization.html#setup",
+    "href": "tutorials/000_intro_to_visualization.html#setup",
+    "title": "Intro to Data Visualization in Python",
+    "section": "Setup",
+    "text": "Setup\nBefore we get into the nitty-gritty of this tutorial, first we need to set up our development environment.\nWe will first create two folders, one called data and one called output, inside the project folder we just created. To do this using Python, we can run the following code:\n\nimport os # os for \"operating system\"\n# \"mkdir\" stands for \"make directory\" (a \"directory\" is just a folder!)\nos.mkdir('data')\nos.mkdir('output')\n\n\n\n\n\n\n\nImportantPackage installation for Using Google Colab\n\n\n\nIf you’re using Google Colab, run the below code to make sure these packages are installed. Otherwise, skip this!\n\n\n\n\nCode\n!pip3 install pandas matplotlib seaborn plotnine\n\n\n\nImport packages\nImporting packages in Python is like opening an application on your phone or your computer. When you want to write a paper or something similar, you might open Microsoft Word or Google Docs and then create your document. We open the application so we can use it, and importing is the same idea!\n\nimport pandas as pd # pd is an \"alias\" for pandas, basically shorthand!\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n# Below is a different type of import, we're importing \"all\" (aka *) the contents of plotnine, \n# so we won't have to refer to \"plotnine\" the whole time.\nfrom plotnine import *"
+  },
+  {
+    "objectID": "tutorials/000_intro_to_visualization.html#your-first-plot-in-python",
+    "href": "tutorials/000_intro_to_visualization.html#your-first-plot-in-python",
+    "title": "Intro to Data Visualization in Python",
+    "section": "Your first plot in Python!",
+    "text": "Your first plot in Python!\nWe’ll start by using matplotlib, which is the base plotting package in Python! It sorta underpins all other tools, it was definitely the first.\n\nax_plt1 = gap_5_yr.plot(x = 'gdpPercap', y = 'lifeExp', kind = 'scatter')\nplt.show()\n\n\n\n\n\n\n\n\n\nMaking it pretty\n\nChange the scale: log-transform GDP per capita\nIt’s difficult to see the relationship between GDP and life expectancy because of the scale of GDP, but it doesn’t look linear. Let’s log-transform GDP so we can see the relationship better.\n\nax_plt1 = gap_5_yr.plot(x = 'gdpPercap', \n                        y = 'lifeExp', \n                        kind = 'scatter',\n                        logx = True)\nplt.show()\n\n\n\n\n\n\n\n\n\n\nUpdate axis labels and title\nWe can also update the labels on the X and Y axes to be easier to read by referring to the variable ax_plt1, which refers to the axes of this plot. It contains a bunch of methods we can use to edit the plot itself.\nWe’ll use ax.set_xlabel, ax.set_ylabel, and ax.set_title:\n\n# previous plot code\nax_plt1 = gap_5_yr.plot(x = 'gdpPercap', \n                        y = 'lifeExp', \n                        kind = 'scatter',\n                        logx = True)\n# set the labels\nax_plt1.set_xlabel('GDP per capita (Log($))')\nax_plt1.set_ylabel('Life expectancy (years)')\nax_plt1.set_title('Life expectancy vs. GDP')\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\nMake it prettier\n\nChanging colors\nBy default, matplotlib generally will use blue as the initial color for the points or lines in your plot. We aren’t restricted to that! For this plot, let’s assign point colors based on the continent a country belongs to. The lines where ‘# added’ follows the code indicate the changes made:\n\n# we're going to ignore the warning for this plot\nimport warnings\nwarnings.filterwarnings('ignore')\n\n# create plot\nax_plt1 = gap_5_yr.plot(x = 'gdpPercap', \n                        y = 'lifeExp', \n                        kind = 'scatter',\n                        logx = True,\n                        c = 'continent', # added\n                        cmap = 'Accent') # added\n# set the labels\nax_plt1.set_xlabel('GDP per capita (Log($))')\nax_plt1.set_ylabel('Life expectancy (years)')\nax_plt1.set_title('Life expectancy vs. GDP')\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\nSaving graphical output\n(with matplotlib)\n\nplt.savefig('output/lifeExp_vs_log_GDP.jpg')"
+  },
+  {
+    "objectID": "tutorials/000_intro_to_visualization.html#anotha-one-plotting-with-seaborn",
+    "href": "tutorials/000_intro_to_visualization.html#anotha-one-plotting-with-seaborn",
+    "title": "Intro to Data Visualization in Python",
+    "section": "Anotha one! Plotting with Seaborn",
+    "text": "Anotha one! Plotting with Seaborn\n\n\n\nsource: https://makeagif.com/i/USm_yJ"
+  },
+  {
+    "objectID": "tutorials/000_intro_to_visualization.html#andanotha-one-plotting-with-plotnine-join-us-r-friends",
+    "href": "tutorials/000_intro_to_visualization.html#andanotha-one-plotting-with-plotnine-join-us-r-friends",
+    "title": "Intro to Data Visualization in Python",
+    "section": "And…anotha one! Plotting with plotnine (join us, R friends)",
+    "text": "And…anotha one! Plotting with plotnine (join us, R friends)"
+  },
+  {
+    "objectID": "tutorials/000_intro_to_visualization.html#another-one-plotting-with-seaborn",
+    "href": "tutorials/000_intro_to_visualization.html#another-one-plotting-with-seaborn",
+    "title": "Intro to Data Visualization in Python",
+    "section": "Another one! Plotting with Seaborn",
+    "text": "Another one! Plotting with Seaborn\n\n\n\nsource: https://makeagif.com/i/USm_yJ"
+  },
+  {
+    "objectID": "tutorials/000_intro_to_visualization.html#andanother-one-plotting-with-plotnine-join-us-r-friends",
+    "href": "tutorials/000_intro_to_visualization.html#andanother-one-plotting-with-plotnine-join-us-r-friends",
+    "title": "Intro to Data Visualization in Python",
+    "section": "And…another one! Plotting with plotnine (join us, R friends)",
+    "text": "And…another one! Plotting with plotnine (join us, R friends)"
+  },
+  {
+    "objectID": "tutorials/000_intro_to_visualization.html#plotting-with-plotnine-join-us-r-friends",
+    "href": "tutorials/000_intro_to_visualization.html#plotting-with-plotnine-join-us-r-friends",
+    "title": "Intro to Data Visualization in Python",
+    "section": "Plotting with plotnine (join us, R friends)",
+    "text": "Plotting with plotnine (join us, R friends)"
+  },
+  {
+    "objectID": "tutorials/000_intro_to_visualization.html#plotting-with-plotnine-this-ones-for-you-r-friends",
+    "href": "tutorials/000_intro_to_visualization.html#plotting-with-plotnine-this-ones-for-you-r-friends",
+    "title": "Intro to Data Visualization in Python",
+    "section": "Plotting with plotnine (this one’s for you, R friends)",
+    "text": "Plotting with plotnine (this one’s for you, R friends)"
   }
 ]
