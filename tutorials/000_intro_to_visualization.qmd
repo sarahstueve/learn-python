@@ -17,7 +17,7 @@ For this tutorial, we'll be using data from [gapminder](https://en.wikipedia.org
 
 Use [this link](https://raw.githubusercontent.com/resbaz/r-novice-gapminder-files/master/data/gapminder-FiveYearData.csv) to download the dataset (right-click on the link and select `Save As...`). Make sure to save it somewhere you'll remember, like your Desktop or Downloads. We'll be moving it somewhere else later.
 
-## Setup
+## Setup {#sec-setup}
 
 Before we get into the nitty-gritty of this tutorial, first we need to set up our development environment. 
 
@@ -53,7 +53,7 @@ import seaborn as sns
 from plotnine import * 
 ```
 
-## Reading in our data
+## Reading in our data {#sec-reading_data}
 
 
 ```{python}
@@ -73,7 +73,7 @@ gap_5_yr.describe()
 
 Let's investigate the relationship between life expectancy and GDP as part of creating our first plot.
 
-## Your first plot in Python!
+## Your first plot in Python! {#sec-matplotlib}
 
 We'll start by using matplotlib, which is the base plotting package in Python! It sorta underpins all other tools, it was definitely the first.
 
@@ -138,16 +138,74 @@ ax_plt1.set_title('Life expectancy vs. GDP')
 plt.show()
 ```
 
-### Saving graphical output
+### Saving graphical output {#sec-matplotlib-save}
 (with `matplotlib`)
+
+To save your plot to a file that can be used in a presentation or a publication, we can use the `plt.save_fig` function. It saves the most recently generated figure:
 
 ```{python}
 #| eval: false
 plt.savefig('output/lifeExp_vs_log_GDP.jpg')
 ```
 
-## Another one! Plotting with Seaborn
+## Another one! Plotting with Seaborn {#sec-seaborn}
 ![source: https://makeagif.com/i/USm_yJ](../figures/DJ_Khaled_Another_One_Gif.gif)
 
+Matplotlib is the original, but there are other packages that create really beautiful and more aesthetic plots right out of the box. Seaborn is a data visualization library built on top of matplotlib that provides a sometimes simpler interface for creating "attractive and informative statistical graphics".
 
-## Plotting with plotnine (this one's for you, R friends)
+To create an equivalent scatterplot to the plot above, we'll use [`sns.scatterplot`](https://seaborn.pydata.org/generated/seaborn.scatterplot.html).
+
+In addition to supporting some of the matplotlib color palettes, seaborn introduces some of their own. We can set all the same variables, but the syntax and names of arguments might be different - pay attention to the differences between this plot and the one above!
+
+### Creating the scatterplot
+
+```{python}
+p2_ax = sns.scatterplot(
+    data = gap_5_yr,
+    x = 'gdpPercap',
+    y = 'lifeExp',
+    hue = 'continent', # setting variable for color
+    palette = 'colorblind', # setting same colormap from matplotlib
+    alpha = 0.9, # setting opacity -- this is new!
+)
+# update x scale using matplotlib!
+plt.xscale('log')
+# set labels the same way
+p2_ax.set_xlabel('GDP per capita (log($))')
+p2_ax.set_ylabel('Life expectancy (years)')
+p2_ax.set_title('Life expectancy vs. GDP')
+plt.show()
+```
+
+As we can see, we're using the same methods (e.g., `set_xlabel`, etc.) to update the labels of this plot. That's because Seaborn is built on top of (or, inherits) some methods and keyword arguments from matplotlib.
+
+One key difference here is that the easiest way to set the x-scale to logarithmic is by using matplotlib instead of going through seaborn. When using seaborn, you will likely find it helpful to have matplotlib imported as well in order to make changes like the one above!
+
+### Creating a facet plot
+
+Here's an example of a plot that is slightly easier to create with seaborn, though altering each of the plots individually would still be a challenge (and involve matplotlib). Below is a facet-plot or facet-grid (`sns.relplot`). A facet plot set of small subplots that share the same scale and structure. Each individual panel displays a different subset of a dataset split by a category. In this case, we're going to create the same plot as above but with a separate subplot for each continent: 
+
+```{python}
+p3_ax = sns.relplot(
+    data = gap_5_yr,
+    x = 'gdpPercap',
+    y = 'lifeExp',
+    hue = 'continent', # setting variable for color
+    col = 'continent', # setting variable for color
+    palette = 'colorblind',
+    col_wrap=3, 
+    height=2,#, # setting same colormap from matplotlib
+    alpha = 0.9, # setting opacity -- this is new!
+)
+plt.xscale('log') # we can use the same matplotlib function to change the x-scale!
+
+```
+
+### Saving
+To save the plot above, you would use the exact same syntax as above in @sec-matplotlib-save.
+
+There are other (perhaps cooler!) plots that can be made using seaborn. Check out the [`seaborn` gallery](https://seaborn.pydata.org/examples/index.html) for more inspiration!
+
+## Plotting with plotnine (this one's for you, R friends) {#sec-plotnine}
+
+The last section of this 

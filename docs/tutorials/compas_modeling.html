@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Modeling the Effect of Sex and Race on Risk of Violence Using COMPAS score data. – learn-python</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-445b8638c3d06994fee0907d791121c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">learn-python</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../setup.html"> 
+<span class="menu-text">Getting started</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Modeling the Effect of Sex and Race on Risk of Violence Using COMPAS score data.</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This tutorial is based on an R version of this tutorial, which can be found <a href="http://htmlpreview.github.io/?https://github.com/picoral/pit-un-2022/blob/master/R%20tutorials/compas-case-study.html">here</a></p>
+<p>The data that we’ll be using for this tutorial is from <a href="https://www.propublica.org/datastore/dataset/compas-recidivism-risk-score-data-and-analysis">this work by ProPublica</a> which aimed to assess a popular commercial system COMPAS, which is a criminal defendant risk-assessment tool, for bias against any individual groups. They evaluated the Risk of Recidivism algorithm, in this tutorial, we’re going to evaluate the Risk of Violence algorithm.</p>
+<p>Imports:</p>
+<div id="cell-3" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, seaborn <span class="im">as</span> sns, numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>First, let’s read the data into a Pandas DataFrame:</p>
+<div id="cell-5" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>compas_data <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/propublica/compas-analysis/master/compas-scores-raw.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>compas_data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Person_ID</th>
+<th data-quarto-table-cell-role="th">AssessmentID</th>
+<th data-quarto-table-cell-role="th">Case_ID</th>
+<th data-quarto-table-cell-role="th">Agency_Text</th>
+<th data-quarto-table-cell-role="th">LastName</th>
+<th data-quarto-table-cell-role="th">FirstName</th>
+<th data-quarto-table-cell-role="th">MiddleName</th>
+<th data-quarto-table-cell-role="th">Sex_Code_Text</th>
+<th data-quarto-table-cell-role="th">Ethnic_Code_Text</th>
+<th data-quarto-table-cell-role="th">DateOfBirth</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">RecSupervisionLevel</th>
+<th data-quarto-table-cell-role="th">RecSupervisionLevelText</th>
+<th data-quarto-table-cell-role="th">Scale_ID</th>
+<th data-quarto-table-cell-role="th">DisplayText</th>
+<th data-quarto-table-cell-role="th">RawScore</th>
+<th data-quarto-table-cell-role="th">DecileScore</th>
+<th data-quarto-table-cell-role="th">ScoreText</th>
+<th data-quarto-table-cell-role="th">AssessmentType</th>
+<th data-quarto-table-cell-role="th">IsCompleted</th>
+<th data-quarto-table-cell-role="th">IsDeleted</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>50844</td>
+<td>57167</td>
+<td>51950</td>
+<td>PRETRIAL</td>
+<td>Fisher</td>
+<td>Kevin</td>
+<td>NaN</td>
+<td>Male</td>
+<td>Caucasian</td>
+<td>12/05/92</td>
+<td>...</td>
+<td>1</td>
+<td>Low</td>
+<td>7</td>
+<td>Risk of Violence</td>
+<td>-2.08</td>
+<td>4</td>
+<td>Low</td>
+<td>New</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>50844</td>
+<td>57167</td>
+<td>51950</td>
+<td>PRETRIAL</td>
+<td>Fisher</td>
+<td>Kevin</td>
+<td>NaN</td>
+<td>Male</td>
+<td>Caucasian</td>
+<td>12/05/92</td>
+<td>...</td>
+<td>1</td>
+<td>Low</td>
+<td>8</td>
+<td>Risk of Recidivism</td>
+<td>-1.06</td>
+<td>2</td>
+<td>Low</td>
+<td>New</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>50844</td>
+<td>57167</td>
+<td>51950</td>
+<td>PRETRIAL</td>
+<td>Fisher</td>
+<td>Kevin</td>
+<td>NaN</td>
+<td>Male</td>
+<td>Caucasian</td>
+<td>12/05/92</td>
+<td>...</td>
+<td>1</td>
+<td>Low</td>
+<td>18</td>
+<td>Risk of Failure to Appear</td>
+<td>15.00</td>
+<td>1</td>
+<td>Low</td>
+<td>New</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>50848</td>
+<td>57174</td>
+<td>51956</td>
+<td>PRETRIAL</td>
+<td>KENDALL</td>
+<td>KEVIN</td>
+<td>NaN</td>
+<td>Male</td>
+<td>Caucasian</td>
+<td>09/16/84</td>
+<td>...</td>
+<td>1</td>
+<td>Low</td>
+<td>7</td>
+<td>Risk of Violence</td>
+<td>-2.84</td>
+<td>2</td>
+<td>Low</td>
+<td>New</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>50848</td>
+<td>57174</td>
+<td>51956</td>
+<td>PRETRIAL</td>
+<td>KENDALL</td>
+<td>KEVIN</td>
+<td>NaN</td>
+<td>Male</td>
+<td>Caucasian</td>
+<td>09/16/84</td>
+<td>...</td>
+<td>1</td>
+<td>Low</td>
+<td>8</td>
+<td>Risk of Recidivism</td>
+<td>-1.50</td>
+<td>1</td>
+<td>Low</td>
+<td>New</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 28 columns</p>
+</div>
+</div>
+</div>
+<p>To determine the number of unique persons there are in this data (we can see above that there are multiple rows - i.e., <em>observations</em> - per person), we can take the length of the set of the <code>Person_ID</code> column (alternatively, we could also use the unique method demonstrated below)</p>
+<div id="cell-7" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(<span class="bu">set</span>(compas_data.Person_ID))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>18610</code></pre>
+</div>
+</div>
+<p>This tells us there are 18,610 unique (or distinct) IDs in the data.</p>
+<p>The data comes from ProPublica who released the initial study on this data. They state that “Each pre-trial defendant received at least three COMPAS scores: <code>Risk of Recidivism</code>, <code>Risk of Violence</code>, and <code>Risk of Failure to Appear</code>.</p>
+<p>Because we’re interested in modeling recidivism by race, what races are represented in this data?</p>
+<div id="cell-9" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>compas_data.Ethnic_Code_Text.unique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>array(['Caucasian', 'African-American', 'Hispanic', 'Other', 'Asian',
+       'African-Am', 'Native American', 'Oriental', 'Arabic'],
+      dtype=object)</code></pre>
+</div>
+</div>
+<p>The names used to represent the races/ethnic groups are both messy and not entirely politically correct. We’ll create a new column in our dataframe called <code>race_ethnicity</code> to contain our new attributes, to make a few adjustments that will, at least, partially improve the labels.</p>
+<div id="cell-11" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>compas_data[<span class="st">"race_ethnicity"</span>] <span class="op">=</span> compas_data.Ethnic_Code_Text.replace(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    to_replace <span class="op">=</span> {<span class="st">"Caucasian"</span>: <span class="st">"White"</span>, </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">"African-Am"</span>: <span class="st">"African-American"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Oriental"</span>:<span class="st">"Asian"</span>})</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(compas_data.Ethnic_Code_Text.unique(),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    compas_data.race_ethnicity.unique())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['Caucasian' 'African-American' 'Hispanic' 'Other' 'Asian' 'African-Am'
+ 'Native American' 'Oriental' 'Arabic'] ['White' 'African-American' 'Hispanic' 'Other' 'Asian' 'Native American'
+ 'Arabic']</code></pre>
+</div>
+</div>
+<p>For the purposes of this tutorial, we’ll use only the <code>Risk of Violence</code> decile score. The goal is to answer the question: what is the effect of sex and race on risk of violence decile scores?</p>
+<p>Let’s filter the data by Risk of Violence in the DisplayText column, and then extract only the columns we are interested in.</p>
+<div id="cell-13" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>violence_risk <span class="op">=</span> compas_data[compas_data.DisplayText <span class="op">==</span> <span class="st">"Risk of Violence"</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>violence_risk.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Person_ID</th>
+<th data-quarto-table-cell-role="th">AssessmentID</th>
+<th data-quarto-table-cell-role="th">Case_ID</th>
+<th data-quarto-table-cell-role="th">Agency_Text</th>
+<th data-quarto-table-cell-role="th">LastName</th>
+<th data-quarto-table-cell-role="th">FirstName</th>
+<th data-quarto-table-cell-role="th">MiddleName</th>
+<th data-quarto-table-cell-role="th">Sex_Code_Text</th>
+<th data-quarto-table-cell-role="th">Ethnic_Code_Text</th>
+<th data-quarto-table-cell-role="th">DateOfBirth</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">RecSupervisionLevelText</th>
+<th data-quarto-table-cell-role="th">Scale_ID</th>
+<th data-quarto-table-cell-role="th">DisplayText</th>
+<th data-quarto-table-cell-role="th">RawScore</th>
+<th data-quarto-table-cell-role="th">DecileScore</th>
+<th data-quarto-table-cell-role="th">ScoreText</th>
+<th data-quarto-table-cell-role="th">AssessmentType</th>
+<th data-quarto-table-cell-role="th">IsCompleted</th>
+<th data-quarto-table-cell-role="th">IsDeleted</th>
+<th data-quarto-table-cell-role="th">race_ethnicity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>50844</td>
+<td>57167</td>
+<td>51950</td>
+<td>PRETRIAL</td>
+<td>Fisher</td>
+<td>Kevin</td>
+<td>NaN</td>
+<td>Male</td>
+<td>Caucasian</td>
+<td>12/05/92</td>
+<td>...</td>
+<td>Low</td>
+<td>7</td>
+<td>Risk of Violence</td>
+<td>-2.08</td>
+<td>4</td>
+<td>Low</td>
+<td>New</td>
+<td>1</td>
+<td>0</td>
+<td>White</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>50848</td>
+<td>57174</td>
+<td>51956</td>
+<td>PRETRIAL</td>
+<td>KENDALL</td>
+<td>KEVIN</td>
+<td>NaN</td>
+<td>Male</td>
+<td>Caucasian</td>
+<td>09/16/84</td>
+<td>...</td>
+<td>Low</td>
+<td>7</td>
+<td>Risk of Violence</td>
+<td>-2.84</td>
+<td>2</td>
+<td>Low</td>
+<td>New</td>
+<td>1</td>
+<td>0</td>
+<td>White</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6</th>
+<td>50855</td>
+<td>57181</td>
+<td>51963</td>
+<td>PRETRIAL</td>
+<td>DAYES</td>
+<td>DANIEL</td>
+<td>NaN</td>
+<td>Male</td>
+<td>African-American</td>
+<td>08/25/94</td>
+<td>...</td>
+<td>High</td>
+<td>7</td>
+<td>Risk of Violence</td>
+<td>-1.20</td>
+<td>8</td>
+<td>High</td>
+<td>New</td>
+<td>1</td>
+<td>0</td>
+<td>African-American</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">9</th>
+<td>50850</td>
+<td>57176</td>
+<td>51958</td>
+<td>PRETRIAL</td>
+<td>Debe</td>
+<td>Mikerlie</td>
+<td>George</td>
+<td>Female</td>
+<td>African-American</td>
+<td>10/09/94</td>
+<td>...</td>
+<td>Medium</td>
+<td>7</td>
+<td>Risk of Violence</td>
+<td>-1.29</td>
+<td>7</td>
+<td>Medium</td>
+<td>New</td>
+<td>1</td>
+<td>0</td>
+<td>African-American</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">12</th>
+<td>50839</td>
+<td>57162</td>
+<td>51945</td>
+<td>PRETRIAL</td>
+<td>McLaurin</td>
+<td>Stephanie</td>
+<td>Nicole</td>
+<td>Female</td>
+<td>African-American</td>
+<td>06/29/85</td>
+<td>...</td>
+<td>Low</td>
+<td>7</td>
+<td>Risk of Violence</td>
+<td>-2.90</td>
+<td>2</td>
+<td>Low</td>
+<td>New</td>
+<td>1</td>
+<td>0</td>
+<td>African-American</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 29 columns</p>
+</div>
+</div>
+</div>
+<p>We should store this data for future use:</p>
+<div id="cell-15" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>violence_risk.to_csv(<span class="st">"data/risk_of_violence.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now, back to modeling. We know that we only have data on risk of violence from the COMPAS dataset and we want to determine the effect of sex and race on the risk of violence scores. We can do this using statsmodel’s OLS function with the <code>.from_formula</code> method, which will allow us to establish the relationships between variables of interest ourselves. This is similar to the <code>lm</code> function in <code>R</code>. <code>sm.OLS</code> will take care of one-hot encoding the data in order to make predictions. We’ll then group the data by race and take the average of the predicted <code>DecileScore</code>s to answer the question “what is the mean score across all races?”</p>
+<div id="cell-17" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit model and get average predictions by race</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>formula <span class="op">=</span> <span class="st">"DecileScore ~ race_ethnicity + Sex_Code_Text"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> sm.OLS.from_formula(formula <span class="op">=</span> formula,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                            data <span class="op">=</span> violence_risk)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> model2.fit()</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>predict_results <span class="op">=</span> results.get_prediction(row_labels <span class="op">=</span> violence_risk.race_ethnicity.values)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>result_frame <span class="op">=</span> predict_results.summary_frame().groupby(level<span class="op">=</span><span class="dv">0</span>).mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-18" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make race_ethnicity a col in result_frame and sort in descending order</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>result_frame.reset_index(inplace <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>result_frame <span class="op">=</span> result_frame.rename(columns <span class="op">=</span> {<span class="st">'index'</span>:<span class="st">'race_ethnicity'</span>})</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>result_frame.sort_values(by <span class="op">=</span> <span class="st">"mean"</span>, ascending<span class="op">=</span> <span class="va">False</span>, inplace <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>result_frame</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">race_ethnicity</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">mean_se</th>
+<th data-quarto-table-cell-role="th">mean_ci_lower</th>
+<th data-quarto-table-cell-role="th">mean_ci_upper</th>
+<th data-quarto-table-cell-role="th">obs_ci_lower</th>
+<th data-quarto-table-cell-role="th">obs_ci_upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>African-American</td>
+<td>4.183863</td>
+<td>0.028432</td>
+<td>4.128135</td>
+<td>4.239592</td>
+<td>-0.333110</td>
+<td>8.700837</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Native American</td>
+<td>3.671233</td>
+<td>0.270263</td>
+<td>3.141495</td>
+<td>4.200971</td>
+<td>-0.876343</td>
+<td>8.218809</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Arabic</td>
+<td>2.880000</td>
+<td>0.460924</td>
+<td>1.976552</td>
+<td>3.783448</td>
+<td>-1.726087</td>
+<td>7.486087</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">6</th>
+<td>White</td>
+<td>2.602810</td>
+<td>0.031548</td>
+<td>2.540972</td>
+<td>2.664647</td>
+<td>-1.914240</td>
+<td>7.119859</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">5</th>
+<td>Other</td>
+<td>2.594907</td>
+<td>0.079760</td>
+<td>2.438571</td>
+<td>2.751244</td>
+<td>-1.924416</td>
+<td>7.114231</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Hispanic</td>
+<td>2.570350</td>
+<td>0.045292</td>
+<td>2.481574</td>
+<td>2.659126</td>
+<td>-1.947145</td>
+<td>7.087845</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Asian</td>
+<td>2.099174</td>
+<td>0.210025</td>
+<td>1.687508</td>
+<td>2.510839</td>
+<td>-2.436165</td>
+<td>6.634512</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>There are multiple ways to perform linear regression in Python.</p>
+<p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html"><code>sklearn.linear_models.LinearRegression</code></a> is another popular way which could be used instead - note that the data would need to be pre-processed first, using something like <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html"><code>sklearn.preprocessing.OneHotEncoder</code></a>.</p>
+<p>The <a href="https://www.statsmodels.org/stable/api.html"><code>statsmodels</code></a> API is convenient because it produces a visual summary that we can use to evaluate our linear model, which you can see below. The API of statsmodels was actually based on R - a cool instance of different data science packages working across languages!</p>
+<p>To evaluate how much of the variance in DecileScore is accounted for in our race and sex variables, we can take a look at the model summary:</p>
+<div id="cell-21" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>results.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<table class="simpletable caption-top table table-sm table-striped small">
+<caption>OLS Regression Results</caption>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Dep. Variable:</th>
+<td>DecileScore</td>
+<th data-quarto-table-cell-role="th">R-squared:</th>
+<td>0.116</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Model:</th>
+<td>OLS</td>
+<th data-quarto-table-cell-role="th">Adj. R-squared:</th>
+<td>0.116</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Method:</th>
+<td>Least Squares</td>
+<th data-quarto-table-cell-role="th">F-statistic:</th>
+<td>380.1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Date:</th>
+<td>Sat, 18 Jun 2022</td>
+<th data-quarto-table-cell-role="th">Prob (F-statistic):</th>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Time:</th>
+<td>12:19:47</td>
+<th data-quarto-table-cell-role="th">Log-Likelihood:</th>
+<td>-45704.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">No. Observations:</th>
+<td>20281</td>
+<th data-quarto-table-cell-role="th">AIC:</th>
+<td>9.142e+04</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Df Residuals:</th>
+<td>20273</td>
+<th data-quarto-table-cell-role="th">BIC:</th>
+<td>9.149e+04</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Df Model:</th>
+<td>7</td>
+<th data-quarto-table-cell-role="th"></th>
+<td></td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Covariance Type:</th>
+<td>nonrobust</td>
+<th data-quarto-table-cell-role="th"></th>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="simpletable caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<td></td>
+<th data-quarto-table-cell-role="th">coef</th>
+<th data-quarto-table-cell-role="th">std err</th>
+<th data-quarto-table-cell-role="th">t</th>
+<th data-quarto-table-cell-role="th">P&gt;|t|</th>
+<th data-quarto-table-cell-role="th">[0.025</th>
+<th data-quarto-table-cell-role="th">0.975]</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Intercept</th>
+<td>3.6826</td>
+<td>0.039</td>
+<td>93.355</td>
+<td>0.000</td>
+<td>3.605</td>
+<td>3.760</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">race_ethnicity[T.Arabic]</th>
+<td>-1.4088</td>
+<td>0.462</td>
+<td>-3.052</td>
+<td>0.002</td>
+<td>-2.314</td>
+<td>-0.504</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">race_ethnicity[T.Asian]</th>
+<td>-2.1001</td>
+<td>0.211</td>
+<td>-9.959</td>
+<td>0.000</td>
+<td>-2.513</td>
+<td>-1.687</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">race_ethnicity[T.Hispanic]</th>
+<td>-1.6187</td>
+<td>0.049</td>
+<td>-32.968</td>
+<td>0.000</td>
+<td>-1.715</td>
+<td>-1.522</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">race_ethnicity[T.Native American]</th>
+<td>-0.4699</td>
+<td>0.271</td>
+<td>-1.735</td>
+<td>0.083</td>
+<td>-1.001</td>
+<td>0.061</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">race_ethnicity[T.Other]</th>
+<td>-1.6088</td>
+<td>0.082</td>
+<td>-19.603</td>
+<td>0.000</td>
+<td>-1.770</td>
+<td>-1.448</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">race_ethnicity[T.White]</th>
+<td>-1.5538</td>
+<td>0.036</td>
+<td>-42.725</td>
+<td>0.000</td>
+<td>-1.625</td>
+<td>-1.483</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Sex_Code_Text[T.Male]</th>
+<td>0.6315</td>
+<td>0.039</td>
+<td>16.114</td>
+<td>0.000</td>
+<td>0.555</td>
+<td>0.708</td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="simpletable caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Omnibus:</th>
+<td>1860.209</td>
+<th data-quarto-table-cell-role="th">Durbin-Watson:</th>
+<td>1.964</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Prob(Omnibus):</th>
+<td>0.000</td>
+<th data-quarto-table-cell-role="th">Jarque-Bera (JB):</th>
+<td>2425.319</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Skew:</th>
+<td>0.846</td>
+<th data-quarto-table-cell-role="th">Prob(JB):</th>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Kurtosis:</th>
+<td>3.088</td>
+<th data-quarto-table-cell-role="th">Cond. No.</th>
+<td>38.6</td>
+</tr>
+</tbody>
+</table>
+<br><br>Notes:<br>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</div>
+</div>
+<p>Further, we can visualize the average predicted decile scores by race in order to visually understand their relationships.</p>
+<div id="cell-23" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set theme and color palette</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>sns.set_palette(<span class="st">'pastel'</span>, n_colors <span class="op">=</span> <span class="bu">len</span>(result_frame))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># create plot</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># set figure size and set padding around subplots to "tight" </span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># (to make sure labs are included)</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.figure(figsize=[6, 5])</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.pointplot(y <span class="op">=</span> <span class="st">"race_ethnicity"</span>, </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>                x<span class="op">=</span> <span class="st">"mean"</span>, </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>                orient <span class="op">=</span> <span class="st">"h"</span>,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>                data <span class="op">=</span> result_frame,</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>                join <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co"># add error bars      </span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>x_coords <span class="op">=</span> []</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>y_coords <span class="op">=</span> []</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> point_pair <span class="kw">in</span> ax.collections:</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x, y <span class="kw">in</span> point_pair.get_offsets():</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        x_coords.append(x)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>        y_coords.append(y)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>ax.errorbar(x <span class="op">=</span> x_coords, y <span class="op">=</span> y_coords, xerr <span class="op">=</span> result_frame.mean_se, </span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>            fmt<span class="op">=</span><span class="st">' '</span>)</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co"># create updated ylim (from current limit)</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>ylim <span class="op">=</span> <span class="bu">list</span>(ax.get_ylim())</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>ylim[<span class="dv">1</span>] <span class="op">-=</span> <span class="fl">0.25</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="co"># set labels</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Mean Decile Score for Risk of Violence (1-10)"</span>,</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>        ylabel <span class="op">=</span> <span class="st">""</span>,</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>        xlim <span class="op">=</span> (<span class="fl">1.75</span>,<span class="fl">4.5</span>),</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>        ylim <span class="op">=</span> ylim,</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>        title <span class="op">=</span> <span class="st">"Risk of Violence by Race/Ethnicity, predicted by COMPAS"</span>)</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="co"># add annotations</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, mean_label <span class="kw">in</span> <span class="bu">enumerate</span>(result_frame[<span class="st">'mean'</span>]):</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> ax.annotate(<span class="bu">round</span>(mean_label, <span class="dv">2</span>), (x_coords[i]<span class="op">+</span><span class="fl">0.05</span>, y_coords[i]<span class="op">-</span><span class="fl">0.075</span>), fontsize <span class="op">=</span> <span class="st">"small"</span>)</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>    t.set_bbox(<span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'#C0E4FF'</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, edgecolor <span class="op">=</span> <span class="st">'#C0E4FF'</span>))</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a><span class="co"># save figure</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"risk_of_violence_race.png"</span>, bbox_inches <span class="op">=</span> <span class="st">"tight"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="compas_modeling_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Observationally, we can see that on average, COMPAS predicted the highest Risk of Violence decile score for African-American criminal defendants, followed by Native Americans. The bars surrounding the points show the standard error for that calculation. We can see that the standard error for the African American predictions is very very small, which indicates that the average score predicted is a fairly accurate reflection of scores within that group. Alternatively, the standard error for Arabic defendants is much larger (though still, given the range of scores is 1-10, fairly small), which could indicate a higher variability in estimates compared to the other groups if we calculated the average score for that group an infinite number of times. Further analysis using summary statistics, etc, would need to be completed in order to fully evaluate bias in risk of violence score estimates by COMPAS to determine statistical significance, but these observational results do not appear to refute the assumption that the scores are potentially biased.</p>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright 2026, Sarah Stueve
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://creativecommons.org/licenses/by/4.0/">
+<p>CC BY 4.0 Deed</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/sarahstueve">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
