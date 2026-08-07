@@ -1,0 +1,45 @@
+---
+title: Additional Resources for Learning Python
+---
+
+In addition to the tutorials on this site, there are excellent resources available online and in publication for learning Python.
+
+### Tutorials/workshops
+
+[The Carpentries](https://carpentries.org/lessons/) teaches foundational coding and data science skills to researchers worldwide. As an organization, they have created and fine-tuned many different workshops related to data science including shell/CLI skills, Git, SQL,  R, and Python. Below are a few of the Python tutorials you can check out, with the datasets they use (some might be more applicable to you than others).
+
+- [Programming with Python](http://swcarpentry.github.io/python-novice-inflammation)
+    - Uses arthritis flare (inflammation) data
+- [Plotting and Programming in Python](http://swcarpentry.github.io/python-novice-gapminder)
+    - Uses gapminder dataset, which includes country-level data on life expectancy, GDP, and population
+- [Introduction to Python for Librarians](https://librarycarpentry.org/lc-python-intro/) [*in review*]
+    - Uses circulation data from the Chicago Public Library system.
+- [Foundations of Astronomical Data Science](https://datacarpentry.org/astronomy-python/)
+    - Uses data to reproduce part of the analysis of the article ["Off the beaten path: Gaia reveals GD-1 stars outside of the mainstream"](https://arxiv.org/abs/1805.00425)
+- [Data Analysis and Visualization in Python for Ecologists](https://datacarpentry.github.io/python-ecology-lesson/)
+    - Uses ecology data from the Portal Project Teaching Database
+- [Data Analysis and Visualization with Python for Social Scientists](https://datacarpentry.github.io/python-socialsci/)
+    - Uses data from the SAFI Teaching Database and the Audit of Political Engagement
+- [Image Processing with Python](https://datacarpentry.org/image-processing/)
+    - Uses images with a variety of different subjects
+
+
+### Books
+
+In addition to a few classics I would always recommend to newcomers, the O'Reilly series of books is always an excellent resource to search for Python instructions. A few of my favorites are linked below. For University of Arizona users, search the library website as we have access to the O'Reilly collection online.
+
+#### Beginner friendly:
+- [Python Crash Course (3rd Ed.)](https://ehmatthes.github.io/pcc_3e/) by Eric Matthes
+- [Automate the Boring Stuff with Python](https://automatetheboringstuff.com/) by Al Sweigart
+- [Python for Data Analysis](https://wesmckinney.com/book/) by Wes McKinney (the creator of Pandas!)*
+- [Data Science from Scratch](https://learning.oreilly.com/library/view/data-science-from/9781492041122/) by Joel Grus
+    - UArizona [permalink](https://arizona-ua.primo.exlibrisgroup.com/permalink/01UA_INST/1fhhvct/alma991049163495103843)
+
+#### Machine Learning:
+- [Hands-On Machine Learning with Scikit-Learn, Keras, and Tensorflow (3rd Ed.)](https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/) by Aurélien Géron
+    - UArizona [permalink](https://arizona-ua.primo.exlibrisgroup.com/permalink/01UA_INST/1fhhvct/alma991050096780203843)
+- [Hands-On Machine Learning with Scikit-Learn and PyTorch](https://learning.oreilly.com/library/view/hands-on-machine-learning/9798341607972/) by Aurélien Géron
+    - UArizona [permalink](https://arizona-ua.primo.exlibrisgroup.com/permalink/01UA_INST/14j263h/alma991050655788503843)
+    - Similar to the previous book, but more recent -- published in 2025, covers PyTorch which is now a popular alternative to Keras/TensorFlow
+
+

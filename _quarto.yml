@@ -10,6 +10,8 @@ website:
         text: Home
       - href: setup.qmd
         text: Getting started
+      - href: additional_resources.qmd
+        text: Additional Resources
   page-footer: 
     left: 
       - text: Copyright 2026, Sarah Stueve
