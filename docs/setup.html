@@ -73,6 +73,15 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-E24D0EKNT7"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-E24D0EKNT7', { 'anonymize_ip': true});
+</script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -149,9 +158,24 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>The most common way of installing Python is through python.org, though there are other distributions such as Anaconda. Either of these would be sufficient. The two different installation guides below walk you through installing Python step-by-step.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">The traditional way</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">An alternative way</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">The easy way</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">The traditional way</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<section id="work-with-positron-instead" class="level3">
+<h3 class="anchored" data-anchor-id="work-with-positron-instead">Work with Positron instead</h3>
+<p><a href="https://positron.posit.co/">Positron</a> is a relatively new IDE that essentially combines RStudio and VSCode into one interface. The application is intended to provide features that make it ideal for working with data and it has built-in support for generating virtual environments for your projects. A virtual environment is like a sandbox - within the boundaries of the sandbox, we can install anything we need to use to write Python code for our project, but it doesn’t affect the rest of our installation. Critically: it just makes it easier to navigate dependencies for different projects, but if that’s gibberish to you, don’t worry about that for now.</p>
+</section>
+<section id="first-install-positron" class="level3">
+<h3 class="anchored" data-anchor-id="first-install-positron">First, install Positron</h3>
+<p>First, download the Positron installer that is applicable for your device. When you click on the <code>Download</code> button, you will be asked to <code>Agree</code> to their Terms and Conditions. Once you agree, the download will begin.</p>
+<p>The Positron installer will appear in your <code>Downloads</code> folder (see “The traditional way” tab for how to find this if you’re unfamiliar). When you click on the installer, it will open a window where you will drag and drop Positron into your <code>Applications</code> folder: <img src="figures/setup/positron_install.png" class="img-fluid" alt="Positron installer window"></p>
+<p>Create a “Project” (or, a folder for your work)</p>
+<p>Start a session/create an environment</p>
+<p><code>uv init</code></p>
+<p><code>uv add pandas plotnine matplotlib seaborn</code></p>
+</section>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <section id="install-python-from-python.org" class="level3">
 <h3 class="anchored" data-anchor-id="install-python-from-python.org">Install Python from <a href="python.org">python.org</a></h3>
 <p>While the instructions below are for the Mac installer, the Windows installation will be similar. Basically: allow the installer to choose the defaults and “Continue” and “Agree”.</p>
@@ -182,21 +206,6 @@ We have something similar in Python and they're called **packages**! Before we c
 The classic method for installing packages in Python involves using `pip`. Each of the tutorials will outline the packages that need to be installed, but I'll provide a some that you will need and that I would recommend here.
 
 To install packages, we're actually going to open up a separate app that your computer has by default. On Mac, this will be your `Terminal`, and on Windows this will be `PowerShell`.  -->
-</section>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<section id="work-with-positron-instead" class="level3">
-<h3 class="anchored" data-anchor-id="work-with-positron-instead">Work with Positron instead</h3>
-<p><a href="https://positron.posit.co/">Positron</a> is a relatively new IDE that essentially combines RStudio and VSCode into one interface. The application is intended to provide features that make it ideal for working with data and it has built-in support for generating virtual environments for your projects. A virtual environment is like a sandbox - within the boundaries of the sandbox, we can install anything we need to use to write Python code for our project, but it doesn’t affect the rest of our installation. Critically: it just makes it easier to navigate dependencies for different projects, but if that’s gibberish to you, don’t worry about that for now.</p>
-</section>
-<section id="first-install-positron" class="level3">
-<h3 class="anchored" data-anchor-id="first-install-positron">First, install Positron</h3>
-<p>First, download the Positron installer that is applicable for your device. When you click on the <code>Download</code> button, you will be asked to <code>Agree</code> to their Terms and Conditions. Once you agree, the download will begin.</p>
-<p>The Positron installer will appear in your <code>Downloads</code> folder (see “The traditional way” tab for how to find this if you’re unfamiliar). When you click on the installer, it will open a window where you will drag and drop Positron into your <code>Applications</code> folder: <img src="figures/setup/positron_install.png" class="img-fluid" alt="Positron installer window"></p>
-<p>Create a “Project” (or, a folder for your work)</p>
-<p>Start a session/create an environment</p>
-<p><code>uv init</code></p>
-<p><code>uv add pandas plotnine matplotlib seaborn</code></p>
 </section>
 </div>
 </div>

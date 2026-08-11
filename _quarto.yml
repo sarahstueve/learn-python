@@ -4,6 +4,9 @@ project:
 
 website:
   title: "learn-python"
+  google-analytics: 
+    tracking-id: "G-E24D0EKNT7"
+    anonymize-ip: true
   navbar:
     left:
       - href: index.qmd
