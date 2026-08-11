@@ -4,6 +4,14 @@ title: "A couple methods for installing Python"
 
 All tutorials on this website can be completed using [Google Colab](https://colab.research.google.com/), but for those who want to install Python on their own (local) machine, here are a couple different ways of installing it.
 
+A typical installation for Python involves two things:
+
+1. Downloading Python
+2. Downloading ~something to write Python documents (scripts) in~
+
+The most common way of installing Python is through python.org, though there are other distributions such as Anaconda. Either of these would be sufficient. The two different installation guides below walk you through installing Python step-by-step. 
+
+
 :::{.panel-tabset}
 
 ## The traditional way
@@ -43,14 +51,14 @@ First, we'll navigate to https://code.visualstudio.com/ to download the applicat
 ![Screenshot of VSCode download webpage](figures/setup/vscode-download.png)
 
 The VSCode installer, like the Python installer, will go into your `Downloads` folder:
-![Screenshow of Downloads folder](figures/setup/vscode_downloads_folder.png)
+![Screenshot of Downloads folder](figures/setup/vscode_downloads_folder.png)
 
 Unlike Python, there isn't a long process to install it. You will simply click and drag VSCode (following the arrow shown) into your `Applications` folder:
 ![Screenshot of VSCode installer - drag and drop!](figures/setup/vscode_installer.png)
 
-And, it's ready!
+And, you're ready!
 
-### Last but not least: installing packages
+<!-- ### Last but not least: installing packages
 
 This is where, long-term, Python can be difficult, *but* you shouldn't have problems with most (if not all) of the packages used in these tutorials. 
 
@@ -60,12 +68,21 @@ We have something similar in Python and they're called **packages**! Before we c
 
 The classic method for installing packages in Python involves using `pip`. Each of the tutorials will outline the packages that need to be installed, but I'll provide a some that you will need and that I would recommend here.
 
-To install packages, we're actually going to open up a separate app that your computer has by default. On Mac, this will be your `Terminal`, and on Windows this will be `PowerShell`. 
+To install packages, we're actually going to open up a separate app that your computer has by default. On Mac, this will be your `Terminal`, and on Windows this will be `PowerShell`.  -->
 
 
-## A (potentially) easier way
+## An alternative way
 
-Install Positron
+### Work with Positron instead
+
+[Positron](https://positron.posit.co/) is a relatively new IDE that essentially combines RStudio and VSCode into one interface. The application is intended to provide features that make it ideal for working with data and it has built-in support for generating virtual environments for your projects. A virtual environment is like a sandbox - within the boundaries of the sandbox, we can install anything we need to use to write Python code for our project, but it doesn't affect the rest of our installation. Critically: it just makes it easier to navigate dependencies for different projects, but if that's gibberish to you, don't worry about that for now.
+
+### First, install Positron
+
+First, download the Positron installer that is applicable for your device. When you click on the `Download` button, you will be asked to `Agree` to their Terms and Conditions. Once you agree, the download will begin.
+
+The Positron installer will appear in your `Downloads` folder (see "The traditional way" tab for how to find this if you're unfamiliar). When you click on the installer, it will open a window where you will drag and drop Positron into your `Applications` folder:
+![Positron installer window](figures/setup/positron_install.png)
 
 Create a "Project" (or, a folder for your work)
 

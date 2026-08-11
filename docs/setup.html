@@ -142,8 +142,14 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>All tutorials on this website can be completed using <a href="https://colab.research.google.com/">Google Colab</a>, but for those who want to install Python on their own (local) machine, here are a couple different ways of installing it.</p>
+<p>A typical installation for Python involves two things:</p>
+<ol type="1">
+<li>Downloading Python</li>
+<li>Downloading ~something to write Python documents (scripts) in~</li>
+</ol>
+<p>The most common way of installing Python is through python.org, though there are other distributions such as Anaconda. Either of these would be sufficient. The two different installation guides below walk you through installing Python step-by-step.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">The traditional way</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">A (potentially) easier way</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">The traditional way</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">An alternative way</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <section id="install-python-from-python.org" class="level3">
@@ -162,25 +168,36 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="download-vscode">Download VSCode</h3>
 <p>Python is the language (like Spanish or Chinese). When we write in a language, we typically either have paper or we use an application like Word or something similar. We need the same kind of tool for writing Python! These can be called “text editors” or IDEs. An IDE is an “integrated development environment” and typically has some extra features that help with writing code. VSCode can function just as a text editor, but it also has additional functionality that can be nice!</p>
 <p>First, we’ll navigate to https://code.visualstudio.com/ to download the application. When you get there, it should recommend the version you want. At the time of writing, it highlights AI integration – know that you do not have to use it (AI’s just a buzzword). Click the button in the center of the screen that says <code>Download ...</code>: <img src="figures/setup/vscode-download.png" class="img-fluid" alt="Screenshot of VSCode download webpage"></p>
-<p>The VSCode installer, like the Python installer, will go into your <code>Downloads</code> folder: <img src="figures/setup/vscode_downloads_folder.png" class="img-fluid" alt="Screenshow of Downloads folder"></p>
+<p>The VSCode installer, like the Python installer, will go into your <code>Downloads</code> folder: <img src="figures/setup/vscode_downloads_folder.png" class="img-fluid" alt="Screenshot of Downloads folder"></p>
 <p>Unlike Python, there isn’t a long process to install it. You will simply click and drag VSCode (following the arrow shown) into your <code>Applications</code> folder: <img src="figures/setup/vscode_installer.png" class="img-fluid" alt="Screenshot of VSCode installer - drag and drop!"></p>
-<p>And, it’s ready!</p>
-</section>
-<section id="last-but-not-least-installing-packages" class="level3">
-<h3 class="anchored" data-anchor-id="last-but-not-least-installing-packages">Last but not least: installing packages</h3>
-<p>This is where, long-term, Python can be difficult, <em>but</em> you shouldn’t have problems with most (if not all) of the packages used in these tutorials.</p>
-<p>Let’s start with a metaphor. Imagine you open your computer and get started with what you want to do during the day. Maybe you open your email app. Maybe you open the Zoom app. Maybe you open your internet browser. Each of those applications has a specific purpose, right? So, you open each of them when you need to complete a task that requires them.</p>
-<p>We have something similar in Python and they’re called <strong>packages</strong>! Before we complete a task that requires specific features in Python, we often need to install a package (like our email in the earlier metaphor) in order to use it.</p>
-<p>The classic method for installing packages in Python involves using <code>pip</code>. Each of the tutorials will outline the packages that need to be installed, but I’ll provide a some that you will need and that I would recommend here.</p>
-<p>To install packages, we’re actually going to open up a separate app that your computer has by default. On Mac, this will be your <code>Terminal</code>, and on Windows this will be <code>PowerShell</code>.</p>
+<p>And, you’re ready!</p>
+<!-- ### Last but not least: installing packages
+
+This is where, long-term, Python can be difficult, *but* you shouldn't have problems with most (if not all) of the packages used in these tutorials. 
+
+Let's start with a metaphor. Imagine you open your computer and get started with what you want to do during the day. Maybe you open your email app. Maybe you open the Zoom app. Maybe you open your internet browser. Each of those applications has a specific purpose, right? So, you open each of them when you need to complete a task that requires them.
+
+We have something similar in Python and they're called **packages**! Before we complete a task that requires specific features in Python, we often need to install a package (like our email in the earlier metaphor) in order to use it.
+
+The classic method for installing packages in Python involves using `pip`. Each of the tutorials will outline the packages that need to be installed, but I'll provide a some that you will need and that I would recommend here.
+
+To install packages, we're actually going to open up a separate app that your computer has by default. On Mac, this will be your `Terminal`, and on Windows this will be `PowerShell`.  -->
 </section>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Install Positron</p>
+<section id="work-with-positron-instead" class="level3">
+<h3 class="anchored" data-anchor-id="work-with-positron-instead">Work with Positron instead</h3>
+<p><a href="https://positron.posit.co/">Positron</a> is a relatively new IDE that essentially combines RStudio and VSCode into one interface. The application is intended to provide features that make it ideal for working with data and it has built-in support for generating virtual environments for your projects. A virtual environment is like a sandbox - within the boundaries of the sandbox, we can install anything we need to use to write Python code for our project, but it doesn’t affect the rest of our installation. Critically: it just makes it easier to navigate dependencies for different projects, but if that’s gibberish to you, don’t worry about that for now.</p>
+</section>
+<section id="first-install-positron" class="level3">
+<h3 class="anchored" data-anchor-id="first-install-positron">First, install Positron</h3>
+<p>First, download the Positron installer that is applicable for your device. When you click on the <code>Download</code> button, you will be asked to <code>Agree</code> to their Terms and Conditions. Once you agree, the download will begin.</p>
+<p>The Positron installer will appear in your <code>Downloads</code> folder (see “The traditional way” tab for how to find this if you’re unfamiliar). When you click on the installer, it will open a window where you will drag and drop Positron into your <code>Applications</code> folder: <img src="figures/setup/positron_install.png" class="img-fluid" alt="Positron installer window"></p>
 <p>Create a “Project” (or, a folder for your work)</p>
 <p>Start a session/create an environment</p>
 <p><code>uv init</code></p>
 <p><code>uv add pandas plotnine matplotlib seaborn</code></p>
+</section>
 </div>
 </div>
 </div>
