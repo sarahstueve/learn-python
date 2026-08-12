@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Additional Resources for Learning Python – learn-python</title>
+<title>A couple methods for installing Python – learn-python</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -92,48 +92,11 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">learn-python</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./setup.qmd"> 
-<span class="menu-text">Getting started</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./schedule.html"> 
-<span class="menu-text">Schedule</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./additional_resources.html" aria-current="page"> 
-<span class="menu-text">Additional resources</span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
-</header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
@@ -142,7 +105,7 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Additional Resources for Learning Python</h1>
+<h1 class="title">A couple methods for installing Python</h1>
 </div>
 
 
@@ -159,73 +122,82 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 </header>
 
 
-<p>In addition to the tutorials on this site, there are excellent resources available online and in publication for learning Python.</p>
-<section id="tutorialsworkshops" class="level3">
-<h3 class="anchored" data-anchor-id="tutorialsworkshops">Tutorials/workshops</h3>
-<p><a href="https://carpentries.org/lessons/">The Carpentries</a> teaches foundational coding and data science skills to researchers worldwide. As an organization, they have created and fine-tuned many different workshops related to data science including shell/CLI skills, Git, SQL, R, and Python. Below are a few of the Python tutorials you can check out, with the datasets they use (some might be more applicable to you than others).</p>
-<ul>
-<li><a href="http://swcarpentry.github.io/python-novice-inflammation">Programming with Python</a>
-<ul>
-<li>Uses arthritis flare (inflammation) data</li>
-</ul></li>
-<li><a href="http://swcarpentry.github.io/python-novice-gapminder">Plotting and Programming in Python</a>
-<ul>
-<li>Uses gapminder dataset, which includes country-level data on life expectancy, GDP, and population</li>
-</ul></li>
-<li><a href="https://librarycarpentry.org/lc-python-intro/">Introduction to Python for Librarians</a> [<em>in review</em>]
-<ul>
-<li>Uses circulation data from the Chicago Public Library system.</li>
-</ul></li>
-<li><a href="https://datacarpentry.org/astronomy-python/">Foundations of Astronomical Data Science</a>
-<ul>
-<li>Uses data to reproduce part of the analysis of the article <a href="https://arxiv.org/abs/1805.00425">“Off the beaten path: Gaia reveals GD-1 stars outside of the mainstream”</a></li>
-</ul></li>
-<li><a href="https://datacarpentry.github.io/python-ecology-lesson/">Data Analysis and Visualization in Python for Ecologists</a>
-<ul>
-<li>Uses ecology data from the Portal Project Teaching Database</li>
-</ul></li>
-<li><a href="https://datacarpentry.github.io/python-socialsci/">Data Analysis and Visualization with Python for Social Scientists</a>
-<ul>
-<li>Uses data from the SAFI Teaching Database and the Audit of Political Engagement</li>
-</ul></li>
-<li><a href="https://datacarpentry.org/image-processing/">Image Processing with Python</a>
-<ul>
-<li>Uses images with a variety of different subjects</li>
-</ul></li>
-</ul>
+<p>All tutorials on this website can be completed using <a href="https://colab.research.google.com/">Google Colab</a>, but for those who want to install Python on their own (local) machine, here are a couple different ways of installing it.</p>
+<p>A typical installation for Python involves two things:</p>
+<ol type="1">
+<li>Downloading Python</li>
+<li>Downloading ~something to write Python documents (scripts) in~</li>
+</ol>
+<p>The most common way of installing Python is through python.org, though there are other distributions such as Anaconda. Either of these would be sufficient, but I’ve grown fond of what I’m going to call “the easy way”, which uses Positron and enforces more of a project-based system for Python environments. The two different installation guides below walk you through installing Python step-by-step.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="A note for the Linux fans">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>A note for the Linux fans
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Linux users, I presume you know what you’re doing 🤠 but you should also be able to follow the instructions here, if needed.</p>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">The easy way</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">The traditional way</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<section id="work-with-positron" class="level3">
+<h3 class="anchored" data-anchor-id="work-with-positron">Work with Positron</h3>
+<p><a href="https://positron.posit.co/">Positron</a> is a relatively new IDE (aka “integrated development environment”) that essentially combines some of the best of RStudio and VSCode (two alternatives) into one interface. In general, IDEs typically have some extra features that help with writing code – that’s sorta what makes them special. Positron can function just as a text editor, but it also has that additional functionality that can be nice.</p>
+<p>Positron intends to provide features that make it ideal for working with data and it has built-in support for generating virtual environments for your projects. A virtual environment is like a sandbox - within the boundaries of the sandbox, we can install anything we need to use to write Python code for our project, but it doesn’t affect the rest of our installation (unlike any <em>actual</em> sandbox, the sand doesn’t escape). Critically: it just makes it easier to navigate dependencies for different projects, but if that’s gibberish to you, don’t worry about that for now.</p>
 </section>
-<section id="books" class="level3">
-<h3 class="anchored" data-anchor-id="books">Books</h3>
-<p>In addition to a few classics I would always recommend to newcomers, the O’Reilly series of books is always an excellent resource to search for Python instructions. A few of my favorites are linked below. For University of Arizona users, search the library website as we have access to the O’Reilly collection online.</p>
-<section id="beginner-friendly" class="level4">
-<h4 class="anchored" data-anchor-id="beginner-friendly">Beginner friendly:</h4>
-<ul>
-<li><a href="https://ehmatthes.github.io/pcc_3e/">Python Crash Course (3rd Ed.)</a> by Eric Matthes</li>
-<li><a href="https://automatetheboringstuff.com/">Automate the Boring Stuff with Python</a> by Al Sweigart</li>
-<li><a href="https://wesmckinney.com/book/">Python for Data Analysis</a> by Wes McKinney (the creator of Pandas!)*</li>
-<li><a href="https://learning.oreilly.com/library/view/data-science-from/9781492041122/">Data Science from Scratch</a> by Joel Grus
-<ul>
-<li>UArizona <a href="https://arizona-ua.primo.exlibrisgroup.com/permalink/01UA_INST/1fhhvct/alma991049163495103843">permalink</a></li>
-</ul></li>
-</ul>
+<section id="install-positron" class="level3">
+<h3 class="anchored" data-anchor-id="install-positron">Install Positron</h3>
+<p>First, download the Positron installer that is applicable for your device. When you click on the <code>Download</code> button, you will be asked to <code>Agree</code> to their Terms and Conditions. Once you agree, the download will begin.</p>
+<p>The Positron installer will appear in your <code>Downloads</code> folder. In <code>Finder</code> <img src="figures/setup/finder-icon.jpeg" class="img-fluid" width="24"> for Mac or <code>File Explorer</code> <img src="figures/setup/file-explorer-windows-25539_64.png" class="img-fluid" width="24"> for Windows, navigate to your <code>Downloads</code> folder in the left sidebar. When you click on the installer, it will open a window where you will drag and drop Positron into your <code>Applications</code> folder: <img src="figures/setup/positron_install.png" class="img-fluid" alt="Positron installer window"></p>
+<p>Create a “Project” (or, a folder for your work)</p>
+<p>Start a session/create an environment</p>
+<p><code>uv init</code></p>
+<p><code>uv add pandas plotnine matplotlib seaborn</code></p>
 </section>
-<section id="machine-learning" class="level4">
-<h4 class="anchored" data-anchor-id="machine-learning">Machine Learning:</h4>
-<ul>
-<li><a href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/">Hands-On Machine Learning with Scikit-Learn, Keras, and Tensorflow (3rd Ed.)</a> by Aurélien Géron
-<ul>
-<li>UArizona <a href="https://arizona-ua.primo.exlibrisgroup.com/permalink/01UA_INST/1fhhvct/alma991050096780203843">permalink</a></li>
-</ul></li>
-<li><a href="https://learning.oreilly.com/library/view/hands-on-machine-learning/9798341607972/">Hands-On Machine Learning with Scikit-Learn and PyTorch</a> by Aurélien Géron
-<ul>
-<li>UArizona <a href="https://arizona-ua.primo.exlibrisgroup.com/permalink/01UA_INST/14j263h/alma991050655788503843">permalink</a></li>
-<li>Similar to the previous book, but more recent – published in 2025, covers PyTorch which is now a popular alternative to Keras/TensorFlow</li>
-</ul></li>
-</ul>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<section id="install-python-from-python.org" class="level3">
+<h3 class="anchored" data-anchor-id="install-python-from-python.org">Install Python from <a href="python.org">python.org</a></h3>
+<p>While the instructions below are for the Mac installer, the Windows installation will be similar. Basically: allow the installer to choose the defaults and “Continue” and “Agree”.</p>
+<p>First, select the installer that’s appropriate for your device. Hover over the <code>Downloads</code> tab and then select the appropriate installer (if you have a Windows computer, choose the Windows installer, etc.): <img src="figures/setup/python_org.png" class="img-fluid" alt="Screenshot of Python.org Downloads tab"></p>
+<p>When you click on the appropriate installation, it will trigger the download of the installer. In <code>Finder</code> <img src="figures/setup/finder-icon.jpeg" class="img-fluid" width="24"> for Mac or <code>File Explorer</code> <img src="figures/setup/file-explorer-windows-25539_64.png" class="img-fluid" width="24"> for Windows, navigate to your <code>Downloads</code> folder in the left sidebar. Click on the installer to start the installation process:</p>
+<p><strong>Mac</strong> <img src="figures/setup/select_from_downloads.png" class="img-fluid" alt="Screenshot of Python installer in Downloads folder"></p>
+<p><strong>Windows</strong></p>
+<p>Once you click on the Installer, a window will pop up to guide you through the installation process. For the most part, just click <code>Continue</code>: <img src="figures/setup/initial-installer.png" class="img-fluid" alt="Screenshot of the initial installer window"></p>
+<p>Eventually, you will be asked to <code>Agree</code> to their License: <img src="figures/setup/agree_to_license.png" class="img-fluid" alt="Screenshot of license agreement page"></p>
+<p>And then you will be prompted to start the installation: <img src="figures/setup/python-install.png" class="img-fluid" alt="Installation prompt window"></p>
+<p>There will be a couple other windows after that, but the installation will practically be complete. You have Python now!</p>
+</section>
+<section id="download-vscode" class="level3">
+<h3 class="anchored" data-anchor-id="download-vscode">Download VSCode</h3>
+<p>Python is the language (like Spanish or Chinese). When we write in a language, we typically either have paper or we use an application like Word or something similar. We need the same kind of tool for writing Python! These can be called “text editors” or IDEs. An IDE is an “integrated development environment” and typically has some extra features that help with writing code. VSCode can function just as a text editor, but it also has additional functionality that can be nice!</p>
+<p>First, we’ll navigate to https://code.visualstudio.com/ to download the application. When you get there, it should recommend the version you want. At the time of writing, it highlights AI integration – know that you do not have to use it (AI’s just a buzzword). Click the button in the center of the screen that says <code>Download ...</code>: <img src="figures/setup/vscode-download.png" class="img-fluid" alt="Screenshot of VSCode download webpage"></p>
+<p>The VSCode installer, like the Python installer, will go into your <code>Downloads</code> folder: <img src="figures/setup/vscode_downloads_folder.png" class="img-fluid" alt="Screenshot of Downloads folder"></p>
+<p>Unlike Python, there isn’t a long process to install it. You will simply click and drag VSCode (following the arrow shown) into your <code>Applications</code> folder: <img src="figures/setup/vscode_installer.png" class="img-fluid" alt="Screenshot of VSCode installer - drag and drop!"></p>
+<p>And, you’re ready!</p>
+<!-- ### Last but not least: installing packages
+
+This is where, long-term, Python can be difficult, *but* you shouldn't have problems with most (if not all) of the packages used in these tutorials. 
+
+Let's start with a metaphor. Imagine you open your computer and get started with what you want to do during the day. Maybe you open your email app. Maybe you open the Zoom app. Maybe you open your internet browser. Each of those applications has a specific purpose, right? So, you open each of them when you need to complete a task that requires them.
+
+We have something similar in Python and they're called **packages**! Before we complete a task that requires specific features in Python, we often need to install a package (like our email in the earlier metaphor) in order to use it.
+
+The classic method for installing packages in Python involves using `pip`. Each of the tutorials will outline the packages that need to be installed, but I'll provide a some that you will need and that I would recommend here.
+
+To install packages, we're actually going to open up a separate app that your computer has by default. On Mac, this will be your `Terminal`, and on Windows this will be `PowerShell`.  -->
+</section>
+</div>
+</div>
+</div>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -629,36 +601,6 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
   });
   </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
-    <div class="nav-footer-left">
-      <ul class="footer-items list-unstyled">
-    <li class="nav-item">
- Copyright 2026, Sarah Stueve
-  </li>  
-</ul>
-    </div>   
-    <div class="nav-footer-center">
-      <ul class="footer-items list-unstyled">
-    <li class="nav-item">
-    <a class="nav-link" href="https://creativecommons.org/licenses/by/4.0/">
-<p>CC BY 4.0 Deed</p>
-</a>
-  </li>  
-</ul>
-    </div>
-    <div class="nav-footer-right">
-      <ul class="footer-items list-unstyled">
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/sarahstueve">
-      <i class="bi bi-github" role="img">
-</i> 
-    </a>
-  </li>  
-</ul>
-    </div>
-  </div>
-</footer>
 
 
 
