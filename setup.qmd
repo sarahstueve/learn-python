@@ -9,22 +9,30 @@ A typical installation for Python involves two things:
 1. Downloading Python
 2. Downloading ~something to write Python documents (scripts) in~
 
-The most common way of installing Python is through python.org, though there are other distributions such as Anaconda. Either of these would be sufficient. The two different installation guides below walk you through installing Python step-by-step. 
+The most common way of installing Python is through python.org, though there are other distributions such as Anaconda. Either of these would be sufficient, but I've grown fond of what I'm going to call "the easy way", which uses Positron and enforces more of a project-based system for Python environments. The two different installation guides below walk you through installing Python step-by-step. 
+
+::: {.callout-note title="A note for the Linux fans"}
+
+Linux users, I presume you know what you're doing 🤠 but you should also be able to follow the instructions here, if needed.
+
+:::
 
 
 :::{.panel-tabset}
 
 ## The easy way
 
-### Work with Positron instead
+### Work with Positron
 
-[Positron](https://positron.posit.co/) is a relatively new IDE that essentially combines RStudio and VSCode into one interface. The application is intended to provide features that make it ideal for working with data and it has built-in support for generating virtual environments for your projects. A virtual environment is like a sandbox - within the boundaries of the sandbox, we can install anything we need to use to write Python code for our project, but it doesn't affect the rest of our installation. Critically: it just makes it easier to navigate dependencies for different projects, but if that's gibberish to you, don't worry about that for now.
+[Positron](https://positron.posit.co/) is a relatively new IDE (aka "integrated development environment") that essentially combines some of the best of RStudio and VSCode (two alternatives) into one interface. In general, IDEs typically have some extra features that help with writing code -- that's sorta what makes them special. Positron can function just as a text editor, but it also has that additional functionality that can be nice. 
 
-### First, install Positron
+Positron intends to provide features that make it ideal for working with data and it has built-in support for generating virtual environments for your projects. A virtual environment is like a sandbox - within the boundaries of the sandbox, we can install anything we need to use to write Python code for our project, but it doesn't affect the rest of our installation (unlike any *actual* sandbox, the sand doesn't escape). Critically: it just makes it easier to navigate dependencies for different projects, but if that's gibberish to you, don't worry about that for now.
+
+### Install Positron
 
 First, download the Positron installer that is applicable for your device. When you click on the `Download` button, you will be asked to `Agree` to their Terms and Conditions. Once you agree, the download will begin.
 
-The Positron installer will appear in your `Downloads` folder (see "The traditional way" tab for how to find this if you're unfamiliar). When you click on the installer, it will open a window where you will drag and drop Positron into your `Applications` folder:
+The Positron installer will appear in your `Downloads` folder. In `Finder` ![](figures/setup/finder-icon.jpeg){width=24} for Mac or `File Explorer` ![](figures/setup/file-explorer-windows-25539_64.png){width=24} for Windows, navigate to your `Downloads` folder in the left sidebar. When you click on the installer, it will open a window where you will drag and drop Positron into your `Applications` folder:
 ![Positron installer window](figures/setup/positron_install.png)
 
 Create a "Project" (or, a folder for your work)
