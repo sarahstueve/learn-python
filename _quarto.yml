@@ -1,12 +1,12 @@
 project:
   type: website
   output-dir: docs
-  render: 
-    - index.qmd
-    - setup.qmd
-    - schedule.qmd
-    - additional_resources.qmd
-    - tutorials/000_intro_to_visualization.qmd
+  # render: 
+  #   - index.qmd
+  #   - setup.qmd
+  #   - schedule.qmd
+  #   - additional_resources.qmd
+  #   - tutorials/000_intro_to_visualization.qmd
 
 website:
   title: "learn-python"
