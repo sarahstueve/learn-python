@@ -14,8 +14,10 @@ website:
         text: Home
       - href: setup.qmd
         text: Getting started
+      - href: schedule.qmd
+        text: Schedule
       - href: additional_resources.qmd
-        text: Additional Resources
+        text: Additional resources
   page-footer: 
     left: 
       - text: Copyright 2026, Sarah Stueve

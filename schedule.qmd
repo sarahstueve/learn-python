@@ -1,0 +1,44 @@
+---
+title: Schedule
+format: # to suppress pdf link
+  html:
+    toc: false
+---
+
+## Tentative schedule of upcoming sessions
+
+| Day | Month | Workshop                                                     |
+|:---:|:-----:|:-------------------------------------------------------------|
+| 18  | Aug   | Open lab                                                     |
+| 25  | Aug   | Open lab                                                     |
+| 01  | Sep   | Open lab **AND** R - Data Visualization with ggplot          |
+| 08  | Sep   | Open lab                                                     |
+| 15  | Sep   | Open lab                                                     |
+| 22  | Sep   | Open lab **AND** Geospatial Data Wrangling - QGIS            |
+| 29  | Sep   | Open lab **AND** Python - Introduction to data visualization |
+| 06  | Oct   | Open lab **AND** R - Introduction to statistics in R         |
+| 13  | Oct   | Open lab                                                     |
+| 20  | Oct   | Open lab **AND** Geospatial Data Wrangling - ArcGIS Online   |
+| 27  | Oct   | Open lab                                                     |
+| 03  | Nov   | Open lab **AND** Python - Introduction to linear regression  |
+| 10  | Nov   | Open lab **AND** Geospatial Terrain Analysis - QGIS          |
+| 17  | Nov   | Open lab **AND** R - Using Git and GitHub with RStudio       |
+| 24  | Nov   | Open lab                                                     |
+| 01  | Dec   | Open lab **AND** Geospatial Terrain Analysis - ArcGIS Online |
+| 08  | Dec   | Open lab **AND** R - Introduction to neural networks in R    |
+| 15  | Dec   | Open lab                                                     |
+| 22  | Dec   | _No lab this day_                                            |
+| 29  | Dec   | _No lab this day_                                            |
+
+
+All sessions will be 9-11 AM on Tuesday morning (MST) in hybrid format: we will 
+be in the Data Studios of the [Main Library](https://lib.arizona.edu/study/spaces/data-studio) 
+and running a concurrent Zoom session.
+
+For information on connecting to online sessions, reach out to us on the r or python channels
+of the [UA Data Science Slack workspace](https://jcoliver.github.io/uadatascience-slack/) or contact [Jeff Oliver](https://lib.arizona.edu/about/people/jeffrey-oliver-phd) or [Sarah Stueve](https://lib.arizona.edu/about/people/sarah-stueve).
+
+To get the most out of these workshops, participants should bring a laptop. You can use Google Colab for the workshop to avoid installing any software, or you can [get setup locally to learn Python](setup.qmd).
+
+If you have questions about the schedule, or are interested in learning about a 
+particular topic in Python, contact Sarah Stueve at [sarahstueve@arizona.edu](mailto:sarahstueve@arizona.edu?subject=Python%20workshop%20inquiry).
