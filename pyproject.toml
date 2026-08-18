@@ -11,4 +11,5 @@ dependencies = [
     "plotnine>=0.15.7",
     "polars>=1.43.1",
     "seaborn>=0.13.2",
+    "statsmodels>=0.14.4",
 ]

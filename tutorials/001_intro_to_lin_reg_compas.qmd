@@ -1,0 +1,118 @@
+---
+title: "Intro to Linear Regression in Python"
+subtitle: "Modeling the Effect of Sex and Race on Risk of Violence using COMPAS score data"
+author: "Sarah Stueve"
+toc: true
+date-modified: last-modified
+---
+
+This tutorial is based on an R version of this tutorial, which can be found [here](http://htmlpreview.github.io/?https://github.com/picoral/pit-un-2022/blob/master/R%20tutorials/compas-case-study.html)
+
+The data that we'll be using for this tutorial is from [this work by ProPublica](https://www.propublica.org/datastore/dataset/compas-recidivism-risk-score-data-and-analysis) which aimed to assess a popular commercial system COMPAS, which is a criminal defendant risk-assessment tool, for bias against any individual groups. They evaluated the Risk of Recidivism algorithm, in this tutorial, we're going to evaluate the Risk of Violence algorithm.
+
+#### Learning Objectives
+
+1. Gain familiarity with Python
+2. Practice reading and manipulating data in Pandas
+3. Run a linear model using statsmodels
+4. Visualize predicted risk of violence scores with error bars
+
+Use [this link]("https://raw.githubusercontent.com/propublica/compas-analysis/master/compas-scores-raw.csv") to download the dataset (right-click on the link and select `Save As...`). Make sure to save it somewhere you'll remember, like your Desktop or Downloads. We'll be moving it somewhere else later.
+
+## Setup {#sec-setup}
+
+Before we get into the nitty-gritty of this tutorial, first we need to set up our development environment. 
+
+### Create subfolders to keep our project organized
+
+We will first create two folders, one called `data` and one called `output`, inside the project folder we just created. To do this using Python, we can run the following code:
+
+```{python}
+#| eval: false
+import os # os for "operating system"
+# "mkdir" stands for "make directory" (a "directory" is just a folder!)
+os.mkdir('data')
+os.mkdir('output')
+```
+
+Once you've created the two folders, we'll move the data we just downloaded into your new `data` folder. Drag and drop the data file from where you saved it into the `data` folder.
+
+:::{.callout-important title="Package installation for Using Google Colab"}
+If you're using Google Colab, run the below code to make sure these packages are installed. Otherwise, skip this!
+:::
+```{python}
+#| code-fold: true
+#| eval: false
+!pip3 install pandas statsmodels plotnine
+```
+
+### Import packages
+
+Importing packages in Python is like opening an application on your phone or your computer. When you want to write a paper or something similar, you might open Microsoft Word or Google Docs and then create your document. We open the application so we can *use it*, and importing is the same idea!
+
+```{python}
+import pandas as pd
+import numpy as np
+# import seaborn as sns
+# import matplotlib.pyplot as plt
+import statsmodels.api as sm
+```
+
+## Wrangle the data
+
+First, let's read the data we downloaded into a Pandas DataFrame.
+
+```{python}
+compas_data = pd.read_csv('data/compas-scores-raw.csv')
+compas_data.head()
+```
+
+To determine the number of unique persons there are in this dataset (we can see above that there are multiple rows - i.e., *observations* - per person), we can take the length of the set of the `Person_ID` column. Alternatively, we could use the `pd.Series.unique` method demonstrated in the following step.
+```{python}
+len(set(compas_data.Person_ID))
+```
+
+This tells us there are 18,610 unique (or distinct) IDs in the dataset.
+
+The data come from ProPublica who released the initial study on this data. They state that "Each pre-trial defendant received at least three COMPAS scores: `Risk of Recidivism`, `Risk of Violence`, and `Risk of Failure to Appear`".
+
+### Update the race and ethnicity labels
+
+Because we are interested in modeling risk of violence by race, what races are represented in this data?
+
+```{python}
+compas_data.Ethnic_Code_Text.unique()
+```
+
+The names used to represent the races/ethnic groups are both messy and/or antiquated. We'll create a new column in our dataframe called `race_ethnicity` to contain our new attributes, to make a few adjustments that will, at least, partially improve the labels.
+
+```{python}
+compas_data['race_ethnicity'] = compas_data['Ethnic_Code_Text'].replace(
+    to_replace = {'Caucasian': 'White',
+                  'African-Am': 'African-American',
+                  'Oriental': 'Asian'}
+)
+# let's look at the original labels vs the new labels
+print(compas_data['Ethnic_Code_Text'].unique())
+print(compas_data['race_ethnicity'].unique())
+```
+
+For the purposes of this tutorial, we'll use only the `Risk of Violence` decile score. The goal is to answer the specific question: what is the effect of sex and race on risk of violence decile scores?
+
+### Filter dataset to include only `Risk of Violence` scores
+
+Let's filter the data by Risk of Violence in the `DisplayText` column and then extract only the columns we're interested in:
+
+```{python}
+violence_risk = compas_data[compas_data['DisplayText'] == 'Risk of Violence']
+violence_risk.head()
+```
+
+We should store this data for future use:
+
+```{python}
+violence_risk.to_csv('output/risk_of_violence.csv', index = False)
+# index = False says "don't include the row labels"
+```
+
+## Creating the linear model

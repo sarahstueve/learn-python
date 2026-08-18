@@ -31,6 +31,8 @@ os.mkdir('data')
 os.mkdir('output')
 ```
 
+Once you've created the two folders, we'll move the data we just downloaded into your new `data` folder. Drag and drop the data file from where you saved it into the `data` folder.
+
 :::{.callout-important title="Package installation for Using Google Colab"}
 If you're using Google Colab, run the below code to make sure these packages are installed. Otherwise, skip this!
 :::
@@ -57,7 +59,7 @@ from plotnine import *
 
 
 ```{python}
-gap_5_yr = pd.read_csv('../data/gapminder-FiveYearData.csv')
+gap_5_yr = pd.read_csv('data/gapminder-FiveYearData.csv')
 gap_5_yr.head()
 ```
 

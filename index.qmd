@@ -4,4 +4,5 @@ title: "learn-python"
 
 This page is in development, but will hold workshops on several Python topics.
 
-[Intro to Data Viz](tutorials/000_intro_to_visualization.qmd)
+[Intro to Data Visualization](tutorials/000_intro_to_visualization.qmd)
+[Intro to Linear Regression](tutorials/001_intro_to_lin_reg_compas.qmd)

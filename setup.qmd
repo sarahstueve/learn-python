@@ -47,19 +47,12 @@ And you're done!
 First, the installer will (perhaps, again) ask you to agree to the License Agreement:
 ![](figures/setup/pos-win-license-agree.png)
 
-Then, you'll be asked to select the destination folder where it should be installed. Unless you know where it should be installed otherwise, accept the default location by clicking `Next`:
-![Positron - Windows select destination](figures/setup/pos-win-dest-folder.png)
-
-Then, you'll be asked to select the Start Menu folder, where you should very likely go with the default. Click `Next`:
-![Positron - Windows start menu](figures/setup/pos-win-start-menu.png)
-
-You'll be asked to "Select Additional Tasks". I would recommend sticking with the defaults again here. Click `Next`:
-![Positron - Windows additional tasks](figures/setup/pos-win-install-options.png)
+Then, you'll be asked to select the destination folder where it should be installed, select the start menu folder, and delect additional tasks. For each of these installer pages, you should accept the defaults Positron suggests by clicking `Next`.
 
 Finally, confirm you want to start the installation by clicking `Install`:
 ![Positron - Windows installation confirmation](figures/setup/pos-win-install-confirm.png)
 
-It will produce a progress bar that shows it installing. At the end of the installation process, you'll click `Finish` to close the installer. This will Launch Positron unless you explicitly ask it not to do so.
+It will produce a progress bar that shows it installing. At the end of the installation process, you'll click `Finish` to close the installer.
 
 And you're done!
 
