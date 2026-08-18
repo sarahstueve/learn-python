@@ -17,7 +17,6 @@ Linux users, I presume you know what you're doing 🤠 but you should also be ab
 
 :::
 
-
 :::{.panel-tabset}
 
 ## The easy way
@@ -30,10 +29,42 @@ Positron intends to provide features that make it ideal for working with data an
 
 ### Install Positron
 
-First, download the Positron installer that is applicable for your device. When you click on the `Download` button, you will be asked to `Agree` to their Terms and Conditions. Once you agree, the download will begin.
+First, download the Positron installer that is applicable for your device. When you click on the `Download` button, you will be asked to `Agree` to their Terms and Conditions:
+![Agree to Positron T&Cs](figures/setup/positron-license-agreement.png)
 
-The Positron installer will appear in your `Downloads` folder. In `Finder` ![](figures/setup/finder-icon.jpeg){width=24} for Mac or `File Explorer` ![](figures/setup/file-explorer-windows-25539_64.png){width=24} for Windows, navigate to your `Downloads` folder in the left sidebar. When you click on the installer, it will open a window where you will drag and drop Positron into your `Applications` folder:
+Once you agree, the download will begin.
+
+The Positron installer will appear in your `Downloads` folder. In `Finder` ![](figures/setup/finder-icon.jpeg){width=24} for Mac or `File Explorer` ![](figures/setup/file-explorer-windows-25539_64.png){width=24} for Windows, navigate to your `Downloads` folder in the left sidebar. When you click on the installer, the steps for installation will vary slightly depending on your operating system
+
+#### Mac
+When you click on the installer, it will open a window where you will drag and drop Positron into your `Applications` folder:
 ![Positron installer window](figures/setup/positron_install.png)
+
+And you're done!
+
+#### Windows
+
+First, the installer will (perhaps, again) ask you to agree to the License Agreement:
+![](figures/setup/pos-win-license-agree.png)
+
+Then, you'll be asked to select the destination folder where it should be installed. Unless you know where it should be installed otherwise, accept the default location by clicking `Next`:
+![Positron - Windows select destination](figures/setup/pos-win-dest-folder.png)
+
+Then, you'll be asked to select the Start Menu folder, where you should very likely go with the default. Click `Next`:
+![Positron - Windows start menu](figures/setup/pos-win-start-menu.png)
+
+You'll be asked to "Select Additional Tasks". I would recommend sticking with the defaults again here. Click `Next`:
+![Positron - Windows additional tasks](figures/setup/pos-win-install-options.png)
+
+Finally, confirm you want to start the installation by clicking `Install`:
+![Positron - Windows installation confirmation](figures/setup/pos-win-install-confirm.png)
+
+It will produce a progress bar that shows it installing. At the end of the installation process, you'll click `Finish` to close the installer. This will Launch Positron unless you explicitly ask it not to do so.
+
+And you're done!
+
+### Create a python Session for a given project
+
 
 Create a "Project" (or, a folder for your work)
 
