@@ -219,3 +219,6 @@ __marimo__/
 
 /.quarto/
 **/*.quarto_ipynb
+
+# Mac
+.DS_Store

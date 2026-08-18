@@ -55,6 +55,7 @@ import pandas as pd
 import numpy as np
 # import seaborn as sns
 # import matplotlib.pyplot as plt
+from plotnine import *
 import statsmodels.api as sm
 ```
 
@@ -116,3 +117,50 @@ violence_risk.to_csv('output/risk_of_violence.csv', index = False)
 ```
 
 ## Creating the linear model
+
+
+```{python}
+# fit model and get average predictions by race
+formula = "DecileScore ~ race_ethnicity + Sex_Code_Text"
+model2 = sm.OLS.from_formula(formula = formula,
+                            data = violence_risk)
+results = model2.fit()
+predict_results = results.get_prediction(row_labels = violence_risk.race_ethnicity.values)
+result_frame = predict_results.summary_frame().groupby(level=0).mean()
+```
+
+
+```{python}
+# make race_ethnicity a col in result_frame and sort in descending order
+result_frame.reset_index(inplace = True)
+result_frame = result_frame.rename(columns = {'index':'race_ethnicity'})
+result_frame.sort_values(by = "mean", ascending= False, inplace = True)
+result_frame
+```
+
+
+```{python}
+results.summary()
+```
+
+
+```{python}
+plot = (
+    ggplot(result_frame, aes(x = 'reorder(race_ethnicity, mean, ascending = True)', y = 'mean'))
+    + geom_point(color = 'lightskyblue')
+    + geom_errorbar(aes(ymin = 'mean-mean_se', ymax = 'mean+mean_se'),
+                    width = 0.01, color = 'lightskyblue')
+    + coord_flip()
+    + theme_seaborn()
+    + labs('Race or Ethnicity',
+        y = 'Average "Risk of Violence" Decile Score',
+        title = 'Average "Risk of Violence" Score by Race'
+    )
+)
+plot.show()
+```
+
+
+```{python}
+plot.save('output/risk_of_violence_plot.png', dpi = 300)
+```
