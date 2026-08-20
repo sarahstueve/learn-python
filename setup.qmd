@@ -44,10 +44,16 @@ And you're done!
 
 #### Windows
 
-First, the installer will (perhaps, again) ask you to agree to the License Agreement:
+First, the installer will (perhaps, again) ask you to agree to the License Agreement. Accept and click `Next`:
 ![](figures/setup/pos-win-license-agree.png)
 
-Then, you'll be asked to select the destination folder where it should be installed, select the start menu folder, and delect additional tasks. For each of these installer pages, you should accept the defaults Positron suggests by clicking `Next`.
+Then, you'll be asked to 
+
+1. select the destination folder where it should be installed, 
+2. select the start menu folder, 
+3. and delect additional tasks. 
+
+For each of these installer pages, you should accept the defaults Positron suggests by clicking `Next`.
 
 Finally, confirm you want to start the installation by clicking `Install`:
 ![Positron - Windows installation confirmation](figures/setup/pos-win-install-confirm.png)
@@ -58,15 +64,33 @@ And you're done!
 
 ### Create a python Session for a given project
 
+Create a "Project" (or, a folder for your work) by selecting the `New Folder...` option on the Welcome page or by selecting `New Folder from Template...` from the `+ New` button in the top left corner of the IDE. You'll select `Python Project` from the template and then click `Next`:
+![Positron new project](figures/setup/positron-new-project.png)
 
-Create a "Project" (or, a folder for your work)
+You'll be asked to select a location for the project. You can click `Browse...` to choose a different location than the one provided (i.e., if you want the folder in your `Documents` folder). You will also provide the name of the folder you want to create!
+![Positron enter Python folder informtion](figures/setup/positron-folder-loc.png)
 
-Start a session/create an environment
+Then, you'll be asked if you want to create a Python environment with `uv`. You should leave the defaults as they are and click `Create`:
+![Positron new virtual environment creation](figures/setup/positron-create-python-env.png)
 
-`uv init`
+Once you create the environment, this is the first page you will see when you open the new folder. To make sure our Python environment is setup correctly, we need to install the required packages for the tutorial. To do this, first click on the `TERMINAL` tab in the middle-bottom section of Positron:
+![Positron initial project folder](figures/setup/positron-project-initial.png)
 
-`uv add pandas plotnine matplotlib seaborn`
+Once the Terminal is open, we'll run a command to install packages using `uv add`. The syntax looks like this: `uv add package1 package2 package3 ...`. The first tutorial on this website relies on the following packages, so let's start with installing those! Run the below command in Terminal like so:
 
+```{bash}
+uv add pandas plotnine matplotlib seaborn jupyter
+```
+
+![Positron - add packages using uv command in Terminal](figures/setup/positron-add-packages.png)
+
+Once the packages are installed, you're ready to create your first Jupyter Notebook (it's an interactive document that allows us to both write code and take notes!). In the left side bar, click on the `New File...` icon ![](figures/setup/new-file-icon.png) and then type in the name of the file you want to create. Whatever it is, it has to include the file extension (think .docx, or .xlsx) `.ipynb` for "iPython Notebook":
+![Positron - create new file](figures/setup/positron-create-new-notebook.png)
+
+To start writing code, the last step you'll take is clicking on the `+Code` button at the top right of the new document to make a code block.
+![Jupyter - create first code block](figures/setup/positron-create-first-code-block.png)
+
+You're ready!
 
 ## The traditional way
 
@@ -79,11 +103,8 @@ First, select the installer that's appropriate for your device. Hover over the `
 
 When you click on the appropriate installation, it will trigger the download of the installer. In `Finder` ![](figures/setup/finder-icon.jpeg){width=24} for Mac or `File Explorer` ![](figures/setup/file-explorer-windows-25539_64.png){width=24} for Windows, navigate to your `Downloads` folder in the left sidebar. Click on the installer to start the installation process:
 
-**Mac**
+#### Mac
 ![Screenshot of Python installer in Downloads folder](figures/setup/select_from_downloads.png)
-
-**Windows**
-
 
 Once you click on the Installer, a window will pop up to guide you through the installation process. For the most part, just click `Continue`:
 ![Screenshot of the initial installer window](figures/setup/initial-installer.png)
@@ -96,6 +117,16 @@ And then you will be prompted to start the installation:
 
 There will be a couple other windows after that, but the installation will practically be complete. You have Python now! 
 
+#### Windows
+
+Once you've downloaded your distribution of Python, it should be in your `Downloads` folder. Click on the installer to launch it:
+![Windows Python installer in Downloads](figures/setup/win-python-download.png)
+
+From there, you'll see the page to launch the installer. _NOTE: Make sure you check the option to **add Python to the PATH**_ - this is _extremely_ important. If you don't do it, it's fixable, but it's annoying. From there, click the button for standard installation, `Install Now`:
+![Windows Python installer launch install page](figures/setup/win-python-install-path.png)
+
+From there, the installation will commence. When it completes, you have Python set up and ready!
+
 
 ### Download VSCode 
 
@@ -105,12 +136,32 @@ First, we'll navigate to https://code.visualstudio.com/ to download the applicat
 ![Screenshot of VSCode download webpage](figures/setup/vscode-download.png)
 
 The VSCode installer, like the Python installer, will go into your `Downloads` folder:
-![Screenshot of Downloads folder](figures/setup/vscode_downloads_folder.png)
+![Screenshot of Mac Downloads folder](figures/setup/vscode_downloads_folder.png)
+
+#### Mac
 
 Unlike Python, there isn't a long process to install it. You will simply click and drag VSCode (following the arrow shown) into your `Applications` folder:
 ![Screenshot of VSCode installer - drag and drop!](figures/setup/vscode_installer.png)
 
 And, you're ready!
+
+#### Windows
+
+First, you'll be asked to agree to the license. Agree and click `Next`:
+![Windows agree to VSCode license](figures/setup/win-vscode-accept-license.png)
+
+From there, you'll be asked to choose the location of VSCode. Accept the default path by clicking `Next`:
+![Windows choose install loc](figures/setup/win-vscode-install-loc.png)
+
+Click `Next` for the next two pages:
+
+1. Selecting a start menu folder
+2. Selecting additional tasks
+
+And then finally click `Install` on the `Ready to Install` page:
+![Windows ready to install VSCode](figures/setup/win-vscode-install.png)
+
+Once the app finishes installing, you're ready to go!
 
 <!-- ### Last but not least: installing packages
 
