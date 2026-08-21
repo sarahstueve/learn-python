@@ -192,12 +192,12 @@ p3_ax = sns.relplot(
     data = gap_5_yr,
     x = 'gdpPercap',
     y = 'lifeExp',
-    hue = 'continent', # setting variable for color
+    hue = 'continent',
     col = 'year', # the variable to facet by
     palette = 'colorblind',
-    col_wrap=3, 
-    height=2,#, # setting same colormap from matplotlib
-    alpha = 0.9, # setting opacity -- this is new!
+    col_wrap=3, # how many columns of plots to create
+    height=2, 
+    alpha = 0.9
 )
 plt.xscale('log') # we can use the same matplotlib function to change the x-scale!
 
@@ -210,4 +210,124 @@ There are other (perhaps cooler!) plots that can be made using seaborn. Check ou
 
 ## Plotting with plotnine (this one's for you, R friends) {#sec-plotnine}
 
-The last section of this 
+The last section of this tutorial will focus on a package that was created to support a similar syntax to the popular R visualization package `ggplot2` in Python. `plotnine` is based on the grammar of graphics, a coherent system for describing and building graphs. The idea behind the Grammar of Graphics is that visualizations have layers of independent features, which makes building figures more intuitive as each layer is added independently.
+
+Let's create the above scatterplot, again, using `plotnine`. Note: the syntax looks a little different from the code we wrote before. It's not "traditional" Python syntax and for some people it takes some getting used to.
+
+### Create the figure
+
+First, we need to create the figure. To do this, we use the `ggplot` function along with the `aes` function to 1. initialize the plot and 2. set the "aesthetics", aka, which variables are being used for each dimension of our plot:
+
+```{python}
+(
+    ggplot(gap_5_yr, aes(x = 'gdpPercap', y = 'lifeExp'))
+)
+```
+
+Notice I added the `()` around the `ggplot` function - we're going to be using a different form of chaining functions, the `+` sign, to build our plot. In order to make it easier to read, we can indent our code and separate each function onto a separate line, but we need to tell Python it's all part of the same statement.
+
+### Add points and scale
+
+Next, to add the points of our scatterplot, we build on the previous code by adding a new "geometry" - points! We'll add the `geom_point` function to our plot code.
+
+```{python}
+(
+    ggplot(gap_5_yr, aes(x = 'gdpPercap', y = 'lifeExp'))
+    + geom_point()
+)
+```
+
+We can see that the points need to be rescaled again, on the x-axis. To do this, we add another layer by adding another function (`scale_x_log10`):
+
+```{python}
+(
+    ggplot(gap_5_yr, aes(x = 'gdpPercap', y = 'lifeExp'))
+    + geom_point()
+    + scale_x_log10()
+)
+```
+
+### Making it pretty!
+
+To add color to our points, we actually amend the `aes` call at the beginning of our plot code. All we need to do is add `color = 'continent'` to that function:
+
+```{python}
+(
+    ggplot(gap_5_yr, aes(x = 'gdpPercap', y = 'lifeExp', color = 'continent'))
+    + geom_point()
+    + scale_x_log10()
+)
+```
+
+To add labels, we'll add them as another layer to the plot with the `labs` function:
+
+```{python}
+(
+    ggplot(gap_5_yr, aes(x = 'gdpPercap', y = 'lifeExp', color = 'continent'))
+    + geom_point()
+    + scale_x_log10()
+    + labs(
+        x = 'GDP per Capita (log($))',
+        y = 'Life Expectancy (years)',
+        title = 'Life Expectancy vs GDP per Capita',
+        color = 'Continent' # this updates the legend title!
+    )
+)
+```
+
+### Making it _prettier_
+From there, we might want to choose a color scale that is closer to the ones we selected for the `matplotlib` and `seaborn` plots. 
+
+```{python}
+p9_plot = (
+    ggplot(gap_5_yr, aes(x = 'gdpPercap', y = 'lifeExp', color = 'continent'))
+    + geom_point()
+    + scale_x_log10()
+    + labs(
+        x = 'GDP per Capita (log($))',
+        y = 'Life Expectancy (years)',
+        title = 'Life Expectancy vs GDP per Capita',
+        color = 'Continent' # this updates the legend title!
+    )
+    + scale_color_cmap_d('Accent')
+    
+)
+p9_plot.show()
+```
+
+We can also change the theme of the figure, which changes the background color and grid lines, for example. [Here](https://plotnine.org/guide/themes-premade.html) is a list of the different themes you can select. For this tutorial, we'll choose the `theme_minimal` option:
+
+```{python}
+p9_plot = (
+    ggplot(gap_5_yr, aes(x = 'gdpPercap', y = 'lifeExp', color = 'continent'))
+    + geom_point()
+    + scale_x_log10()
+    + labs(
+        x = 'GDP per Capita (log($))',
+        y = 'Life Expectancy (years)',
+        title = 'Life Expectancy vs GDP per Capita',
+        color = 'Continent' # this updates the legend title!
+    )
+    + scale_color_cmap_d('Accent')
+    + theme_minimal()
+)
+p9_plot.show()
+```
+
+### Saving
+
+The syntax is slightly different for saving plots in plotnine, mirroring the syntax in R. To save a plotnine plot, you'll use the `plot.save()` syntax. You can use the `dpi = 300` keyword argument to increase the resolution of the saved output:
+
+```{python}
+p9_plot.save('output/p9_lifeExp_vs_log_GDP.png', dpi = 300)
+```
+
+## Takeaways
+
+This tutorial was intended to demonstrate three different options for creating static plots in Python. 
+
+We started out by first [importing the packages we needed](@sec-setup) and [reading in our data](@sec-reading_data). From there, we created similar plots using three different plotting packages: [`matplotlib`](@sec-matplotlib), [`seaborn`](@sec-seaborn), and [`plotnine`](@sec-plotnine). While `seaborn` builds on `matplotlib` and, therefore, their syntax is similar, `plotnine` takes a slightly different approach to visualization.
+
+In addition to these three, another popular plotting package in Python is [`Plotly`](https://plotly.com/) which supports interactive data visualizations. 
+
+There are many other features available within each of these packages - go forth and explore!
