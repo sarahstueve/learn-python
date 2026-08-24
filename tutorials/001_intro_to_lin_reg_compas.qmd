@@ -37,13 +37,24 @@ os.mkdir('output')
 
 Once you've created the two folders, we'll move the data we just downloaded into your new `data` folder. Drag and drop the data file from where you saved it into the `data` folder.
 
-:::{.callout-important title="Package installation for Using Google Colab"}
-If you're using Google Colab, run the below code to make sure these packages are installed. Otherwise, skip this!
+:::{.callout-important title="Package installation for Colab (or otherwise)"}
+If you're using Google Colab, run the `pip` command below to make sure these packages are installed. If you have a local installation and use either `pip` or `uv` to install packages, you can still run the code below if necessary
 :::
 ```{python}
 #| code-fold: true
+#| code-summary: "pip command"
 #| eval: false
 !pip3 install pandas statsmodels plotnine
+```
+
+```{python}
+#| code-fold: true
+#| code-summary: "uv command (local installs)"
+#| eval: false
+
+# ideally, run this in Terminal without the !,
+# if installing locally!
+!uv add pandas statsmodels plotnine
 ```
 
 ### Import packages
@@ -61,23 +72,22 @@ import statsmodels.api as sm
 
 ## Wrangle the data
 
-First, let's read the data we downloaded into a Pandas DataFrame.
+First, let's read the data we downloaded into a Pandas DataFrame. Because the data is in our `data` folder, we need to tell Python to look inside that folder to find the `.csv` file. This is called a "relative path", or "the path to get to the file we want from where we are". The `/` indicates that `compas-scores-raw.csv` is _inside_ the `data` folder.
 
 ```{python}
 compas_data = pd.read_csv('data/compas-scores-raw.csv')
 compas_data.head()
 ```
 
-To determine the number of unique persons there are in this dataset (we can see above that there are multiple rows - i.e., *observations* - per person), we can take the length of the set of the `Person_ID` column. Alternatively, we could use the `pd.Series.unique` method demonstrated in the following step.
+To determine the number of unique persons there are in this dataset (we can see above that there are multiple rows - i.e., *observations* - per person), we can take the length of the set of the `Person_ID` column. Alternatively, we could use the [`pd.Series.unique`](https://pandas.pydata.org/docs/reference/api/pandas.Series.unique.html) method demonstrated in the following step.
+
 ```{python}
 len(set(compas_data.Person_ID))
 ```
 
-This tells us there are 18,610 unique (or distinct) IDs in the dataset.
+This tells us there are 18,610 unique (or distinct) IDs in the dataset; each ID corresponds to one defendant.
 
 The data come from ProPublica who released the initial study on this data. They state that "Each pre-trial defendant received at least three COMPAS scores: `Risk of Recidivism`, `Risk of Violence`, and `Risk of Failure to Appear`".
-
-### Update the race and ethnicity labels
 
 Because we are interested in modeling risk of violence by race, what races are represented in this data?
 
@@ -85,7 +95,22 @@ Because we are interested in modeling risk of violence by race, what races are r
 compas_data.Ethnic_Code_Text.unique()
 ```
 
+### Update the race and ethnicity labels
+
 The names used to represent the races/ethnic groups are both messy and/or antiquated. We'll create a new column in our dataframe called `race_ethnicity` to contain our new attributes, to make a few adjustments that will, at least, partially improve the labels.
+
+To do this, we will use the [`pd.Series.replace`](https://pandas.pydata.org/docs/reference/api/pandas.Series.replace.html) method. In order to replace multiple values at the same time, we'll use a base Python object called a `dictionary`. It's very similar to how it sounds: in a physical dictionary, we can find words mapped to definitions, right? A dictionary in Python is similar. In the context of `pd.Series.replace`, we provide a Python dictionary with the current value we want to replace mapped to what we want to replace it with. The format is `{<to replace>: <replacement>}`. In the context of our data, this looks like:
+
+```{python}
+#| eval: false
+{
+    'Caucasian': 'White',
+    'African-Am': 'African-American',
+    'Oriental': 'Asian'
+}
+```
+
+So, let's apply that to creating a new column `race_ethnicity`, where the antiquated or messy terms are replaced:
 
 ```{python}
 compas_data['race_ethnicity'] = compas_data['Ethnic_Code_Text'].replace(
@@ -94,7 +119,10 @@ compas_data['race_ethnicity'] = compas_data['Ethnic_Code_Text'].replace(
                   'Oriental': 'Asian'}
 )
 # let's look at the original labels vs the new labels
+print("Original column:")
 print(compas_data['Ethnic_Code_Text'].unique())
+print()
+print("New and improved column:")
 print(compas_data['race_ethnicity'].unique())
 ```
 
@@ -102,14 +130,22 @@ For the purposes of this tutorial, we'll use only the `Risk of Violence` decile 
 
 ### Filter dataset to include only `Risk of Violence` scores
 
-Let's filter the data by Risk of Violence in the `DisplayText` column and then extract only the columns we're interested in:
+Let's filter the data by Risk of Violence in the `DisplayText` column and then extract only the columns we're interested in. To filter out rows, we need to write a **condition** that clarifies what we want in our subset.
+
+We clarify the condition using what we call a **boolean expression**. A *boolean* is a True or False value. So, if the expression evaluates to True for a given row, it's included in our subset. We want all the rows where the value in the `DisplayText` column is equal to `Risk of Violence`, which looks like this:
+
+```{python}
+compas_data['DisplayText'] == 'Risk of Violence'
+```
+
+The output shows a Series of `True` or `False` values. It's `False` for rows where `DisplayText` does not equal `Risk of Violence`, and `True` otherwise. 
 
 ```{python}
 violence_risk = compas_data[compas_data['DisplayText'] == 'Risk of Violence']
 violence_risk.head()
 ```
 
-We should store this data for future use:
+Now that we've created our subset, we can store the subset data for future use:
 
 ```{python}
 violence_risk.to_csv('output/risk_of_violence.csv', index = False)
@@ -118,19 +154,40 @@ violence_risk.to_csv('output/risk_of_violence.csv', index = False)
 
 ## Creating the linear model
 
+Now, on to modeling. 
 
+We know that we have a subset of data on "Risk of Violence" from the COMPAS dataset and we want to determine the effect of sex and race on the risk of violence scores. 
+
+We can do this using `statsmodel`'s `OLS` function with the `.from_formula` method, which will allow us to establish the relationships between variables of interest ourselves. This is similar to the `lm` function in R. `sm.OLS` will take care of one-hot encoding the data in order to make predictions. 
+
+We'll then group the data by race and take the average of the predicted DecileScores to answer the question "what is the mean score across all races?"
+
+### Fitting the model
+
+First, we write out our formula (the `~` here can be read as "DecileScore _**as a function of**_ race and sex") and create the model. From there, we have to explicitly tell python to `.fit()` the model to the data, which provides the results. Then, we review the regression results by calling `results.summary()`.
 ```{python}
 # fit model and get average predictions by race
 formula = "DecileScore ~ race_ethnicity + Sex_Code_Text"
+# initialize the model with the formula
 model2 = sm.OLS.from_formula(formula = formula,
                             data = violence_risk)
+# fit the model to our data
 results = model2.fit()
-predict_results = results.get_prediction(row_labels = violence_risk.race_ethnicity.values)
-result_frame = predict_results.summary_frame().groupby(level=0).mean()
+# view the regression results in table format
+results.summary()
 ```
 
+### Interpreting the results
+Next, we want to understand the effect of the race and ethnicity, and sex on average Risk of Violence DecileScore predicted by the model. 
+
+We use the fit model to get predicted scores for each defendant (`results.get_prediction()`), based on the model fit. In order to aggregate the predictions for each defendant to the level of race and ethnicity as groups, we group the data and then take the average DecileScore per `race_ethnicity` value.
 
 ```{python}
+## Group to take the average decile score across all races and ethnicities
+# get predicted decile scores for each defendant based on the fit model
+predict_results = results.get_prediction(row_labels = violence_risk.race_ethnicity.values)
+# use the summary frame to calculate average decile scores by race_ethnicity
+result_frame = predict_results.summary_frame().groupby(level=0).mean()
 # make race_ethnicity a col in result_frame and sort in descending order
 result_frame.reset_index(inplace = True)
 result_frame = result_frame.rename(columns = {'index':'race_ethnicity'})
@@ -138,11 +195,7 @@ result_frame.sort_values(by = "mean", ascending= False, inplace = True)
 result_frame
 ```
 
-
-```{python}
-results.summary()
-```
-
+Once we have the aggregated `result_frame`, we can plot the average DecileScores for each race along with the standard error associated with that measure to visualize differences between each group.
 
 ```{python}
 plot = (
