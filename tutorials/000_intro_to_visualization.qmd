@@ -33,14 +33,27 @@ os.mkdir('output')
 
 Once you've created the two folders, we'll move the data we just downloaded into your new `data` folder. Drag and drop the data file from where you saved it into the `data` folder.
 
-:::{.callout-important title="Package installation for Using Google Colab"}
-If you're using Google Colab, run the below code to make sure these packages are installed. Otherwise, skip this!
+:::{.callout-important title="Package installation for Colab (or otherwise)"}
+If you're using Google Colab, run the `pip` command below to make sure these packages are installed. If you have a local installation and use either `pip` or `uv` to install packages, you can still run the code below if there are any packages you need to install.
 :::
-```{python }
+```{python}
 #| code-fold: true
+#| code-summary: "pip command"
 #| eval: false
-!pip3 install pandas matplotlib seaborn plotnine
+!pip3 install pandas matplotlib seaborn plotnine jupyter
 ```
+
+```{python}
+#| code-fold: true
+#| code-summary: "uv command (local installs)"
+#| eval: false
+
+# ideally, run this in Terminal without the !,
+# if installing locally!
+!uv add pandas matplotlib seaborn plotnine jupyter
+```
+
+P.S. if you want to get set up to write Python on your own machine, follow the instructions found on the [Getting Started](../setup.qmd) page.
 
 ### Import packages
 
@@ -57,6 +70,9 @@ from plotnine import *
 
 ## Reading in our data {#sec-reading_data}
 
+First, let's read the data we downloaded into a Pandas DataFrame. Because the data is in our `data` folder, we need to tell Python to look inside that folder to find the `.csv` file. This is called a "relative path", or "the path to get to the file we want from where we are". The `/` indicates that `gapminder-FiveYearData.csv` is _inside_ the `data` folder. 
+
+We call `gap_5_yr.head()` after reading in the data to take a look at the first 5 rows of our dataframe, which is often super useful to reference.
 
 ```{python}
 gap_5_yr = pd.read_csv('data/gapminder-FiveYearData.csv')
@@ -64,20 +80,33 @@ gap_5_yr.head()
 ```
 
 We can learn about the columns in our data using the [`pd.DataFrame.info()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.info.html) method.
+
 ```{python}
 gap_5_yr.info()
 ```
+
+The `dtype` column tells us what data types are present in our dataset. Notice that `country` and `continent` are type `str`: these are "strings" otherwise known as collections of characters inside quotes (single or double). We typically use these for categories or words, such as country names. The data type `float64` essentially just refers to decimal numbers (no need to go deeper than that for this tutorial, or most things).
 
 We can also access a table of summary statistics for numeric variables in our dataset using the [`pd.DataFrame.describe()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.describe.html) method.
 ```{python}
 gap_5_yr.describe()
 ```
 
-Let's investigate the relationship between life expectancy and GDP as part of creating our first plot.
+Now that we've taken a look at the data, let's investigate the relationship between life expectancy and GDP as part of creating our first plot.
 
 ## Your first plot in Python! {#sec-matplotlib}
 
-We'll start by using matplotlib, which is the base plotting package in Python! It sorta underpins all other tools, it was definitely the first.
+We'll start by using matplotlib, which is the base plotting package in Python! It sorta underpins all other tools - it was definitely the first.
+
+Let's break down the code below. The `.plot` method initiates the creation of the plot. Inside of the method call, we pass three _arguments_ which tell `matplotlib` how we want our plot to look: 
+
+- `x`: the name of the column to use for the x-axis in our plot. The name must exactly match the name of the column in our dataset (even capitalization!)
+- `y`: the name of the column to use for the y-axis in our plot.
+- `kind`: the type of plot to make. In our case `'scatter'` means we want an X-Y scatterplot. 
+
+We save our plot to the variable `ax_plt1` to store the "axis object" of the plot. We'll use it soon!
+
+`plt.show()` tells matplotlib to show the current figure (which is our plot!).
 
 ```{python}
 ax_plt1 = gap_5_yr.plot(x = 'gdpPercap', y = 'lifeExp', kind = 'scatter')
@@ -89,6 +118,8 @@ plt.show()
 #### Change the scale: log-transform GDP per capita
 
 It's difficult to see the relationship between GDP and life expectancy because of the scale of GDP, but it doesn't look linear. Let's log-transform GDP so we can see the relationship better.
+
+To do this, we add the argument `logx = True` to our plot method call. Make sure to add a `,` after `kind = 'scatter'` - arguments are separated by commas!
 
 ```{python}
 ax_plt1 = gap_5_yr.plot(x = 'gdpPercap', 
@@ -119,7 +150,9 @@ plt.show()
 ### Make it *prettier*
 #### Changing colors
 
-By default, matplotlib generally will use blue as the initial color for the points or lines in your plot. We aren't restricted to that! For this plot, let's assign point colors based on the continent a country belongs to. The lines where '# added' follows the code indicate the changes made:
+By default, matplotlib generally will use blue as the initial color for the points or lines in your plot. We aren't restricted to that! For this plot, let's assign point colors based on the continent a country belongs to. The lines where '# added' follows the code indicate the changes made. 
+
+The two arguments we're adding to the code are `c = 'continent'` and `cmap = 'Accent'`. `c` indicates what column we want to be used to designate colors (i.e., which color contains the groups we're interested in). `cmap` indicates the color palette we want to use. You can take a look at the matplotlib documentation [here](https://matplotlib.org/stable/users/explain/colors/colormaps.html) to see color palette (or, colormap) options.
 
 ```{python}
 # we're going to ignore the warning for this plot
@@ -157,9 +190,17 @@ Matplotlib is the original, but there are other packages that create really beau
 
 To create an equivalent scatterplot to the plot above, we'll use [`sns.scatterplot`](https://seaborn.pydata.org/generated/seaborn.scatterplot.html).
 
-In addition to supporting some of the matplotlib color palettes, seaborn introduces some of their own. We can set all the same variables, but the syntax and names of arguments might be different - pay attention to the differences between this plot and the one above!
+In addition to supporting some of the matplotlib color palettes, seaborn introduces some of their own. We can set all the same features, but the syntax and names of arguments might be different - pay attention to the differences between this plot and the one above!
 
 ### Creating the scatterplot
+
+Let's discuss some of the differences here:
+
+1. In the previous example, we called `.plot` on `gap_5_yr`. With `seaborn`, we call the `scatterplot` _function_ by referring to the package (shortened to `sns`).
+2. Because we haven't referred to `gap_5_yr` yet, we have to pass it as an argument to the `scatterplot` function using the `data` keyword (`data = gap_5_yr`).
+3. Instead of `c`, we provide the column containing the categories for colors using the `hue` argument (`hue = 'continent'`).
+4. Instead of `cmap`, we set the color palette using the `palette` argument (`palette = 'colorblind'`).
+5. We add a new argument here `alpha = 0.9` which makes the points slightly less opaque. You can try messing with the value to see how it affects the points!
 
 ```{python}
 p2_ax = sns.scatterplot(
@@ -179,9 +220,11 @@ p2_ax.set_title('Life expectancy vs. GDP')
 plt.show()
 ```
 
-As we can see, we're using the same methods (e.g., `set_xlabel`, etc.) to update the labels of this plot. That's because Seaborn is built on top of (or, inherits) some methods and keyword arguments from matplotlib.
+As we can see, we're using the same methods (e.g., `set_xlabel`, etc.) to update the labels of this plot. That's because seaborn is built on top of (or, inherits) some methods and keyword arguments from matplotlib.
 
-One key difference here is that the easiest way to set the x-scale to logarithmic is by using matplotlib instead of going through seaborn. When using seaborn, you will likely find it helpful to have matplotlib imported as well in order to make changes like the one above!
+The last key difference here is that the easiest way to set the x-scale to logarithmic is by using matplotlib instead of going through seaborn. We use the `plt.xscale('log')` function call to set the x-scale to a logarithmic scale using the matplotlib package. 
+
+When using `seaborn`, you will likely find it helpful to have `matplotlib` imported as well in order to make changes like the one above!
 
 ### Creating a facet plot
 
