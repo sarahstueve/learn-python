@@ -127,7 +127,6 @@ From there, you'll see the page to launch the installer. _NOTE: Make sure you ch
 
 From there, the installation will commence. When it completes, you have Python set up and ready!
 
-
 ### Download VSCode 
 
 Python is the language (like Spanish or Chinese). When we write in a language, we typically either have paper or we use an application like Word or something similar. We need the same kind of tool for writing Python! These can be called "text editors" or IDEs. An IDE is an "integrated development environment" and typically has some extra features that help with writing code. VSCode can function just as a text editor, but it also has additional functionality that can be nice!
@@ -163,18 +162,98 @@ And then finally click `Install` on the `Ready to Install` page:
 
 Once the app finishes installing, you're ready to go!
 
-<!-- ### Last but not least: installing packages
+### Create a new folder for tutorials
+
+Open up the VSCode application we just installed. When you do, you'll see the _Welcome_ page. Click on the option to `Open...` a folder or file:
+
+![VSCode Welcome page with `Open...` highlighted](figures/setup/vscode_welcome_page.png)
+
+When the file management system opens up, choose the folder you would like to Open. If you have created a folder already, open that one! Otherwise, create a `New Folder` in the place you want it to be saved:
+
+#### Mac
+![Mac file management system (Finder) window](figures/setup/finder_new_folder.png)
+
+#### Windows
+![Windows file management system (File Explorer) window](figures/setup/file_explorer_new_folder.png)
+
+
+### Last but not least: installing packages
 
 This is where, long-term, Python can be difficult, *but* you shouldn't have problems with most (if not all) of the packages used in these tutorials. 
 
 Let's start with a metaphor. Imagine you open your computer and get started with what you want to do during the day. Maybe you open your email app. Maybe you open the Zoom app. Maybe you open your internet browser. Each of those applications has a specific purpose, right? So, you open each of them when you need to complete a task that requires them.
 
-We have something similar in Python and they're called **packages**! Before we complete a task that requires specific features in Python, we often need to install a package (like our email in the earlier metaphor) in order to use it.
+We have something similar in Python and they're called **packages**! Before we complete a task that requires specific features in Python, we often need to install a package (like our email app in the earlier metaphor) in order to use it. 
+
+This tutorial provides two options for Python "package managers":
+
+#### Using `uv` (recommended)
+
+`uv` is a newer Python package manager (it makes sure all our "apps" work together) and it's extremely fast. It's also reliable for managing conflicting dependencies (apps/packages that don't work together). I will recommend using `uv` instead of `pip` to make sure you're starting off on the right foot when it comes to tidy Python development.
+
+However, to install `uv`, we will (somewhat ironically) use `pip`. Open a new `Terminal` window using the `Terminal` tab in the top left corner of your screen or VSCode window. Once you have the `Terminal` open, run the following command:
+
+```{bash}
+pip install uv
+```
+
+Once you have `uv` installed, we're going to initialize the `uv` project. `uv` treats folders as "Projects", similar to some other programming languages. So, first we need to initialize the project:
+
+```{bash}
+uv init
+```
+
+Then, we tell `uv` to make what we call a "virtual environment". You can think of it kinda like a sandbox, where the sand is all the "apps"/packages that we want to play nicely in our environment. It does _not_ affect the rest of your Python environment, so if something goes wrong (which does happen in Python), it's easy to recreate. It also makes it easier to share what exact packages you used to run your Python code. You should create one of these for each of your projects. To create the virtual environment, type:
+
+```{bash}
+uv venv
+```
+
+You should see a message telling you the virtual environment was created and also see a new folder in your left sidebar called `.venv`. Python (and VSCode) recognize this as an environment folder.
+
+Once the environment is created, we tell `uv` which packages we want to put in it. So, here's an example command. It always starts with `uv add` followed by all of the packages you want to install, separated by spaces. Don't worry - if you forget to add a package the first time you create the environment or need to add another one, you just run `uv add` again with the package you want to install.
+
+```{bash}
+uv add pandas plotnine seaborn matplotlib jupyter
+```
+
+Here is what these commands look like in the VSCode `Terminal`:
+
+![VSCode, use uv in Terminal to create environment](figures/setup/vscode-uv-create-venv.png)
+
+Finally, we run the command `uv sync` to make sure our environment and the project file created by uv (`pyproject.toml`) are synced together.
+
+
+#### Using `pip` (the original)
 
 The classic method for installing packages in Python involves using `pip`. Each of the tutorials will outline the packages that need to be installed, but I'll provide a some that you will need and that I would recommend here.
 
-To install packages, we're actually going to open up a separate app that your computer has by default. On Mac, this will be your `Terminal`, and on Windows this will be `PowerShell`.  -->
+To install packages using `pip`, we're actually going to open up a separate app that your computer has by default. On Mac, this will be your `Terminal`, and on Windows this will be `PowerShell`. You can search for your respective app using Spotlight Search on Mac (press <CMD><SPACE> on your keyboard) or in the Windows menu.
 
+Once you have your `Terminal` or `PowerShell` open, we'll run this command:
 
+```{bash}
+pip3 install pandas plotnine matplotlib seaborn jupyter
+```
+
+#### Mac
+
+![Mac Terminal: pip install](figures/setup/terminal-pip-install.png)
+
+#### Windows
+
+![Windows Powershell: pip install](figures/setup/powershell-pip.png)
+
+Once the packages are installed, you're ready to create your first Jupyter Notebook (it's an interactive document that allows us to both write code and take notes!). 
+
+### Create a new Jupyter Notebook: it's time to write some code!
+
+In the left side bar, click on the `New File...` icon ![](figures/setup/new-file-icon.png) and then type in the name of the file you want to create. Whatever it is, it has to include the file extension (think .docx, or .xlsx) `.ipynb` for "iPython Notebook":
+![Positron - create new file](figures/setup/positron-create-new-notebook.png)
+
+To start writing code, the last step you'll take is clicking on the `+Code` button at the top right of the new document to make a code block.
+![Jupyter - create first code block](figures/setup/positron-create-first-code-block.png)
+
+You're ready to go!
 
 :::

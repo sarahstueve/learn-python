@@ -279,18 +279,96 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 </ol>
 <p>And then finally click <code>Install</code> on the <code>Ready to Install</code> page: <img src="figures/setup/win-vscode-install.png" class="img-fluid" alt="Windows ready to install VSCode"></p>
 <p>Once the app finishes installing, you’re ready to go!</p>
-<!-- ### Last but not least: installing packages
-
-This is where, long-term, Python can be difficult, *but* you shouldn't have problems with most (if not all) of the packages used in these tutorials. 
-
-Let's start with a metaphor. Imagine you open your computer and get started with what you want to do during the day. Maybe you open your email app. Maybe you open the Zoom app. Maybe you open your internet browser. Each of those applications has a specific purpose, right? So, you open each of them when you need to complete a task that requires them.
-
-We have something similar in Python and they're called **packages**! Before we complete a task that requires specific features in Python, we often need to install a package (like our email in the earlier metaphor) in order to use it.
-
-The classic method for installing packages in Python involves using `pip`. Each of the tutorials will outline the packages that need to be installed, but I'll provide a some that you will need and that I would recommend here.
-
-To install packages, we're actually going to open up a separate app that your computer has by default. On Mac, this will be your `Terminal`, and on Windows this will be `PowerShell`.  -->
 </section>
+</section>
+<section id="create-a-new-folder-for-tutorials" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-new-folder-for-tutorials">Create a new folder for tutorials</h3>
+<p>Open up the VSCode application we just installed. When you do, you’ll see the <em>Welcome</em> page. Click on the option to <code>Open...</code> a folder or file:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/setup/vscode_welcome_page.png" class="img-fluid figure-img"></p>
+<figcaption>VSCode Welcome page with <code>Open...</code> highlighted</figcaption>
+</figure>
+</div>
+<p>When the file management system opens up, choose the folder you would like to Open. If you have created a folder already, open that one! Otherwise, create a <code>New Folder</code> in the place you want it to be saved:</p>
+<section id="mac-3" class="level4">
+<h4 class="anchored" data-anchor-id="mac-3">Mac</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/setup/finder_new_folder.png" class="img-fluid figure-img"></p>
+<figcaption>Mac file management system (Finder) window</figcaption>
+</figure>
+</div>
+</section>
+<section id="windows-3" class="level4">
+<h4 class="anchored" data-anchor-id="windows-3">Windows</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/setup/file_explorer_new_folder.png" class="img-fluid figure-img"></p>
+<figcaption>Windows file management system (File Explorer) window</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="last-but-not-least-installing-packages" class="level3">
+<h3 class="anchored" data-anchor-id="last-but-not-least-installing-packages">Last but not least: installing packages</h3>
+<p>This is where, long-term, Python can be difficult, <em>but</em> you shouldn’t have problems with most (if not all) of the packages used in these tutorials.</p>
+<p>Let’s start with a metaphor. Imagine you open your computer and get started with what you want to do during the day. Maybe you open your email app. Maybe you open the Zoom app. Maybe you open your internet browser. Each of those applications has a specific purpose, right? So, you open each of them when you need to complete a task that requires them.</p>
+<p>We have something similar in Python and they’re called <strong>packages</strong>! Before we complete a task that requires specific features in Python, we often need to install a package (like our email app in the earlier metaphor) in order to use it.</p>
+<p>This tutorial provides two options for Python “package managers”:</p>
+<section id="using-uv-recommended" class="level4">
+<h4 class="anchored" data-anchor-id="using-uv-recommended">Using <code>uv</code> (recommended)</h4>
+<p><code>uv</code> is a newer Python package manager (it makes sure all our “apps” work together) and it’s extremely fast. It’s also reliable for managing conflicting dependencies (apps/packages that don’t work together). I will recommend using <code>uv</code> instead of <code>pip</code> to make sure you’re starting off on the right foot when it comes to tidy Python development.</p>
+<p>However, to install <code>uv</code>, we will (somewhat ironically) use <code>pip</code>. Open a new <code>Terminal</code> window using the <code>Terminal</code> tab in the top left corner of your screen or VSCode window. Once you have the <code>Terminal</code> open, run the following command:</p>
+<pre class="{bash}"><code>pip install uv</code></pre>
+<p>Once you have <code>uv</code> installed, we’re going to initialize the <code>uv</code> project. <code>uv</code> treats folders as “Projects”, similar to some other programming languages. So, first we need to initialize the project:</p>
+<pre class="{bash}"><code>uv init</code></pre>
+<p>Then, we tell <code>uv</code> to make what we call a “virtual environment”. You can think of it kinda like a sandbox, where the sand is all the “apps”/packages that we want to play nicely in our environment. It does <em>not</em> affect the rest of your Python environment, so if something goes wrong (which does happen in Python), it’s easy to recreate. It also makes it easier to share what exact packages you used to run your Python code. You should create one of these for each of your projects. To create the virtual environment, type:</p>
+<pre class="{bash}"><code>uv venv</code></pre>
+<p>You should see a message telling you the virtual environment was created and also see a new folder in your left sidebar called <code>.venv</code>. Python (and VSCode) recognize this as an environment folder.</p>
+<p>Once the environment is created, we tell <code>uv</code> which packages we want to put in it. So, here’s an example command. It always starts with <code>uv add</code> followed by all of the packages you want to install, separated by spaces. Don’t worry - if you forget to add a package the first time you create the environment or need to add another one, you just run <code>uv add</code> again with the package you want to install.</p>
+<pre class="{bash}"><code>uv add pandas plotnine seaborn matplotlib jupyter</code></pre>
+<p>Here is what these commands look like in the VSCode <code>Terminal</code>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/setup/vscode-uv-create-venv.png" class="img-fluid figure-img"></p>
+<figcaption>VSCode, use uv in Terminal to create environment</figcaption>
+</figure>
+</div>
+<p>Finally, we run the command <code>uv sync</code> to make sure our environment and the project file created by uv (<code>pyproject.toml</code>) are synced together.</p>
+</section>
+<section id="using-pip-the-original" class="level4">
+<h4 class="anchored" data-anchor-id="using-pip-the-original">Using <code>pip</code> (the original)</h4>
+<p>The classic method for installing packages in Python involves using <code>pip</code>. Each of the tutorials will outline the packages that need to be installed, but I’ll provide a some that you will need and that I would recommend here.</p>
+<p>To install packages using <code>pip</code>, we’re actually going to open up a separate app that your computer has by default. On Mac, this will be your <code>Terminal</code>, and on Windows this will be <code>PowerShell</code>. You can search for your respective app using Spotlight Search on Mac (press <cmd><space> on your keyboard) or in the Windows menu.</space></cmd></p>
+<p>Once you have your <code>Terminal</code> or <code>PowerShell</code> open, we’ll run this command:</p>
+<pre class="{bash}"><code>pip3 install pandas plotnine matplotlib seaborn jupyter</code></pre>
+</section>
+<section id="mac-4" class="level4">
+<h4 class="anchored" data-anchor-id="mac-4">Mac</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/setup/terminal-pip-install.png" class="img-fluid figure-img"></p>
+<figcaption>Mac Terminal: pip install</figcaption>
+</figure>
+</div>
+</section>
+<section id="windows-4" class="level4">
+<h4 class="anchored" data-anchor-id="windows-4">Windows</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/setup/powershell-pip.png" class="img-fluid figure-img"></p>
+<figcaption>Windows Powershell: pip install</figcaption>
+</figure>
+</div>
+<p>Once the packages are installed, you’re ready to create your first Jupyter Notebook (it’s an interactive document that allows us to both write code and take notes!).</p>
+</section>
+</section>
+<section id="create-a-new-jupyter-notebook-its-time-to-write-some-code" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-new-jupyter-notebook-its-time-to-write-some-code">Create a new Jupyter Notebook: it’s time to write some code!</h3>
+<p>In the left side bar, click on the <code>New File...</code> icon <img src="figures/setup/new-file-icon.png" class="img-fluid"> and then type in the name of the file you want to create. Whatever it is, it has to include the file extension (think .docx, or .xlsx) <code>.ipynb</code> for “iPython Notebook”: <img src="figures/setup/positron-create-new-notebook.png" class="img-fluid" alt="Positron - create new file"></p>
+<p>To start writing code, the last step you’ll take is clicking on the <code>+Code</code> button at the top right of the new document to make a code block. <img src="figures/setup/positron-create-first-code-block.png" class="img-fluid" alt="Jupyter - create first code block"></p>
+<p>You’re ready to go!</p>
 </section>
 </div>
 </div>
