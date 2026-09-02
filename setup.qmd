@@ -236,11 +236,11 @@ Once you have your `Terminal` or `PowerShell` open, we'll run this command:
 pip3 install pandas plotnine matplotlib seaborn jupyter
 ```
 
-#### Mac
+##### Mac
 
 ![Mac Terminal: pip install](figures/setup/terminal-pip-install.png)
 
-#### Windows
+##### Windows
 
 ![Windows Powershell: pip install](figures/setup/powershell-pip.png)
 
