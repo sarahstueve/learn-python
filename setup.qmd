@@ -249,9 +249,11 @@ Once the packages are installed, you're ready to create your first Jupyter Noteb
 ### Create a new Jupyter Notebook: it's time to write some code!
 
 In the left side bar, click on the `New File...` icon ![](figures/setup/new-file-icon.png) and then type in the name of the file you want to create. Whatever it is, it has to include the file extension (think .docx, or .xlsx) `.ipynb` for "iPython Notebook":
+
 ![Positron - create new file](figures/setup/positron-create-new-notebook.png)
 
 To start writing code, the last step you'll take is clicking on the `+Code` button at the top right of the new document to make a code block.
+
 ![Jupyter - create first code block](figures/setup/positron-create-first-code-block.png)
 
 You're ready to go!
