@@ -200,13 +200,13 @@ pip install uv
 Once you have `uv` installed, we're going to initialize the `uv` project. `uv` treats folders as "Projects", similar to some other programming languages. So, first we need to initialize the project:
 
 ```{bash}
-uv init
+python -m uv init
 ```
 
 Then, we tell `uv` to make what we call a "virtual environment". You can think of it kinda like a sandbox, where the sand is all the "apps"/packages that we want to play nicely in our environment. It does _not_ affect the rest of your Python environment, so if something goes wrong (which does happen in Python), it's easy to recreate. It also makes it easier to share what exact packages you used to run your Python code. You should create one of these for each of your projects. To create the virtual environment, type:
 
 ```{bash}
-uv venv
+python -m uv venv
 ```
 
 You should see a message telling you the virtual environment was created and also see a new folder in your left sidebar called `.venv`. Python (and VSCode) recognize this as an environment folder.
@@ -214,14 +214,14 @@ You should see a message telling you the virtual environment was created and als
 Once the environment is created, we tell `uv` which packages we want to put in it. So, here's an example command. It always starts with `uv add` followed by all of the packages you want to install, separated by spaces. Don't worry - if you forget to add a package the first time you create the environment or need to add another one, you just run `uv add` again with the package you want to install.
 
 ```{bash}
-uv add pandas plotnine seaborn matplotlib jupyter
+python -m uv add pandas plotnine seaborn matplotlib jupyter
 ```
 
 Here is what these commands look like in the VSCode `Terminal`:
 
 ![VSCode, use uv in Terminal to create environment](figures/setup/vscode-uv-create-venv.png)
 
-Finally, we run the command `uv sync` to make sure our environment and the project file created by uv (`pyproject.toml`) are synced together.
+Finally, we run the command `python -m uv sync` to make sure our environment and the project file created by uv (`pyproject.toml`) are synced together.
 
 
 #### Using `pip` (the original)
