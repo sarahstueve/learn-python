@@ -191,8 +191,23 @@ This tutorial provides two options for Python "package managers":
 
 `uv` is a newer Python package manager (it makes sure all our "apps" work together) and it's extremely fast. It's also reliable for managing conflicting dependencies (apps/packages that don't work together). I will recommend using `uv` instead of `pip` to make sure you're starting off on the right foot when it comes to tidy Python development.
 
-However, to install `uv`, we will (somewhat ironically) use `pip`. Open a new `Terminal` window using the `Terminal` tab in the top left corner of your screen or VSCode window. Once you have the `Terminal` open, run the following command:
+To install `uv`, we will run a command in a new `Terminal` window in VSCode using the `Terminal` tab in the top left corner of your screen or VSCode window. Once you have the `Terminal` open, run the following command or look at the documentation for alternatives [here](https://docs.astral.sh/uv/getting-started/installation/):
 
+##### Mac
+
+```{bash}
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+##### Windows
+
+```{bash}
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+Alternatively, you can install it using Python, but you'll have to add `python -m` before the `uv` commands you run below.
+
+If you're on a Mac, you may have to use `pip3` instead of `pip`.
 ```{bash}
 pip install uv
 ```
@@ -200,13 +215,13 @@ pip install uv
 Once you have `uv` installed, we're going to initialize the `uv` project. `uv` treats folders as "Projects", similar to some other programming languages. So, first we need to initialize the project:
 
 ```{bash}
-python -m uv init
+uv init
 ```
 
 Then, we tell `uv` to make what we call a "virtual environment". You can think of it kinda like a sandbox, where the sand is all the "apps"/packages that we want to play nicely in our environment. It does _not_ affect the rest of your Python environment, so if something goes wrong (which does happen in Python), it's easy to recreate. It also makes it easier to share what exact packages you used to run your Python code. You should create one of these for each of your projects. To create the virtual environment, type:
 
 ```{bash}
-python -m uv venv
+uv venv
 ```
 
 You should see a message telling you the virtual environment was created and also see a new folder in your left sidebar called `.venv`. Python (and VSCode) recognize this as an environment folder.
@@ -214,7 +229,7 @@ You should see a message telling you the virtual environment was created and als
 Once the environment is created, we tell `uv` which packages we want to put in it. So, here's an example command. It always starts with `uv add` followed by all of the packages you want to install, separated by spaces. Don't worry - if you forget to add a package the first time you create the environment or need to add another one, you just run `uv add` again with the package you want to install.
 
 ```{bash}
-python -m uv add pandas plotnine seaborn matplotlib jupyter
+uv add pandas plotnine seaborn matplotlib jupyter
 ```
 
 Here is what these commands look like in the VSCode `Terminal`:
