@@ -208,6 +208,7 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 Alternatively, you can install it using Python, but you'll have to add `python -m` before the `uv` commands you run below.
 
 If you're on a Mac, you may have to use `pip3` instead of `pip`.
+
 ```{bash}
 pip install uv
 ```
