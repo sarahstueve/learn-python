@@ -232,7 +232,7 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">August 27, 2026</p>
+      <p class="date-modified">September 3, 2026</p>
     </div>
   </div>
     
@@ -258,7 +258,7 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 <h2 class="anchored" data-anchor-id="sec-setup">Setup</h2>
 <p>Before we get into the nitty-gritty of this tutorial, first we need to set up our development environment.</p>
 <p>We will first create two folders, one called <code>data</code> and one called <code>output</code>, inside the project folder we just created. To do this using Python, we can run the following code:</p>
-<div id="1eae45fe" class="cell" data-execution_count="1">
+<div id="54692f46" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os <span class="co"># os for "operating system"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "mkdir" stands for "make directory" (a "directory" is just a folder!)</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>os.mkdir(<span class="st">'data'</span>)</span>
@@ -278,13 +278,13 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 <p>If you’re using Google Colab, run the <code>pip</code> command below to make sure these packages are installed. If you have a local installation and use either <code>pip</code> or <code>uv</code> to install packages, you can still run the code below if there are any packages you need to install.</p>
 </div>
 </div>
-<div id="0618d03b" class="cell" data-execution_count="2">
+<div id="93f439f9" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>pip command</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip3 install pandas matplotlib seaborn plotnine jupyter</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="68002fc9" class="cell" data-execution_count="3">
+<div id="68cc8bcf" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>uv command (local installs)</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ideally, run this in Terminal without the !,</span></span>
@@ -296,7 +296,7 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 <section id="import-packages" class="level3">
 <h3 class="anchored" data-anchor-id="import-packages">Import packages</h3>
 <p>Importing packages in Python is like opening an application on your phone or your computer. When you want to write a paper or something similar, you might open Microsoft Word or Google Docs and then create your document. We open the application so we can <em>use it</em>, and importing is the same idea!</p>
-<div id="51187607" class="cell" data-execution_count="4">
+<div id="e7329dd0" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd <span class="co"># pd is an "alias" for pandas, basically shorthand!</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -310,7 +310,7 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 <h2 class="anchored" data-anchor-id="sec-reading_data">Reading in our data</h2>
 <p>First, let’s read the data we downloaded into a Pandas DataFrame. Because the data is in our <code>data</code> folder, we need to tell Python to look inside that folder to find the <code>.csv</code> file. This is called a “relative path”, or “the path to get to the file we want from where we are”. The <code>/</code> indicates that <code>gapminder-FiveYearData.csv</code> is <em>inside</em> the <code>data</code> folder.</p>
 <p>We call <code>gap_5_yr.head()</code> after reading in the data to take a look at the first 5 rows of our dataframe, which is often super useful to reference.</p>
-<div id="2bdf2292" class="cell" data-execution_count="5">
+<div id="635d42e9" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>gap_5_yr <span class="op">=</span> pd.read_csv(<span class="st">'data/gapminder-FiveYearData.csv'</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>gap_5_yr.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -382,7 +382,7 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 </div>
 </div>
 <p>We can learn about the columns in our data using the <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.info.html"><code>pd.DataFrame.info()</code></a> method.</p>
-<div id="313a2c08" class="cell" data-execution_count="6">
+<div id="23e428e7" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>gap_5_yr.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.DataFrame'&gt;
@@ -402,7 +402,7 @@ memory usage: 80.0 KB</code></pre>
 </div>
 <p>The <code>dtype</code> column tells us what data types are present in our dataset. Notice that <code>country</code> and <code>continent</code> are type <code>str</code>: these are “strings” otherwise known as collections of characters inside quotes (single or double). We typically use these for categories or words, such as country names. The data type <code>float64</code> essentially just refers to decimal numbers (no need to go deeper than that for this tutorial, or most things).</p>
 <p>We can also access a table of summary statistics for numeric variables in our dataset using the <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.describe.html"><code>pd.DataFrame.describe()</code></a> method.</p>
-<div id="48e631e8" class="cell" data-execution_count="7">
+<div id="d40e5ace" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>gap_5_yr.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
@@ -494,7 +494,7 @@ memory usage: 80.0 KB</code></pre>
 </ul>
 <p>We save our plot to the variable <code>ax_plt1</code> to store the “axis object” of the plot. We’ll use it soon!</p>
 <p><code>plt.show()</code> tells matplotlib to show the current figure (which is our plot!).</p>
-<div id="b3fe1c98" class="cell" data-execution_count="8">
+<div id="fe451190" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ax_plt1 <span class="op">=</span> gap_5_yr.plot(x <span class="op">=</span> <span class="st">'gdpPercap'</span>, y <span class="op">=</span> <span class="st">'lifeExp'</span>, kind <span class="op">=</span> <span class="st">'scatter'</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -511,7 +511,7 @@ memory usage: 80.0 KB</code></pre>
 <h4 class="anchored" data-anchor-id="change-the-scale-log-transform-gdp-per-capita">Change the scale: log-transform GDP per capita</h4>
 <p>It’s difficult to see the relationship between GDP and life expectancy because of the scale of GDP, but it doesn’t look linear. Let’s log-transform GDP so we can see the relationship better.</p>
 <p>To do this, we add the argument <code>logx = True</code> to our plot method call. Make sure to add a <code>,</code> after <code>kind = 'scatter'</code> - arguments are separated by commas!</p>
-<div id="49d89f52" class="cell" data-execution_count="9">
+<div id="4e6c579d" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ax_plt1 <span class="op">=</span> gap_5_yr.plot(x <span class="op">=</span> <span class="st">'gdpPercap'</span>, </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                        y <span class="op">=</span> <span class="st">'lifeExp'</span>, </span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                        kind <span class="op">=</span> <span class="st">'scatter'</span>,</span>
@@ -530,7 +530,7 @@ memory usage: 80.0 KB</code></pre>
 <h4 class="anchored" data-anchor-id="update-axis-labels-and-title">Update axis labels and title</h4>
 <p>We can also update the labels on the X and Y axes to be easier to read by referring to the variable <code>ax_plt1</code>, which refers to the axes of this plot. It contains a bunch of methods we can use to edit the plot itself.</p>
 <p>We’ll use <code>ax.set_xlabel</code>, <code>ax.set_ylabel</code>, and <code>ax.set_title</code>:</p>
-<div id="ef1b4b31" class="cell" data-execution_count="10">
+<div id="6222e5cb" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># previous plot code</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ax_plt1 <span class="op">=</span> gap_5_yr.plot(x <span class="op">=</span> <span class="st">'gdpPercap'</span>, </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                        y <span class="op">=</span> <span class="st">'lifeExp'</span>, </span>
@@ -557,7 +557,7 @@ memory usage: 80.0 KB</code></pre>
 <h4 class="anchored" data-anchor-id="changing-colors">Changing colors</h4>
 <p>By default, matplotlib generally will use blue as the initial color for the points or lines in your plot. We aren’t restricted to that! For this plot, let’s assign point colors based on the continent a country belongs to. The lines where ‘# added’ follows the code indicate the changes made.</p>
 <p>The two arguments we’re adding to the code are <code>c = 'continent'</code> and <code>cmap = 'Accent'</code>. <code>c</code> indicates what column we want to be used to designate colors (i.e., which color contains the groups we’re interested in). <code>cmap</code> indicates the color palette we want to use. You can take a look at the matplotlib documentation <a href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">here</a> to see color palette (or, colormap) options.</p>
-<div id="5d6af780" class="cell" data-execution_count="11">
+<div id="adc36a85" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we're going to ignore the warning for this plot</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
@@ -588,7 +588,7 @@ memory usage: 80.0 KB</code></pre>
 <h3 class="anchored" data-anchor-id="sec-matplotlib-save">Saving graphical output</h3>
 <p>(with <code>matplotlib</code>)</p>
 <p>To save your plot to a file that can be used in a presentation or a publication, we can use the <code>plt.save_fig</code> function. It saves the most recently generated figure:</p>
-<div id="edb3498e" class="cell" data-execution_count="12">
+<div id="07f6e3bf" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'output/lifeExp_vs_log_GDP.jpg'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -614,7 +614,7 @@ memory usage: 80.0 KB</code></pre>
 <li>Instead of <code>cmap</code>, we set the color palette using the <code>palette</code> argument (<code>palette = 'colorblind'</code>).</li>
 <li>We add a new argument here <code>alpha = 0.9</code> which makes the points slightly less opaque. You can try messing with the value to see how it affects the points!</li>
 </ol>
-<div id="01578231" class="cell" data-execution_count="13">
+<div id="02fbda6d" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>p2_ax <span class="op">=</span> sns.scatterplot(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> gap_5_yr,</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="st">'gdpPercap'</span>,</span>
@@ -645,7 +645,7 @@ memory usage: 80.0 KB</code></pre>
 <section id="creating-a-facet-plot" class="level3">
 <h3 class="anchored" data-anchor-id="creating-a-facet-plot">Creating a facet plot</h3>
 <p>Here’s an example of a plot that is slightly easier to create with seaborn, though altering each of the plots individually would still be a challenge (and involve matplotlib). Below is a facet-plot or facet-grid (<code>sns.relplot</code>). A facet plot set of small subplots that share the same scale and structure. Each individual panel displays a different subset of a dataset split by a category. In this case, we’re going to create the same plot as above but with a separate subplot for each continent:</p>
-<div id="764ec1e5" class="cell" data-execution_count="14">
+<div id="43358211" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p3_ax <span class="op">=</span> sns.relplot(</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> gap_5_yr,</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="st">'gdpPercap'</span>,</span>
@@ -680,7 +680,7 @@ memory usage: 80.0 KB</code></pre>
 <section id="create-the-figure" class="level3">
 <h3 class="anchored" data-anchor-id="create-the-figure">Create the figure</h3>
 <p>First, we need to create the figure. To do this, we use the <code>ggplot</code> function along with the <code>aes</code> function to 1. initialize the plot and 2. set the “aesthetics”, aka, which variables are being used for each dimension of our plot:</p>
-<div id="afca4c9d" class="cell" data-execution_count="15">
+<div id="24f5bda4" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    ggplot(gap_5_yr, aes(x <span class="op">=</span> <span class="st">'gdpPercap'</span>, y <span class="op">=</span> <span class="st">'lifeExp'</span>))</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -697,7 +697,7 @@ memory usage: 80.0 KB</code></pre>
 <section id="add-points-and-scale" class="level3">
 <h3 class="anchored" data-anchor-id="add-points-and-scale">Add points and scale</h3>
 <p>Next, to add the points of our scatterplot, we build on the previous code by adding a new “geometry” - points! We’ll add the <code>geom_point</code> function to our plot code.</p>
-<div id="11224508" class="cell" data-execution_count="16">
+<div id="2b94f9d1" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    ggplot(gap_5_yr, aes(x <span class="op">=</span> <span class="st">'gdpPercap'</span>, y <span class="op">=</span> <span class="st">'lifeExp'</span>))</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point()</span>
@@ -711,7 +711,7 @@ memory usage: 80.0 KB</code></pre>
 </div>
 </div>
 <p>We can see that the points need to be rescaled again, on the x-axis. To do this, we add another layer by adding another function (<code>scale_x_log10</code>):</p>
-<div id="0cda2ca3" class="cell" data-execution_count="17">
+<div id="595d256a" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    ggplot(gap_5_yr, aes(x <span class="op">=</span> <span class="st">'gdpPercap'</span>, y <span class="op">=</span> <span class="st">'lifeExp'</span>))</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point()</span>
@@ -729,7 +729,7 @@ memory usage: 80.0 KB</code></pre>
 <section id="making-it-pretty-1" class="level3">
 <h3 class="anchored" data-anchor-id="making-it-pretty-1">Making it pretty!</h3>
 <p>To add color to our points, we actually amend the <code>aes</code> call at the beginning of our plot code. All we need to do is add <code>color = 'continent'</code> to that function:</p>
-<div id="ed21d206" class="cell" data-execution_count="18">
+<div id="684fe883" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    ggplot(gap_5_yr, aes(x <span class="op">=</span> <span class="st">'gdpPercap'</span>, y <span class="op">=</span> <span class="st">'lifeExp'</span>, color <span class="op">=</span> <span class="st">'continent'</span>))</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point()</span>
@@ -744,7 +744,7 @@ memory usage: 80.0 KB</code></pre>
 </div>
 </div>
 <p>To add labels, we’ll add them as another layer to the plot with the <code>labs</code> function:</p>
-<div id="e080dc26" class="cell" data-execution_count="19">
+<div id="fee3ba40" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    ggplot(gap_5_yr, aes(x <span class="op">=</span> <span class="st">'gdpPercap'</span>, y <span class="op">=</span> <span class="st">'lifeExp'</span>, color <span class="op">=</span> <span class="st">'continent'</span>))</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point()</span>
@@ -768,7 +768,7 @@ memory usage: 80.0 KB</code></pre>
 <section id="making-it-prettier" class="level3">
 <h3 class="anchored" data-anchor-id="making-it-prettier">Making it <em>prettier</em></h3>
 <p>From there, we might want to choose a color scale that is closer to the ones we selected for the <code>matplotlib</code> and <code>seaborn</code> plots.</p>
-<div id="76d73260" class="cell" data-execution_count="20">
+<div id="e39e2eb4" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>p9_plot <span class="op">=</span> (</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    ggplot(gap_5_yr, aes(x <span class="op">=</span> <span class="st">'gdpPercap'</span>, y <span class="op">=</span> <span class="st">'lifeExp'</span>, color <span class="op">=</span> <span class="st">'continent'</span>))</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point()</span>
@@ -792,7 +792,7 @@ memory usage: 80.0 KB</code></pre>
 </div>
 </div>
 <p>We can also change the theme of the figure, which changes the background color and grid lines, for example. <a href="https://plotnine.org/guide/themes-premade.html">Here</a> is a list of the different themes you can select. For this tutorial, we’ll choose the <code>theme_minimal</code> option:</p>
-<div id="adaf829d" class="cell" data-execution_count="21">
+<div id="2e518345" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>p9_plot <span class="op">=</span> (</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    ggplot(gap_5_yr, aes(x <span class="op">=</span> <span class="st">'gdpPercap'</span>, y <span class="op">=</span> <span class="st">'lifeExp'</span>, color <span class="op">=</span> <span class="st">'continent'</span>))</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point()</span>
@@ -819,7 +819,7 @@ memory usage: 80.0 KB</code></pre>
 <section id="saving-1" class="level3">
 <h3 class="anchored" data-anchor-id="saving-1">Saving</h3>
 <p>The syntax is slightly different for saving plots in plotnine, mirroring the syntax in R. To save a plotnine plot, you’ll use the <code>plot.save()</code> syntax. You can use the <code>dpi = 300</code> keyword argument to increase the resolution of the saved output:</p>
-<div id="3a57108c" class="cell" data-execution_count="22">
+<div id="112ca5e1" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>p9_plot.save(<span class="st">'output/p9_lifeExp_vs_log_GDP.png'</span>, dpi <span class="op">=</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>

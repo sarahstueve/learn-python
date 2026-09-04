@@ -319,7 +319,16 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 <section id="using-uv-recommended" class="level4">
 <h4 class="anchored" data-anchor-id="using-uv-recommended">Using <code>uv</code> (recommended)</h4>
 <p><code>uv</code> is a newer Python package manager (it makes sure all our “apps” work together) and it’s extremely fast. It’s also reliable for managing conflicting dependencies (apps/packages that don’t work together). I will recommend using <code>uv</code> instead of <code>pip</code> to make sure you’re starting off on the right foot when it comes to tidy Python development.</p>
-<p>However, to install <code>uv</code>, we will (somewhat ironically) use <code>pip</code>. Open a new <code>Terminal</code> window using the <code>Terminal</code> tab in the top left corner of your screen or VSCode window. Once you have the <code>Terminal</code> open, run the following command:</p>
+<p>To install <code>uv</code>, we will run a command in a new <code>Terminal</code> window in VSCode using the <code>Terminal</code> tab in the top left corner of your screen or VSCode window. Once you have the <code>Terminal</code> open, run the following command or look at the documentation for alternatives <a href="https://docs.astral.sh/uv/getting-started/installation/">here</a>:</p>
+<section id="mac-4" class="level5">
+<h5 class="anchored" data-anchor-id="mac-4">Mac</h5>
+<pre class="{bash}"><code>curl -LsSf https://astral.sh/uv/install.sh | sh</code></pre>
+</section>
+<section id="windows-4" class="level5">
+<h5 class="anchored" data-anchor-id="windows-4">Windows</h5>
+<pre class="{bash}"><code>powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"</code></pre>
+<p>Alternatively, you can install it using Python, but you’ll have to add <code>python -m</code> before the <code>uv</code> commands you run below.</p>
+<p>If you’re on a Mac, you may have to use <code>pip3</code> instead of <code>pip</code>.</p>
 <pre class="{bash}"><code>pip install uv</code></pre>
 <p>Once you have <code>uv</code> installed, we’re going to initialize the <code>uv</code> project. <code>uv</code> treats folders as “Projects”, similar to some other programming languages. So, first we need to initialize the project:</p>
 <pre class="{bash}"><code>uv init</code></pre>
@@ -335,7 +344,8 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 <figcaption>VSCode, use uv in Terminal to create environment</figcaption>
 </figure>
 </div>
-<p>Finally, we run the command <code>uv sync</code> to make sure our environment and the project file created by uv (<code>pyproject.toml</code>) are synced together.</p>
+<p>Finally, we run the command <code>python -m uv sync</code> to make sure our environment and the project file created by uv (<code>pyproject.toml</code>) are synced together.</p>
+</section>
 </section>
 <section id="using-pip-the-original" class="level4">
 <h4 class="anchored" data-anchor-id="using-pip-the-original">Using <code>pip</code> (the original)</h4>
@@ -343,9 +353,8 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 <p>To install packages using <code>pip</code>, we’re actually going to open up a separate app that your computer has by default. On Mac, this will be your <code>Terminal</code>, and on Windows this will be <code>PowerShell</code>. You can search for your respective app using Spotlight Search on Mac (press <cmd><space> on your keyboard) or in the Windows menu.</space></cmd></p>
 <p>Once you have your <code>Terminal</code> or <code>PowerShell</code> open, we’ll run this command:</p>
 <pre class="{bash}"><code>pip3 install pandas plotnine matplotlib seaborn jupyter</code></pre>
-</section>
-<section id="mac-4" class="level4">
-<h4 class="anchored" data-anchor-id="mac-4">Mac</h4>
+<section id="mac-5" class="level5">
+<h5 class="anchored" data-anchor-id="mac-5">Mac</h5>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figures/setup/terminal-pip-install.png" class="img-fluid figure-img"></p>
@@ -353,8 +362,8 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 </figure>
 </div>
 </section>
-<section id="windows-4" class="level4">
-<h4 class="anchored" data-anchor-id="windows-4">Windows</h4>
+<section id="windows-5" class="level5">
+<h5 class="anchored" data-anchor-id="windows-5">Windows</h5>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figures/setup/powershell-pip.png" class="img-fluid figure-img"></p>
@@ -364,10 +373,23 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 <p>Once the packages are installed, you’re ready to create your first Jupyter Notebook (it’s an interactive document that allows us to both write code and take notes!).</p>
 </section>
 </section>
+</section>
 <section id="create-a-new-jupyter-notebook-its-time-to-write-some-code" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-new-jupyter-notebook-its-time-to-write-some-code">Create a new Jupyter Notebook: it’s time to write some code!</h3>
-<p>In the left side bar, click on the <code>New File...</code> icon <img src="figures/setup/new-file-icon.png" class="img-fluid"> and then type in the name of the file you want to create. Whatever it is, it has to include the file extension (think .docx, or .xlsx) <code>.ipynb</code> for “iPython Notebook”: <img src="figures/setup/positron-create-new-notebook.png" class="img-fluid" alt="Positron - create new file"></p>
-<p>To start writing code, the last step you’ll take is clicking on the <code>+Code</code> button at the top right of the new document to make a code block. <img src="figures/setup/positron-create-first-code-block.png" class="img-fluid" alt="Jupyter - create first code block"></p>
+<p>In the left side bar, click on the <code>New File...</code> icon <img src="figures/setup/new-file-icon.png" class="img-fluid"> and then type in the name of the file you want to create. Whatever it is, it has to include the file extension (think .docx, or .xlsx) <code>.ipynb</code> for “iPython Notebook”:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/setup/positron-create-new-notebook.png" class="img-fluid figure-img"></p>
+<figcaption>Positron - create new file</figcaption>
+</figure>
+</div>
+<p>To start writing code, the last step you’ll take is clicking on the <code>+Code</code> button at the top right of the new document to make a code block.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/setup/positron-create-first-code-block.png" class="img-fluid figure-img"></p>
+<figcaption>Jupyter - create first code block</figcaption>
+</figure>
+</div>
 <p>You’re ready to go!</p>
 </section>
 </div>
