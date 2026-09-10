@@ -94,7 +94,7 @@ You're ready!
 
 ## The traditional way
 
-### Install Python from [python.org](python.org)
+### Install Python from [python.org](https://python.org)
 
 While the instructions below are for the Mac installer, the Windows installation will be similar. Basically: allow the installer to choose the defaults and "Continue" and "Agree".
 
@@ -131,7 +131,7 @@ From there, the installation will commence. When it completes, you have Python s
 
 Python is the language (like Spanish or Chinese). When we write in a language, we typically either have paper or we use an application like Word or something similar. We need the same kind of tool for writing Python! These can be called "text editors" or IDEs. An IDE is an "integrated development environment" and typically has some extra features that help with writing code. VSCode can function just as a text editor, but it also has additional functionality that can be nice!
 
-First, we'll navigate to https://code.visualstudio.com/ to download the application. When you get there, it should recommend the version you want. At the time of writing, it highlights AI integration -- know that you do not have to use it (AI's just a buzzword). Click the button in the center of the screen that says `Download ...`:
+First, we'll navigate to [https://code.visualstudio.com/](https://code.visualstudio.com/) to download the application. When you get there, it should recommend the version you want. At the time of writing, it highlights AI integration -- know that you do not have to use it (AI's just a buzzword). Click the button in the center of the screen that says `Download ...`:
 ![Screenshot of VSCode download webpage](figures/setup/vscode-download.png)
 
 The VSCode installer, like the Python installer, will go into your `Downloads` folder:
@@ -265,6 +265,8 @@ Once the packages are installed, you're ready to create your first Jupyter Noteb
 ### Create a new Jupyter Notebook: it's time to write some code!
 
 In the left side bar, click on the `New File...` icon ![](figures/setup/new-file-icon.png) and then type in the name of the file you want to create. Whatever it is, it has to include the file extension (think .docx, or .xlsx) `.ipynb` for "iPython Notebook":
+
+You may also need to click on the kernel, button in the top right, and accept the installation of the python/jupyter vs code extension.
 
 ![Positron - create new file](figures/setup/positron-create-new-notebook.png)
 
