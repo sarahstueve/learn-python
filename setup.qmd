@@ -237,7 +237,7 @@ Here is what these commands look like in the VSCode `Terminal`:
 
 ![VSCode, use uv in Terminal to create environment](figures/setup/vscode-uv-create-venv.png)
 
-Finally, we run the command `python -m uv sync` to make sure our environment and the project file created by uv (`pyproject.toml`) are synced together.
+Finally, we run the command `uv sync` to make sure our environment and the project file created by uv (`pyproject.toml`) are synced together.
 
 
 #### Using `pip` (the original)
@@ -266,7 +266,7 @@ Once the packages are installed, you're ready to create your first Jupyter Noteb
 
 In the left side bar, click on the `New File...` icon ![](figures/setup/new-file-icon.png) and then type in the name of the file you want to create. Whatever it is, it has to include the file extension (think .docx, or .xlsx) `.ipynb` for "iPython Notebook":
 
-You may also need to click on the kernel, button in the top right, and accept the installation of the python/jupyter vs code extension.
+You may also need to click on the `Kernel` (button in the top right) and accept the installation of the Python/jupyter VSCode extension.
 
 ![Positron - create new file](figures/setup/positron-create-new-notebook.png)
 
