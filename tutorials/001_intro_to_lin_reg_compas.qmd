@@ -178,6 +178,23 @@ results.summary()
 ```
 
 ### Interpreting the results
+
+There are a few things we look for to validate the linear model:
+
+1.  are the coefficients statistically significant?
+2.  What do the F-statistic and R-squared tell us about statistical significance and the strength of the effect?
+3. Are the skew and kurtosis large?
+
+For the first, all of our co-efficients are statistically significant except for the race_ethnicity binarized variable for `Native American` defendants. 
+
+For the second, the F-statistic indicates statistical significance (see `Prob (F-statistic) = 0` below it) and is high. While sample size does inflate the F-statistic, the value of 380.1 indicates a moderate-strong correlation. The `R-squared` value indicates a moderate-strong correlation in the context of social science and modeling human behavior.
+
+For the third, the kurtosis just above 3 indicates the presence of some outliers and the skewness indicates that those outliers are likely to be at the higher end of the distribution (skewed to the right).
+
+Based on the above, we can believe the results we see in this model that ***`race_ethnicity` has a moderate-strong effect on risk of violence scores***.
+
+## Investigating the model effect by race and ethnicity
+
 Next, we want to understand the effect of the race and ethnicity, and sex on average Risk of Violence DecileScore predicted by the model. 
 
 We use the fit model to get predicted scores for each defendant (`results.get_prediction()`), based on the model fit. In order to aggregate the predictions for each defendant to the level of race and ethnicity as groups, we group the data and then take the average DecileScore per `race_ethnicity` value.
@@ -213,7 +230,24 @@ plot = (
 plot.show()
 ```
 
+We can see from the above plot that African-American defendants are especially likely to have higher average Risk of Violence decile scores, with low standard error, followed by Native American defendants (though their coefficient was not statistically significant) and Arabic defendants (though there's high standard error, indicating greater variance).
+
+White, undeclared "Other", and Hispanic defendants all have roughly the same average decile scores with low standard error. Asian defendants have the lowest average decile score, with moderate standard error.
+
+## Saving the plot
+
+If you'd like to save the above plot, you can use the `plot.save` command to do so:
 
 ```{python}
 plot.save('output/risk_of_violence_plot.png', dpi = 300)
 ```
+
+## Takeaways
+
+In conclusion, we replicated the findings by ProPublica which demonstrated that there was a statistically significant relationship between COMPAS predicted Risk of Violence scores and the races of defendants, demonstrating model bias. Along the way, we:
+
+- cleaned some data and prepared it for analysis
+- learned how to run a linear model in Python using statsmodels
+- took a look at the model effect by race in the final plot
+
+For more examples and instruction on creating visualizations using Python, see the [Intro to Data Visualization](000_intro_to_visualization.qmd) tutorial.
