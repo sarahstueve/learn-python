@@ -127,6 +127,35 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -189,13 +218,17 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
   <ul class="collapse">
   <li><a href="#update-the-race-and-ethnicity-labels" id="toc-update-the-race-and-ethnicity-labels" class="nav-link" data-scroll-target="#update-the-race-and-ethnicity-labels">Update the race and ethnicity labels</a></li>
   <li><a href="#filter-dataset-to-include-only-risk-of-violence-scores" id="toc-filter-dataset-to-include-only-risk-of-violence-scores" class="nav-link" data-scroll-target="#filter-dataset-to-include-only-risk-of-violence-scores">Filter dataset to include only <code>Risk of Violence</code> scores</a></li>
+  <li><a href="#remove-rows-with-missing-score-value" id="toc-remove-rows-with-missing-score-value" class="nav-link" data-scroll-target="#remove-rows-with-missing-score-value">Remove rows with “missing” score value</a></li>
   </ul></li>
   <li><a href="#creating-the-linear-model" id="toc-creating-the-linear-model" class="nav-link" data-scroll-target="#creating-the-linear-model">Creating the linear model</a>
   <ul class="collapse">
   <li><a href="#fitting-the-model" id="toc-fitting-the-model" class="nav-link" data-scroll-target="#fitting-the-model">Fitting the model</a></li>
   <li><a href="#interpreting-the-results" id="toc-interpreting-the-results" class="nav-link" data-scroll-target="#interpreting-the-results">Interpreting the results</a></li>
   </ul></li>
-  <li><a href="#investigating-the-model-effect-by-race-and-ethnicity" id="toc-investigating-the-model-effect-by-race-and-ethnicity" class="nav-link" data-scroll-target="#investigating-the-model-effect-by-race-and-ethnicity">Investigating the model effect by race and ethnicity</a></li>
+  <li><a href="#investigating-the-model-effect-by-race-and-ethnicity" id="toc-investigating-the-model-effect-by-race-and-ethnicity" class="nav-link" data-scroll-target="#investigating-the-model-effect-by-race-and-ethnicity">Investigating the model effect by race and ethnicity</a>
+  <ul class="collapse">
+  <li><a href="#pairwise-comparisons" id="toc-pairwise-comparisons" class="nav-link" data-scroll-target="#pairwise-comparisons">Pairwise comparisons</a></li>
+  </ul></li>
   <li><a href="#saving-the-plot" id="toc-saving-the-plot" class="nav-link" data-scroll-target="#saving-the-plot">Saving the plot</a></li>
   <li><a href="#takeaways" id="toc-takeaways" class="nav-link" data-scroll-target="#takeaways">Takeaways</a></li>
   </ul>
@@ -225,7 +258,7 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">September 16, 2026</p>
+      <p class="date-modified">October 30, 2026</p>
     </div>
   </div>
     
@@ -254,7 +287,7 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 <section id="create-subfolders-to-keep-our-project-organized" class="level3">
 <h3 class="anchored" data-anchor-id="create-subfolders-to-keep-our-project-organized">Create subfolders to keep our project organized</h3>
 <p>We will first create two folders, one called <code>data</code> and one called <code>output</code>, inside the project folder we just created. To do this using Python, we can run the following code:</p>
-<div id="cea06903" class="cell" data-execution_count="1">
+<div id="b8a79e2f" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os <span class="co"># os for "operating system"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "mkdir" stands for "make directory" (a "directory" is just a folder!)</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>os.mkdir(<span class="st">'data'</span>)</span>
@@ -274,13 +307,13 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 <p>If you’re using Google Colab, run the <code>pip</code> command below to make sure these packages are installed. If you have a local installation and use either <code>pip</code> or <code>uv</code> to install packages, you can still run the code below if necessary</p>
 </div>
 </div>
-<div id="768ce1b1" class="cell" data-execution_count="2">
+<div id="087e0527" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>pip command</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip3 install pandas statsmodels plotnine</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="f5b9e286" class="cell" data-execution_count="3">
+<div id="778b5752" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>uv command (local installs)</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ideally, run this in Terminal without the !,</span></span>
@@ -292,23 +325,22 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 <section id="import-packages" class="level3">
 <h3 class="anchored" data-anchor-id="import-packages">Import packages</h3>
 <p>Importing packages in Python is like opening an application on your phone or your computer. When you want to write a paper or something similar, you might open Microsoft Word or Google Docs and then create your document. We open the application so we can <em>use it</em>, and importing is the same idea!</p>
-<div id="9a7bd833" class="cell" data-execution_count="4">
+<div id="aef47a33" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># import seaborn as sns</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import matplotlib.pyplot as plt</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pymmeans <span class="im">import</span> emmeans, pairs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
 <section id="wrangle-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="wrangle-the-data">Wrangle the data</h2>
-<p>First, let’s read the data we downloaded into a Pandas DataFrame. Because the data is in our <code>data</code> folder, we need to tell Python to look inside that folder to find the <code>.csv</code> file. This is called a “relative path”, or “the path to get to the file we want from where we are”. The <code>/</code> indicates that <code>compas-scores-raw.csv</code> is <em>inside</em> the <code>data</code> folder.</p>
-<div id="3d3e7aa8" class="cell" data-execution_count="5">
+<p>First, let’s read the data we downloaded into a Pandas DataFrame. Because the data is in our <code>data</code> folder, we need to tell Python to look inside that folder to find the <code>.csv</code> file. This is called a “relative path”, or “the path to get to the file we want from where we are”. The <code>/</code> indicates that <code>compas-scores-raw.csv</code> is <em>inside</em> the <code>data</code> folder. Once we’ve read in the file, we can take a look at the first 5 rows of the dataset using the pandas DataFrame <code>.head()</code> method:</p>
+<div id="cf578284" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>compas_data <span class="op">=</span> pd.read_csv(<span class="st">'data/compas-scores-raw.csv'</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>compas_data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="38">
+<div class="cell-output cell-output-display" data-execution_count="227">
 <div>
 
 
@@ -468,18 +500,18 @@ gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 </div>
 </div>
 <p>To determine the number of unique persons there are in this dataset (we can see above that there are multiple rows - i.e., <em>observations</em> - per person), we can take the length of the set of the <code>Person_ID</code> column. Alternatively, we could use the <a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.unique.html"><code>pd.Series.unique</code></a> method demonstrated in the following step.</p>
-<div id="5037339e" class="cell" data-execution_count="6">
+<div id="1b1ddb16" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(<span class="bu">set</span>(compas_data.Person_ID))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="39">
+<div class="cell-output cell-output-display" data-execution_count="228">
 <pre><code>18610</code></pre>
 </div>
 </div>
 <p>This tells us there are 18,610 unique (or distinct) IDs in the dataset; each ID corresponds to one defendant.</p>
 <p>The data come from ProPublica who released the initial study on this data. They state that “Each pre-trial defendant received at least three COMPAS scores: <code>Risk of Recidivism</code>, <code>Risk of Violence</code>, and <code>Risk of Failure to Appear</code>”.</p>
 <p>Because we are interested in modeling risk of violence by race, what races are represented in this data?</p>
-<div id="e75f6927" class="cell" data-execution_count="7">
+<div id="aca3d2e8" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>compas_data.Ethnic_Code_Text.unique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="40">
+<div class="cell-output cell-output-display" data-execution_count="229">
 <pre><code>&lt;StringArray&gt;
 [       'Caucasian', 'African-American',         'Hispanic',
             'Other',            'Asian',       'African-Am',
@@ -491,7 +523,7 @@ Length: 9, dtype: str</code></pre>
 <h3 class="anchored" data-anchor-id="update-the-race-and-ethnicity-labels">Update the race and ethnicity labels</h3>
 <p>The names used to represent the races/ethnic groups are both messy and/or antiquated. We’ll create a new column in our dataframe called <code>race_ethnicity</code> to contain our new attributes, to make a few adjustments that will, at least, partially improve the labels.</p>
 <p>To do this, we will use the <a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.replace.html"><code>pd.Series.replace</code></a> method. In order to replace multiple values at the same time, we’ll use a base Python object called a <code>dictionary</code>. It’s very similar to how it sounds: in a physical dictionary, we can find words mapped to definitions, right? A dictionary in Python is similar. In the context of <code>pd.Series.replace</code>, we provide a Python dictionary with the current value we want to replace mapped to what we want to replace it with. The format is <code>{&lt;to replace&gt;: &lt;replacement&gt;}</code>. In the context of our data, this looks like:</p>
-<div id="2c48c20d" class="cell" data-execution_count="8">
+<div id="6bbb0724" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Caucasian'</span>: <span class="st">'White'</span>,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'African-Am'</span>: <span class="st">'African-American'</span>,</span>
@@ -499,7 +531,7 @@ Length: 9, dtype: str</code></pre>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>So, let’s apply that to creating a new column <code>race_ethnicity</code>, where the antiquated or messy terms are replaced:</p>
-<div id="d76d722a" class="cell" data-execution_count="9">
+<div id="f04a48b0" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>compas_data[<span class="st">'race_ethnicity'</span>] <span class="op">=</span> compas_data[<span class="st">'Ethnic_Code_Text'</span>].replace(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    to_replace <span class="op">=</span> {<span class="st">'Caucasian'</span>: <span class="st">'White'</span>,</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'African-Am'</span>: <span class="st">'African-American'</span>,</span>
@@ -533,9 +565,9 @@ Length: 7, dtype: str</code></pre>
 <h3 class="anchored" data-anchor-id="filter-dataset-to-include-only-risk-of-violence-scores">Filter dataset to include only <code>Risk of Violence</code> scores</h3>
 <p>Let’s filter the data by Risk of Violence in the <code>DisplayText</code> column and then extract only the columns we’re interested in. To filter out rows, we need to write a <strong>condition</strong> that clarifies what we want in our subset.</p>
 <p>We clarify the condition using what we call a <strong>boolean expression</strong>. A <em>boolean</em> is a True or False value. So, if the expression evaluates to True for a given row, it’s included in our subset. We want all the rows where the value in the <code>DisplayText</code> column is equal to <code>Risk of Violence</code>, which looks like this:</p>
-<div id="7c7791a7" class="cell" data-execution_count="10">
+<div id="156cbbd2" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>compas_data[<span class="st">'DisplayText'</span>] <span class="op">==</span> <span class="st">'Risk of Violence'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="42">
+<div class="cell-output cell-output-display" data-execution_count="231">
 <pre><code>0         True
 1        False
 2        False
@@ -551,10 +583,10 @@ Name: DisplayText, Length: 60843, dtype: bool</code></pre>
 </div>
 </div>
 <p>The output shows a Series of <code>True</code> or <code>False</code> values. It’s <code>False</code> for rows where <code>DisplayText</code> does not equal <code>Risk of Violence</code>, and <code>True</code> otherwise.</p>
-<div id="9e29b9fc" class="cell" data-execution_count="11">
+<div id="8ce5e9d9" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>violence_risk <span class="op">=</span> compas_data[compas_data[<span class="st">'DisplayText'</span>] <span class="op">==</span> <span class="st">'Risk of Violence'</span>]</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>violence_risk.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="43">
+<div class="cell-output cell-output-display" data-execution_count="232">
 <div>
 
 
@@ -713,10 +745,36 @@ Name: DisplayText, Length: 60843, dtype: bool</code></pre>
 </div>
 </div>
 </div>
+</section>
+<section id="remove-rows-with-missing-score-value" class="level3">
+<h3 class="anchored" data-anchor-id="remove-rows-with-missing-score-value">Remove rows with “missing” score value</h3>
+<p>Let’s look at DecileScore, which represents the COMPAS score reported in deciles (i.e., increments of ten points). According to the <a href="https://archive.epic.org/algorithmic-transparency/crim-justice/EPIC-16-06-23-WI-FOIA-201600805-COMPASPractionerGuide.pdf">Practitioners Guide to COMPAS</a>, if a person scores a 4 on this scale, then 60% of the population looks more risky in that area than this person does, and 30% has been assessed as less risky. Typically a decile score of 1-4 is low (below average), 5-7 is moderate (average), and 8-10 is high (above average).</p>
+<div id="9ecac6ba" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>violence_risk.value_counts(<span class="st">'DecileScore'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="233">
+<pre><code>DecileScore
+ 1     6781
+ 2     3194
+ 3     2660
+ 4     2011
+ 5     1573
+ 6     1406
+ 7      965
+ 8      721
+ 9      642
+ 10     319
+-1        9
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p>A score of <code>-1</code> likely indicates missing data, so we’ll filter that out:</p>
+<div id="ede1ccb6" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>violence_risk <span class="op">=</span> violence_risk[violence_risk[<span class="st">'DecileScore'</span>] <span class="op">!=</span> <span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p>Now that we’ve created our subset, we can store the subset data for future use:</p>
-<div id="514b1ffc" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>violence_risk.to_csv(<span class="st">'output/risk_of_violence.csv'</span>, index <span class="op">=</span> <span class="va">False</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># index = False says "don't include the row labels"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b4cd2e4a" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>violence_risk.to_csv(<span class="st">'output/risk_of_violence.csv'</span>, index <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># index = False says "don't include the row labels"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -725,21 +783,22 @@ Name: DisplayText, Length: 60843, dtype: bool</code></pre>
 <p>Now, on to modeling.</p>
 <p>We know that we have a subset of data on “Risk of Violence” from the COMPAS dataset and we want to determine the effect of sex and race on the risk of violence scores.</p>
 <p>We can do this using <code>statsmodel</code>’s <code>OLS</code> function with the <code>.from_formula</code> method, which will allow us to establish the relationships between variables of interest ourselves. This is similar to the <code>lm</code> function in R. <code>sm.OLS</code> will take care of one-hot encoding the data in order to make predictions.</p>
-<p>We’ll then group the data by race and take the average of the predicted DecileScores to answer the question “what is the mean score across all races?”</p>
+<p>We’ll then group the data by race and take the average of the predicted DecileScores to answer the question “what is the mean risk of violence score across all races?”</p>
 <section id="fitting-the-model" class="level3">
 <h3 class="anchored" data-anchor-id="fitting-the-model">Fitting the model</h3>
 <p>First, we write out our formula (the <code>~</code> here can be read as “DecileScore <em><strong>as a function of</strong></em> race and sex”) and create the model. From there, we have to explicitly tell python to <code>.fit()</code> the model to the data, which provides the results. Then, we review the regression results by calling <code>results.summary()</code>.</p>
-<div id="91df6357" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit model and get average predictions by race</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>formula <span class="op">=</span> <span class="st">"DecileScore ~ race_ethnicity + Sex_Code_Text"</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize the model with the formula</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> sm.OLS.from_formula(formula <span class="op">=</span> formula,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                            data <span class="op">=</span> violence_risk)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># fit the model to our data</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> model2.fit()</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># view the regression results in table format</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>results.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="45">
+<p>Remember that our race and ethnicity labels are Caucasian, African-American, Hispanic, Other, Asian, Native American, Arabic and the level African-American is the first level in the default alphabetical order. So every other level is displayed in relation to African-American people.</p>
+<div id="699ac7e3" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit model and get average predictions by race</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>formula <span class="op">=</span> <span class="st">"DecileScore ~ race_ethnicity + Sex_Code_Text"</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize the model with the formula</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> sm.OLS.from_formula(formula <span class="op">=</span> formula,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                            data <span class="op">=</span> violence_risk)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># fit the model to our data</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> model2.fit()</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># view the regression results in table format</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>results.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="236">
 <table class="simpletable caption-top table table-sm table-striped small">
 <caption>OLS Regression Results</caption>
 <tbody>
@@ -759,31 +818,31 @@ Name: DisplayText, Length: 60843, dtype: bool</code></pre>
 <th data-quarto-table-cell-role="th">Method:</th>
 <td>Least Squares</td>
 <th data-quarto-table-cell-role="th">F-statistic:</th>
-<td>380.1</td>
+<td>380.2</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Date:</th>
-<td>Wed, 16 Sep 2026</td>
+<td>Fri, 30 Oct 2026</td>
 <th data-quarto-table-cell-role="th">Prob (F-statistic):</th>
 <td>0.00</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Time:</th>
-<td>16:06:36</td>
+<td>15:28:15</td>
 <th data-quarto-table-cell-role="th">Log-Likelihood:</th>
-<td>-45704.</td>
+<td>-45673.</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">No. Observations:</th>
-<td>20281</td>
+<td>20272</td>
 <th data-quarto-table-cell-role="th">AIC:</th>
-<td>9.142e+04</td>
+<td>9.136e+04</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Df Residuals:</th>
-<td>20273</td>
+<td>20264</td>
 <th data-quarto-table-cell-role="th">BIC:</th>
-<td>9.149e+04</td>
+<td>9.143e+04</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Df Model:</th>
@@ -814,74 +873,74 @@ Name: DisplayText, Length: 60843, dtype: bool</code></pre>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Intercept</th>
-<td>3.6826</td>
+<td>3.6847</td>
 <td>0.039</td>
-<td>93.355</td>
+<td>93.436</td>
 <td>0.000</td>
-<td>3.605</td>
-<td>3.760</td>
+<td>3.607</td>
+<td>3.762</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">race_ethnicity[T.Arabic]</th>
-<td>-1.4088</td>
-<td>0.462</td>
-<td>-3.052</td>
+<td>-1.4106</td>
+<td>0.461</td>
+<td>-3.058</td>
 <td>0.002</td>
-<td>-2.314</td>
-<td>-0.504</td>
+<td>-2.315</td>
+<td>-0.506</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">race_ethnicity[T.Asian]</th>
-<td>-2.1001</td>
+<td>-2.1019</td>
 <td>0.211</td>
-<td>-9.959</td>
+<td>-9.972</td>
 <td>0.000</td>
-<td>-2.513</td>
-<td>-1.687</td>
+<td>-2.515</td>
+<td>-1.689</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">race_ethnicity[T.Hispanic]</th>
-<td>-1.6187</td>
+<td>-1.6182</td>
 <td>0.049</td>
-<td>-32.968</td>
+<td>-32.963</td>
 <td>0.000</td>
-<td>-1.715</td>
+<td>-1.714</td>
 <td>-1.522</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">race_ethnicity[T.Native American]</th>
-<td>-0.4699</td>
+<td>-0.4717</td>
 <td>0.271</td>
-<td>-1.735</td>
-<td>0.083</td>
-<td>-1.001</td>
-<td>0.061</td>
+<td>-1.743</td>
+<td>0.081</td>
+<td>-1.002</td>
+<td>0.059</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">race_ethnicity[T.Other]</th>
-<td>-1.6088</td>
+<td>-1.6106</td>
 <td>0.082</td>
-<td>-19.603</td>
+<td>-19.634</td>
 <td>0.000</td>
-<td>-1.770</td>
-<td>-1.448</td>
+<td>-1.771</td>
+<td>-1.450</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">race_ethnicity[T.White]</th>
-<td>-1.5538</td>
+<td>-1.5537</td>
 <td>0.036</td>
-<td>-42.725</td>
+<td>-42.734</td>
 <td>0.000</td>
 <td>-1.625</td>
-<td>-1.483</td>
+<td>-1.482</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Sex_Code_Text[T.Male]</th>
-<td>0.6315</td>
+<td>0.6311</td>
 <td>0.039</td>
-<td>16.114</td>
+<td>16.108</td>
 <td>0.000</td>
-<td>0.555</td>
+<td>0.554</td>
 <td>0.708</td>
 </tr>
 </tbody>
@@ -892,25 +951,25 @@ Name: DisplayText, Length: 60843, dtype: bool</code></pre>
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Omnibus:</th>
-<td>1860.209</td>
+<td>1866.774</td>
 <th data-quarto-table-cell-role="th">Durbin-Watson:</th>
-<td>1.964</td>
+<td>1.963</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Prob(Omnibus):</th>
 <td>0.000</td>
 <th data-quarto-table-cell-role="th">Jarque-Bera (JB):</th>
-<td>2425.319</td>
+<td>2436.454</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Skew:</th>
-<td>0.846</td>
+<td>0.848</td>
 <th data-quarto-table-cell-role="th">Prob(JB):</th>
 <td>0.00</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Kurtosis:</th>
-<td>3.088</td>
+<td>3.087</td>
 <th data-quarto-table-cell-role="th">Cond. No.</th>
 <td>38.6</td>
 </tr>
@@ -922,6 +981,7 @@ Name: DisplayText, Length: 60843, dtype: bool</code></pre>
 </section>
 <section id="interpreting-the-results" class="level3">
 <h3 class="anchored" data-anchor-id="interpreting-the-results">Interpreting the results</h3>
+<p>Our Intercept is African-American (the default because it comes first in alphabetical order), meaning Black defendants are assigned on average a score for risk to re-offend of 5.33. Arabic defendants are assigned a score that is, on average, 1.49 lower than African-American, which results in 3.84, etc.</p>
 <p>There are a few things we look for to validate the linear model:</p>
 <ol type="1">
 <li>are the coefficients statistically significant?</li>
@@ -937,19 +997,54 @@ Name: DisplayText, Length: 60843, dtype: bool</code></pre>
 <section id="investigating-the-model-effect-by-race-and-ethnicity" class="level2">
 <h2 class="anchored" data-anchor-id="investigating-the-model-effect-by-race-and-ethnicity">Investigating the model effect by race and ethnicity</h2>
 <p>Next, we want to understand the effect of the race and ethnicity, and sex on average Risk of Violence DecileScore predicted by the model.</p>
-<p>We use the fit model to get predicted scores for each defendant (<code>results.get_prediction()</code>), based on the model fit. In order to aggregate the predictions for each defendant to the level of race and ethnicity as groups, we group the data and then take the average DecileScore per <code>race_ethnicity</code> value.</p>
-<div id="e9c65566" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Group to take the average decile score across all races and ethnicities</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># get predicted decile scores for each defendant based on the fit model</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>predict_results <span class="op">=</span> results.get_prediction(row_labels <span class="op">=</span> violence_risk.race_ethnicity.values)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># use the summary frame to calculate average decile scores by race_ethnicity</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>result_frame <span class="op">=</span> predict_results.summary_frame().groupby(level<span class="op">=</span><span class="dv">0</span>).mean()</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># make race_ethnicity a col in result_frame and sort in descending order</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>result_frame.reset_index(inplace <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>result_frame <span class="op">=</span> result_frame.rename(columns <span class="op">=</span> {<span class="st">'index'</span>:<span class="st">'race_ethnicity'</span>})</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>result_frame.sort_values(by <span class="op">=</span> <span class="st">"mean"</span>, ascending<span class="op">=</span> <span class="va">False</span>, inplace <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>result_frame</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="46">
+<p>To do this, we can first calculate the Estimated Marginal Means (EMMs) which are model-predicted average values for the response variable (in this case, Risk of Violence <code>DecileScore</code>) at each level of a factor or categorical variable (<code>race_ethnicity</code>), adjusted for other variables in the statistical model.</p>
+<div id="8a19232b" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>emm <span class="op">=</span> emmeans(results, <span class="st">"race_ethnicity"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>emm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="237">
+<pre><code>EMMs of race_ethnicity on link scale, 95% CI
+     race_ethnicity    emmean        SE       df  lower_cl  upper_cl
+0  African-American  4.000238  0.026842  20264.0  3.947625  4.052850
+1            Arabic  2.589682  0.460981  20264.0  1.686120  3.493243
+2             Asian  1.898360  0.209748  20264.0  1.487238  2.309483
+3          Hispanic  2.382077  0.044292  20264.0  2.295261  2.468893
+4   Native American  3.528581  0.269708  20264.0  2.999931  4.057231
+5             Other  2.389645  0.079384  20264.0  2.234046  2.545244
+6             White  2.446557  0.028765  20264.0  2.390174  2.502940</code></pre>
+</div>
+</div>
+<p>Using the EMMs, we can plot the average <code>DecileScore</code>s for each race, along with the standard error associated with the estimate, to visualize differences between each group.</p>
+<div id="8c200934" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plot <span class="op">=</span> (</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    ggplot(emm.frame, aes(x <span class="op">=</span> <span class="st">'reorder(race_ethnicity, emmean, ascending = True)'</span>, y <span class="op">=</span> <span class="st">'emmean'</span>))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point(color <span class="op">=</span> <span class="st">'lightskyblue'</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_errorbar(aes(ymin <span class="op">=</span> <span class="st">'lower_cl'</span>, ymax <span class="op">=</span> <span class="st">'upper_cl'</span>),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                    width <span class="op">=</span> <span class="fl">0.01</span>, color <span class="op">=</span> <span class="st">'lightskyblue'</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> coord_flip()</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme_seaborn()</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> labs(<span class="st">'Race or Ethnicity'</span>,</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> <span class="st">'Average "Risk of Violence" Decile Score'</span>,</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        title <span class="op">=</span> <span class="st">'Average "Risk of Violence" Score by Race'</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>plot.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="001_intro_to_lin_reg_compas_files/figure-html/cell-18-output-1.png" width="672" height="480" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can see from the above plot that African-American defendants are especially likely to have higher average Risk of Violence decile scores, with low standard error, followed by Native American defendants (though their model coefficient was not statistically significant) and Arabic defendants (though there’s high standard error, indicating greater variance).</p>
+<p>White, undeclared “Other”, and Hispanic defendants all have roughly the same average decile scores with low standard error. Asian defendants have the lowest average decile score, with moderate standard error.</p>
+<section id="pairwise-comparisons" class="level3">
+<h3 class="anchored" data-anchor-id="pairwise-comparisons">Pairwise comparisons</h3>
+<p>We can more concretely identify whether there are statistically significant differences between pairs of races and ethnicities by completing a post-hoc test. <code>pairs</code> implements a <a href="https://www.socscistatistics.com/tutorials/tukey-hsd/">Tukey HSD (“Honestly Significant Difference”) test</a>, which is a post-hoc test to determine whether specific group means have significant differences from each other. We’ll filter the result to look at only the statistically significant differences (in this case, based on an <span class="math inline">\(\alpha = 0.05\)</span> threshold).</p>
+<div id="89311f17" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pairwise <span class="op">=</span> pairs(emm)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pairwise.frame[pairwise.frame[<span class="st">'p_value'</span>] <span class="op">&lt;</span> <span class="fl">0.05</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="239">
 <div>
 
 
@@ -957,85 +1052,95 @@ Name: DisplayText, Length: 60843, dtype: bool</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">race_ethnicity</th>
-<th data-quarto-table-cell-role="th">mean</th>
-<th data-quarto-table-cell-role="th">mean_se</th>
-<th data-quarto-table-cell-role="th">mean_ci_lower</th>
-<th data-quarto-table-cell-role="th">mean_ci_upper</th>
-<th data-quarto-table-cell-role="th">obs_ci_lower</th>
-<th data-quarto-table-cell-role="th">obs_ci_upper</th>
+<th data-quarto-table-cell-role="th">contrast</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+<th data-quarto-table-cell-role="th">SE</th>
+<th data-quarto-table-cell-role="th">df</th>
+<th data-quarto-table-cell-role="th">t_ratio</th>
+<th data-quarto-table-cell-role="th">p_value</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">0</th>
-<td>African-American</td>
-<td>4.183863</td>
-<td>0.028432</td>
-<td>4.128135</td>
-<td>4.239592</td>
-<td>-0.333110</td>
-<td>8.700837</td>
+<td>African-American - Arabic</td>
+<td>1.410556</td>
+<td>0.461313</td>
+<td>20264.0</td>
+<td>3.057699</td>
+<td>0.036250</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">4</th>
-<td>Native American</td>
-<td>3.671233</td>
-<td>0.270263</td>
-<td>3.141495</td>
-<td>4.200971</td>
-<td>-0.876343</td>
-<td>8.218809</td>
-</tr>
-<tr class="odd">
 <th data-quarto-table-cell-role="th">1</th>
-<td>Arabic</td>
-<td>2.880000</td>
-<td>0.460924</td>
-<td>1.976552</td>
-<td>3.783448</td>
-<td>-1.726087</td>
-<td>7.486087</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">6</th>
-<td>White</td>
-<td>2.602810</td>
-<td>0.031548</td>
-<td>2.540972</td>
-<td>2.664647</td>
-<td>-1.914240</td>
-<td>7.119859</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">5</th>
-<td>Other</td>
-<td>2.594907</td>
-<td>0.079760</td>
-<td>2.438571</td>
-<td>2.751244</td>
-<td>-1.924416</td>
-<td>7.114231</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>Hispanic</td>
-<td>2.570350</td>
-<td>0.045292</td>
-<td>2.481574</td>
-<td>2.659126</td>
-<td>-1.947145</td>
-<td>7.087845</td>
+<td>African-American - Asian</td>
+<td>2.101877</td>
+<td>0.210779</td>
+<td>20264.0</td>
+<td>9.971964</td>
+<td>0.000000</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
-<td>Asian</td>
-<td>2.099174</td>
-<td>0.210025</td>
-<td>1.687508</td>
-<td>2.510839</td>
-<td>-2.436165</td>
-<td>6.634512</td>
+<td>African-American - Hispanic</td>
+<td>1.618161</td>
+<td>0.049090</td>
+<td>20264.0</td>
+<td>32.963451</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">4</th>
+<td>African-American - Other</td>
+<td>1.610593</td>
+<td>0.082031</td>
+<td>20264.0</td>
+<td>19.634005</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">5</th>
+<td>African-American - White</td>
+<td>1.553681</td>
+<td>0.036357</td>
+<td>20264.0</td>
+<td>42.733579</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">12</th>
+<td>Asian - Native American</td>
+<td>-1.630220</td>
+<td>0.341344</td>
+<td>20264.0</td>
+<td>-4.775887</td>
+<td>0.000037</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">15</th>
+<td>Hispanic - Native American</td>
+<td>-1.146504</td>
+<td>0.272937</td>
+<td>20264.0</td>
+<td>-4.200618</td>
+<td>0.000532</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">18</th>
+<td>Native American - Other</td>
+<td>1.138936</td>
+<td>0.280747</td>
+<td>20264.0</td>
+<td>4.056812</td>
+<td>0.000982</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">19</th>
+<td>Native American - White</td>
+<td>1.082024</td>
+<td>0.270917</td>
+<td>20264.0</td>
+<td>3.993933</td>
+<td>0.001274</td>
 </tr>
 </tbody>
 </table>
@@ -1043,41 +1148,14 @@ Name: DisplayText, Length: 60843, dtype: bool</code></pre>
 </div>
 </div>
 </div>
-<p>Once we have the aggregated <code>result_frame</code>, we can plot the average DecileScores for each race along with the standard error associated with that measure to visualize differences between each group.</p>
-<div id="b8ed0a41" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plot <span class="op">=</span> (</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    ggplot(result_frame, aes(x <span class="op">=</span> <span class="st">'reorder(race_ethnicity, mean, ascending = True)'</span>, y <span class="op">=</span> <span class="st">'mean'</span>))</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point(color <span class="op">=</span> <span class="st">'lightskyblue'</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_errorbar(aes(ymin <span class="op">=</span> <span class="st">'mean-mean_se'</span>, ymax <span class="op">=</span> <span class="st">'mean+mean_se'</span>),</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                    width <span class="op">=</span> <span class="fl">0.01</span>, color <span class="op">=</span> <span class="st">'lightskyblue'</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> coord_flip()</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme_seaborn()</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> labs(<span class="st">'Race or Ethnicity'</span>,</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> <span class="st">'Average "Risk of Violence" Decile Score'</span>,</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        title <span class="op">=</span> <span class="st">'Average "Risk of Violence" Score by Race'</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>plot.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="001_intro_to_lin_reg_compas_files/figure-html/cell-16-output-1.png" width="672" height="480" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>We can see from the above plot that African-American defendants are especially likely to have higher average Risk of Violence decile scores, with low standard error, followed by Native American defendants (though their coefficient was not statistically significant) and Arabic defendants (though there’s high standard error, indicating greater variance).</p>
-<p>White, undeclared “Other”, and Hispanic defendants all have roughly the same average decile scores with low standard error. Asian defendants have the lowest average decile score, with moderate standard error.</p>
+<p>From the plot and the pairwise comparisons, we can see that African-American defendants were significantly more likely to receive higher Risk of Violence scores compared to all other races and ethnicities <em>except</em> for Native American defendants (which makes sense - we saw that the Native American confidence interval overlaps with the African-American score estimate in the plot). Additionally, Native American defendants were also significantly more likely to receive higher scores than all races and ethnicities apart from Arabic and African-American defendants.</p>
+</section>
 </section>
 <section id="saving-the-plot" class="level2">
 <h2 class="anchored" data-anchor-id="saving-the-plot">Saving the plot</h2>
 <p>If you’d like to save the above plot, you can use the <code>plot.save</code> command to do so:</p>
-<div id="f656873d" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plot.save(<span class="st">'output/risk_of_violence_plot.png'</span>, dpi <span class="op">=</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/Users/sarahstueve@arizona.edu/repos/learn-python/.venv/lib/python3.14/site-packages/plotnine/ggplot.py:623: PlotnineWarning: Saving 7.0 x 5.0 in image.
-/Users/sarahstueve@arizona.edu/repos/learn-python/.venv/lib/python3.14/site-packages/plotnine/ggplot.py:624: PlotnineWarning: Filename: output/risk_of_violence_plot.png</code></pre>
-</div>
+<div id="d9b7827c" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>plot.save(<span class="st">'output/risk_of_violence_plot.png'</span>, dpi <span class="op">=</span> <span class="dv">300</span>, verbose <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="takeaways" class="level2">
@@ -1086,7 +1164,7 @@ Name: DisplayText, Length: 60843, dtype: bool</code></pre>
 <ul>
 <li>cleaned some data and prepared it for analysis</li>
 <li>learned how to run a linear model in Python using statsmodels</li>
-<li>took a look at the model effect by race in the final plot</li>
+<li>took a look at the model effect by race in the final plot and pairwise test</li>
 </ul>
 <p>For more examples and instruction on creating visualizations using Python, see the <a href="../tutorials/000_intro_to_visualization.html">Intro to Data Visualization</a> tutorial.</p>
 

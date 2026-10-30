@@ -10,6 +10,7 @@ dependencies = [
     "pandas>=3.0.5",
     "plotnine>=0.15.7",
     "polars>=1.43.1",
+    "pymmeans[parallel,plot]>=0.2.7",
     "seaborn>=0.13.2",
     "statsmodels>=0.14.4",
 ]

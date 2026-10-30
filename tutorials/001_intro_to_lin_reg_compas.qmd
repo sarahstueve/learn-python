@@ -64,15 +64,14 @@ Importing packages in Python is like opening an application on your phone or you
 ```{python}
 import pandas as pd
 import numpy as np
-# import seaborn as sns
-# import matplotlib.pyplot as plt
 from plotnine import *
 import statsmodels.api as sm
+from pymmeans import emmeans, pairs
 ```
 
 ## Wrangle the data
 
-First, let's read the data we downloaded into a Pandas DataFrame. Because the data is in our `data` folder, we need to tell Python to look inside that folder to find the `.csv` file. This is called a "relative path", or "the path to get to the file we want from where we are". The `/` indicates that `compas-scores-raw.csv` is _inside_ the `data` folder.
+First, let's read the data we downloaded into a Pandas DataFrame. Because the data is in our `data` folder, we need to tell Python to look inside that folder to find the `.csv` file. This is called a "relative path", or "the path to get to the file we want from where we are". The `/` indicates that `compas-scores-raw.csv` is _inside_ the `data` folder. Once we've read in the file, we can take a look at the first 5 rows of the dataset using the pandas DataFrame `.head()` method:
 
 ```{python}
 compas_data = pd.read_csv('data/compas-scores-raw.csv')
@@ -145,6 +144,20 @@ violence_risk = compas_data[compas_data['DisplayText'] == 'Risk of Violence']
 violence_risk.head()
 ```
 
+### Remove rows with "missing" score value
+
+Let's look at DecileScore, which represents the COMPAS score reported in deciles (i.e., increments of ten points). According to the [Practitioners Guide to COMPAS](https://archive.epic.org/algorithmic-transparency/crim-justice/EPIC-16-06-23-WI-FOIA-201600805-COMPASPractionerGuide.pdf), if a person scores a 4 on this scale, then 60% of the population looks more risky in that area than this person does, and 30% has been assessed as less risky. Typically a decile score of 1-4 is low (below average), 5-7 is moderate (average), and 8-10 is high (above average).
+
+```{python}
+violence_risk.value_counts('DecileScore')
+```
+
+A score of `-1` likely indicates missing data, so we'll filter that out:
+
+```{python}
+violence_risk = violence_risk[violence_risk['DecileScore'] != -1]
+```
+
 Now that we've created our subset, we can store the subset data for future use:
 
 ```{python}
@@ -160,11 +173,14 @@ We know that we have a subset of data on "Risk of Violence" from the COMPAS data
 
 We can do this using `statsmodel`'s `OLS` function with the `.from_formula` method, which will allow us to establish the relationships between variables of interest ourselves. This is similar to the `lm` function in R. `sm.OLS` will take care of one-hot encoding the data in order to make predictions. 
 
-We'll then group the data by race and take the average of the predicted DecileScores to answer the question "what is the mean score across all races?"
+We'll then group the data by race and take the average of the predicted DecileScores to answer the question "what is the mean risk of violence score across all races?"
 
 ### Fitting the model
 
-First, we write out our formula (the `~` here can be read as "DecileScore _**as a function of**_ race and sex") and create the model. From there, we have to explicitly tell python to `.fit()` the model to the data, which provides the results. Then, we review the regression results by calling `results.summary()`.
+First, we write out our formula (the `~` here can be read as "DecileScore _**as a function of**_ race and sex") and create the model. From there, we have to explicitly tell python to `.fit()` the model to the data, which provides the results. Then, we review the regression results by calling `results.summary()`. 
+
+Remember that our race and ethnicity labels are Caucasian, African-American, Hispanic, Other, Asian, Native American, Arabic and the level African-American is the first level in the default alphabetical order. So every other level is displayed in relation to African-American people.
+
 ```{python}
 # fit model and get average predictions by race
 formula = "DecileScore ~ race_ethnicity + Sex_Code_Text"
@@ -178,6 +194,8 @@ results.summary()
 ```
 
 ### Interpreting the results
+
+Our Intercept is African-American (the default because it comes first in alphabetical order), meaning Black defendants are assigned on average a score for risk to re-offend of 5.33. Arabic defendants are assigned a score that is, on average, 1.49 lower than African-American, which results in 3.84, etc. 
 
 There are a few things we look for to validate the linear model:
 
@@ -197,28 +215,20 @@ Based on the above, we can believe the results we see in this model that ***`rac
 
 Next, we want to understand the effect of the race and ethnicity, and sex on average Risk of Violence DecileScore predicted by the model. 
 
-We use the fit model to get predicted scores for each defendant (`results.get_prediction()`), based on the model fit. In order to aggregate the predictions for each defendant to the level of race and ethnicity as groups, we group the data and then take the average DecileScore per `race_ethnicity` value.
+To do this, we can first calculate the Estimated Marginal Means (EMMs) which are model-predicted average values for the response variable (in this case, Risk of Violence `DecileScore`) at each level of a factor or categorical variable (`race_ethnicity`), adjusted for other variables in the statistical model.
 
 ```{python}
-## Group to take the average decile score across all races and ethnicities
-# get predicted decile scores for each defendant based on the fit model
-predict_results = results.get_prediction(row_labels = violence_risk.race_ethnicity.values)
-# use the summary frame to calculate average decile scores by race_ethnicity
-result_frame = predict_results.summary_frame().groupby(level=0).mean()
-# make race_ethnicity a col in result_frame and sort in descending order
-result_frame.reset_index(inplace = True)
-result_frame = result_frame.rename(columns = {'index':'race_ethnicity'})
-result_frame.sort_values(by = "mean", ascending= False, inplace = True)
-result_frame
+emm = emmeans(results, "race_ethnicity")
+emm
 ```
 
-Once we have the aggregated `result_frame`, we can plot the average DecileScores for each race along with the standard error associated with that measure to visualize differences between each group.
+Using the EMMs, we can plot the average `DecileScore`s for each race, along with the standard error associated with the estimate, to visualize differences between each group.
 
 ```{python}
 plot = (
-    ggplot(result_frame, aes(x = 'reorder(race_ethnicity, mean, ascending = True)', y = 'mean'))
+    ggplot(emm.frame, aes(x = 'reorder(race_ethnicity, emmean, ascending = True)', y = 'emmean'))
     + geom_point(color = 'lightskyblue')
-    + geom_errorbar(aes(ymin = 'mean-mean_se', ymax = 'mean+mean_se'),
+    + geom_errorbar(aes(ymin = 'lower_cl', ymax = 'upper_cl'),
                     width = 0.01, color = 'lightskyblue')
     + coord_flip()
     + theme_seaborn()
@@ -230,16 +240,26 @@ plot = (
 plot.show()
 ```
 
-We can see from the above plot that African-American defendants are especially likely to have higher average Risk of Violence decile scores, with low standard error, followed by Native American defendants (though their coefficient was not statistically significant) and Arabic defendants (though there's high standard error, indicating greater variance).
+We can see from the above plot that African-American defendants are especially likely to have higher average Risk of Violence decile scores, with low standard error, followed by Native American defendants (though their model coefficient was not statistically significant) and Arabic defendants (though there's high standard error, indicating greater variance).
 
 White, undeclared "Other", and Hispanic defendants all have roughly the same average decile scores with low standard error. Asian defendants have the lowest average decile score, with moderate standard error.
+
+### Pairwise comparisons
+We can more concretely identify whether there are statistically significant differences between pairs of races and ethnicities by completing a post-hoc test. `pairs` implements a [Tukey HSD ("Honestly Significant Difference") test](https://www.socscistatistics.com/tutorials/tukey-hsd/), which is a post-hoc test to determine whether specific group means have significant differences from each other. We'll filter the result to look at only the statistically significant differences (in this case, based on an $\alpha = 0.05$ threshold).
+
+```{python}
+pairwise = pairs(emm)
+pairwise.frame[pairwise.frame['p_value'] < 0.05]
+```
+
+From the plot and the pairwise comparisons, we can see that African-American defendants were significantly more likely to receive higher Risk of Violence scores compared to all other races and ethnicities _except_ for Native American defendants (which makes sense - we saw that the Native American confidence interval overlaps with the African-American score estimate in the plot). Additionally, Native American defendants were also significantly more likely to receive higher scores than all races and ethnicities apart from Arabic and African-American defendants.
 
 ## Saving the plot
 
 If you'd like to save the above plot, you can use the `plot.save` command to do so:
 
 ```{python}
-plot.save('output/risk_of_violence_plot.png', dpi = 300)
+plot.save('output/risk_of_violence_plot.png', dpi = 300, verbose = False)
 ```
 
 ## Takeaways
@@ -248,6 +268,6 @@ In conclusion, we replicated the findings by ProPublica which demonstrated that 
 
 - cleaned some data and prepared it for analysis
 - learned how to run a linear model in Python using statsmodels
-- took a look at the model effect by race in the final plot
+- took a look at the model effect by race in the final plot and pairwise test
 
 For more examples and instruction on creating visualizations using Python, see the [Intro to Data Visualization](000_intro_to_visualization.qmd) tutorial.
