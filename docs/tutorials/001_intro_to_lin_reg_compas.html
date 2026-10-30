@@ -287,7 +287,7 @@ window.Quarto = {
 <section id="create-subfolders-to-keep-our-project-organized" class="level3">
 <h3 class="anchored" data-anchor-id="create-subfolders-to-keep-our-project-organized">Create subfolders to keep our project organized</h3>
 <p>We will first create two folders, one called <code>data</code> and one called <code>output</code>, inside the project folder we just created. To do this using Python, we can run the following code:</p>
-<div id="b8a79e2f" class="cell" data-execution_count="1">
+<div id="7b5a2937" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os <span class="co"># os for "operating system"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "mkdir" stands for "make directory" (a "directory" is just a folder!)</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>os.mkdir(<span class="st">'data'</span>)</span>
@@ -307,25 +307,25 @@ window.Quarto = {
 <p>If you’re using Google Colab, run the <code>pip</code> command below to make sure these packages are installed. If you have a local installation and use either <code>pip</code> or <code>uv</code> to install packages, you can still run the code below if necessary</p>
 </div>
 </div>
-<div id="087e0527" class="cell" data-execution_count="2">
+<div id="8af3d68e" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>pip command</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip3 install pandas statsmodels plotnine</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip3 install pandas statsmodels plotnine <span class="st">"pymmeans[plot,parallel]"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="778b5752" class="cell" data-execution_count="3">
+<div id="4a2a65fc" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>uv command (local installs)</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ideally, run this in Terminal without the !,</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># if installing locally!</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>uv add pandas statsmodels plotnine</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>uv add pandas statsmodels plotnine <span class="st">"pymmeans[plot,parallel]"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
 <section id="import-packages" class="level3">
 <h3 class="anchored" data-anchor-id="import-packages">Import packages</h3>
 <p>Importing packages in Python is like opening an application on your phone or your computer. When you want to write a paper or something similar, you might open Microsoft Word or Google Docs and then create your document. We open the application so we can <em>use it</em>, and importing is the same idea!</p>
-<div id="aef47a33" class="cell" data-execution_count="4">
+<div id="07ce1bc5" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
@@ -337,10 +337,10 @@ window.Quarto = {
 <section id="wrangle-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="wrangle-the-data">Wrangle the data</h2>
 <p>First, let’s read the data we downloaded into a Pandas DataFrame. Because the data is in our <code>data</code> folder, we need to tell Python to look inside that folder to find the <code>.csv</code> file. This is called a “relative path”, or “the path to get to the file we want from where we are”. The <code>/</code> indicates that <code>compas-scores-raw.csv</code> is <em>inside</em> the <code>data</code> folder. Once we’ve read in the file, we can take a look at the first 5 rows of the dataset using the pandas DataFrame <code>.head()</code> method:</p>
-<div id="cf578284" class="cell" data-execution_count="5">
+<div id="3e924cfc" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>compas_data <span class="op">=</span> pd.read_csv(<span class="st">'data/compas-scores-raw.csv'</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>compas_data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="227">
+<div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
 
@@ -500,18 +500,18 @@ window.Quarto = {
 </div>
 </div>
 <p>To determine the number of unique persons there are in this dataset (we can see above that there are multiple rows - i.e., <em>observations</em> - per person), we can take the length of the set of the <code>Person_ID</code> column. Alternatively, we could use the <a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.unique.html"><code>pd.Series.unique</code></a> method demonstrated in the following step.</p>
-<div id="1b1ddb16" class="cell" data-execution_count="6">
+<div id="b27257ea" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(<span class="bu">set</span>(compas_data.Person_ID))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="228">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>18610</code></pre>
 </div>
 </div>
 <p>This tells us there are 18,610 unique (or distinct) IDs in the dataset; each ID corresponds to one defendant.</p>
 <p>The data come from ProPublica who released the initial study on this data. They state that “Each pre-trial defendant received at least three COMPAS scores: <code>Risk of Recidivism</code>, <code>Risk of Violence</code>, and <code>Risk of Failure to Appear</code>”.</p>
 <p>Because we are interested in modeling risk of violence by race, what races are represented in this data?</p>
-<div id="aca3d2e8" class="cell" data-execution_count="7">
+<div id="7e63adbf" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>compas_data.Ethnic_Code_Text.unique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="229">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>&lt;StringArray&gt;
 [       'Caucasian', 'African-American',         'Hispanic',
             'Other',            'Asian',       'African-Am',
@@ -523,7 +523,7 @@ Length: 9, dtype: str</code></pre>
 <h3 class="anchored" data-anchor-id="update-the-race-and-ethnicity-labels">Update the race and ethnicity labels</h3>
 <p>The names used to represent the races/ethnic groups are both messy and/or antiquated. We’ll create a new column in our dataframe called <code>race_ethnicity</code> to contain our new attributes, to make a few adjustments that will, at least, partially improve the labels.</p>
 <p>To do this, we will use the <a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.replace.html"><code>pd.Series.replace</code></a> method. In order to replace multiple values at the same time, we’ll use a base Python object called a <code>dictionary</code>. It’s very similar to how it sounds: in a physical dictionary, we can find words mapped to definitions, right? A dictionary in Python is similar. In the context of <code>pd.Series.replace</code>, we provide a Python dictionary with the current value we want to replace mapped to what we want to replace it with. The format is <code>{&lt;to replace&gt;: &lt;replacement&gt;}</code>. In the context of our data, this looks like:</p>
-<div id="6bbb0724" class="cell" data-execution_count="8">
+<div id="480bd0c7" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Caucasian'</span>: <span class="st">'White'</span>,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'African-Am'</span>: <span class="st">'African-American'</span>,</span>
@@ -531,7 +531,7 @@ Length: 9, dtype: str</code></pre>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>So, let’s apply that to creating a new column <code>race_ethnicity</code>, where the antiquated or messy terms are replaced:</p>
-<div id="f04a48b0" class="cell" data-execution_count="9">
+<div id="26862242" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>compas_data[<span class="st">'race_ethnicity'</span>] <span class="op">=</span> compas_data[<span class="st">'Ethnic_Code_Text'</span>].replace(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    to_replace <span class="op">=</span> {<span class="st">'Caucasian'</span>: <span class="st">'White'</span>,</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'African-Am'</span>: <span class="st">'African-American'</span>,</span>
@@ -565,9 +565,9 @@ Length: 7, dtype: str</code></pre>
 <h3 class="anchored" data-anchor-id="filter-dataset-to-include-only-risk-of-violence-scores">Filter dataset to include only <code>Risk of Violence</code> scores</h3>
 <p>Let’s filter the data by Risk of Violence in the <code>DisplayText</code> column and then extract only the columns we’re interested in. To filter out rows, we need to write a <strong>condition</strong> that clarifies what we want in our subset.</p>
 <p>We clarify the condition using what we call a <strong>boolean expression</strong>. A <em>boolean</em> is a True or False value. So, if the expression evaluates to True for a given row, it’s included in our subset. We want all the rows where the value in the <code>DisplayText</code> column is equal to <code>Risk of Violence</code>, which looks like this:</p>
-<div id="156cbbd2" class="cell" data-execution_count="10">
+<div id="5900f4aa" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>compas_data[<span class="st">'DisplayText'</span>] <span class="op">==</span> <span class="st">'Risk of Violence'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="231">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>0         True
 1        False
 2        False
@@ -583,10 +583,10 @@ Name: DisplayText, Length: 60843, dtype: bool</code></pre>
 </div>
 </div>
 <p>The output shows a Series of <code>True</code> or <code>False</code> values. It’s <code>False</code> for rows where <code>DisplayText</code> does not equal <code>Risk of Violence</code>, and <code>True</code> otherwise.</p>
-<div id="8ce5e9d9" class="cell" data-execution_count="11">
+<div id="6e743399" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>violence_risk <span class="op">=</span> compas_data[compas_data[<span class="st">'DisplayText'</span>] <span class="op">==</span> <span class="st">'Risk of Violence'</span>]</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>violence_risk.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="232">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
 
@@ -749,9 +749,9 @@ Name: DisplayText, Length: 60843, dtype: bool</code></pre>
 <section id="remove-rows-with-missing-score-value" class="level3">
 <h3 class="anchored" data-anchor-id="remove-rows-with-missing-score-value">Remove rows with “missing” score value</h3>
 <p>Let’s look at DecileScore, which represents the COMPAS score reported in deciles (i.e., increments of ten points). According to the <a href="https://archive.epic.org/algorithmic-transparency/crim-justice/EPIC-16-06-23-WI-FOIA-201600805-COMPASPractionerGuide.pdf">Practitioners Guide to COMPAS</a>, if a person scores a 4 on this scale, then 60% of the population looks more risky in that area than this person does, and 30% has been assessed as less risky. Typically a decile score of 1-4 is low (below average), 5-7 is moderate (average), and 8-10 is high (above average).</p>
-<div id="9ecac6ba" class="cell" data-execution_count="12">
+<div id="754e9ff8" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>violence_risk.value_counts(<span class="st">'DecileScore'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="233">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>DecileScore
  1     6781
  2     3194
@@ -768,11 +768,11 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>A score of <code>-1</code> likely indicates missing data, so we’ll filter that out:</p>
-<div id="ede1ccb6" class="cell" data-execution_count="13">
+<div id="14ac2e1d" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>violence_risk <span class="op">=</span> violence_risk[violence_risk[<span class="st">'DecileScore'</span>] <span class="op">!=</span> <span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now that we’ve created our subset, we can store the subset data for future use:</p>
-<div id="b4cd2e4a" class="cell" data-execution_count="14">
+<div id="ec089030" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>violence_risk.to_csv(<span class="st">'output/risk_of_violence.csv'</span>, index <span class="op">=</span> <span class="va">False</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># index = False says "don't include the row labels"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -788,7 +788,7 @@ Name: count, dtype: int64</code></pre>
 <h3 class="anchored" data-anchor-id="fitting-the-model">Fitting the model</h3>
 <p>First, we write out our formula (the <code>~</code> here can be read as “DecileScore <em><strong>as a function of</strong></em> race and sex”) and create the model. From there, we have to explicitly tell python to <code>.fit()</code> the model to the data, which provides the results. Then, we review the regression results by calling <code>results.summary()</code>.</p>
 <p>Remember that our race and ethnicity labels are Caucasian, African-American, Hispanic, Other, Asian, Native American, Arabic and the level African-American is the first level in the default alphabetical order. So every other level is displayed in relation to African-American people.</p>
-<div id="699ac7e3" class="cell" data-execution_count="15">
+<div id="e3075991" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit model and get average predictions by race</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>formula <span class="op">=</span> <span class="st">"DecileScore ~ race_ethnicity + Sex_Code_Text"</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize the model with the formula</span></span>
@@ -798,7 +798,7 @@ Name: count, dtype: int64</code></pre>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> model2.fit()</span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># view the regression results in table format</span></span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>results.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="236">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <table class="simpletable caption-top table table-sm table-striped small">
 <caption>OLS Regression Results</caption>
 <tbody>
@@ -828,7 +828,7 @@ Name: count, dtype: int64</code></pre>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Time:</th>
-<td>15:28:15</td>
+<td>15:34:07</td>
 <th data-quarto-table-cell-role="th">Log-Likelihood:</th>
 <td>-45673.</td>
 </tr>
@@ -998,10 +998,10 @@ Name: count, dtype: int64</code></pre>
 <h2 class="anchored" data-anchor-id="investigating-the-model-effect-by-race-and-ethnicity">Investigating the model effect by race and ethnicity</h2>
 <p>Next, we want to understand the effect of the race and ethnicity, and sex on average Risk of Violence DecileScore predicted by the model.</p>
 <p>To do this, we can first calculate the Estimated Marginal Means (EMMs) which are model-predicted average values for the response variable (in this case, Risk of Violence <code>DecileScore</code>) at each level of a factor or categorical variable (<code>race_ethnicity</code>), adjusted for other variables in the statistical model.</p>
-<div id="8a19232b" class="cell" data-execution_count="16">
+<div id="49f1d3bb" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>emm <span class="op">=</span> emmeans(results, <span class="st">"race_ethnicity"</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>emm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="237">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>EMMs of race_ethnicity on link scale, 95% CI
      race_ethnicity    emmean        SE       df  lower_cl  upper_cl
 0  African-American  4.000238  0.026842  20264.0  3.947625  4.052850
@@ -1014,7 +1014,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>Using the EMMs, we can plot the average <code>DecileScore</code>s for each race, along with the standard error associated with the estimate, to visualize differences between each group.</p>
-<div id="8c200934" class="cell" data-execution_count="17">
+<div id="cfeb2827" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plot <span class="op">=</span> (</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    ggplot(emm.frame, aes(x <span class="op">=</span> <span class="st">'reorder(race_ethnicity, emmean, ascending = True)'</span>, y <span class="op">=</span> <span class="st">'emmean'</span>))</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point(color <span class="op">=</span> <span class="st">'lightskyblue'</span>)</span>
@@ -1041,10 +1041,10 @@ Name: count, dtype: int64</code></pre>
 <section id="pairwise-comparisons" class="level3">
 <h3 class="anchored" data-anchor-id="pairwise-comparisons">Pairwise comparisons</h3>
 <p>We can more concretely identify whether there are statistically significant differences between pairs of races and ethnicities by completing a post-hoc test. <code>pairs</code> implements a <a href="https://www.socscistatistics.com/tutorials/tukey-hsd/">Tukey HSD (“Honestly Significant Difference”) test</a>, which is a post-hoc test to determine whether specific group means have significant differences from each other. We’ll filter the result to look at only the statistically significant differences (in this case, based on an <span class="math inline">\(\alpha = 0.05\)</span> threshold).</p>
-<div id="89311f17" class="cell" data-execution_count="18">
+<div id="8cb6f657" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pairwise <span class="op">=</span> pairs(emm)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pairwise.frame[pairwise.frame[<span class="st">'p_value'</span>] <span class="op">&lt;</span> <span class="fl">0.05</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="239">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
 
@@ -1154,7 +1154,7 @@ Name: count, dtype: int64</code></pre>
 <section id="saving-the-plot" class="level2">
 <h2 class="anchored" data-anchor-id="saving-the-plot">Saving the plot</h2>
 <p>If you’d like to save the above plot, you can use the <code>plot.save</code> command to do so:</p>
-<div id="d9b7827c" class="cell" data-execution_count="19">
+<div id="4a074a41" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>plot.save(<span class="st">'output/risk_of_violence_plot.png'</span>, dpi <span class="op">=</span> <span class="dv">300</span>, verbose <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>

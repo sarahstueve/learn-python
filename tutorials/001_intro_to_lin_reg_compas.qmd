@@ -44,7 +44,7 @@ If you're using Google Colab, run the `pip` command below to make sure these pac
 #| code-fold: true
 #| code-summary: "pip command"
 #| eval: false
-!pip3 install pandas statsmodels plotnine
+!pip3 install pandas statsmodels plotnine "pymmeans[plot,parallel]"
 ```
 
 ```{python}
@@ -54,7 +54,7 @@ If you're using Google Colab, run the `pip` command below to make sure these pac
 
 # ideally, run this in Terminal without the !,
 # if installing locally!
-!uv add pandas statsmodels plotnine
+!uv add pandas statsmodels plotnine "pymmeans[plot,parallel]"
 ```
 
 ### Import packages
