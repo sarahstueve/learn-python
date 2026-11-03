@@ -12,7 +12,6 @@ website:
   title: "learn-python"
   google-analytics: 
     tracking-id: "G-NH7HMX9RVC"
-    storage: none
     anonymize-ip: true
   navbar:
     left:
