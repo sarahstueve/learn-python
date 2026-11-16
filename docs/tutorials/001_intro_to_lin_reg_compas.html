@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.11.9">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -74,14 +74,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-445b8638c3d06994fee0907d791121c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-d31a0c91b01e363be7b7a36e602e2c70.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,11 +117,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
- 
-  gtag('consent', 'default', {
-    'ad_storage': 'denied',
-    'analytics_storage': 'denied'
-  });
 gtag('config', 'G-NH7HMX9RVC', { 'anonymize_ip': true});
 </script>
 <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
@@ -160,19 +156,18 @@ window.Quarto = {
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="Site">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">learn-python</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -197,6 +192,7 @@ window.Quarto = {
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
+            <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -205,7 +201,7 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -235,7 +231,7 @@ window.Quarto = {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content" tabindex="-1">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -258,7 +254,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">October 30, 2026</p>
+      <p class="date-modified">November 16, 2026</p>
     </div>
   </div>
     
@@ -279,7 +275,7 @@ window.Quarto = {
 <li>Run a linear model using statsmodels</li>
 <li>Visualize predicted risk of violence scores with error bars</li>
 </ol>
-<p>Use <a href="&quot;https://raw.githubusercontent.com/propublica/compas-analysis/master/compas-scores-raw.csv&quot;">this link</a> to download the dataset (right-click on the link and select <code>Save As...</code>). Make sure to save it somewhere you’ll remember, like your Desktop or Downloads. We’ll be moving it somewhere else later.</p>
+<p>Use <a href="https://raw.githubusercontent.com/propublica/compas-analysis/master/compas-scores-raw.csv">this link</a> to download the dataset (right-click on the link and select <code>Save As...</code>). Make sure to save it somewhere you’ll remember, like your Desktop or Downloads. We’ll be moving it somewhere else later.</p>
 </section>
 <section id="sec-setup" class="level2">
 <h2 class="anchored" data-anchor-id="sec-setup">Setup</h2>
@@ -287,14 +283,14 @@ window.Quarto = {
 <section id="create-subfolders-to-keep-our-project-organized" class="level3">
 <h3 class="anchored" data-anchor-id="create-subfolders-to-keep-our-project-organized">Create subfolders to keep our project organized</h3>
 <p>We will first create two folders, one called <code>data</code> and one called <code>output</code>, inside the project folder we just created. To do this using Python, we can run the following code:</p>
-<div id="7b5a2937" class="cell" data-execution_count="1">
+<div id="2ea32256" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os <span class="co"># os for "operating system"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "mkdir" stands for "make directory" (a "directory" is just a folder!)</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>os.mkdir(<span class="st">'data'</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>os.mkdir(<span class="st">'output'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Once you’ve created the two folders, we’ll move the data we just downloaded into your new <code>data</code> folder. Drag and drop the data file from where you saved it into the <code>data</code> folder.</p>
-<div class="callout callout-style-default callout-important callout-titled" title="Package installation for Colab (or otherwise)">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -307,13 +303,13 @@ window.Quarto = {
 <p>If you’re using Google Colab, run the <code>pip</code> command below to make sure these packages are installed. If you have a local installation and use either <code>pip</code> or <code>uv</code> to install packages, you can still run the code below if necessary</p>
 </div>
 </div>
-<div id="8af3d68e" class="cell" data-execution_count="2">
+<div id="88087781" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>pip command</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip3 install pandas statsmodels plotnine <span class="st">"pymmeans[plot,parallel]"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="4a2a65fc" class="cell" data-execution_count="3">
+<div id="39b2a19c" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>uv command (local installs)</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ideally, run this in Terminal without the !,</span></span>
@@ -325,7 +321,7 @@ window.Quarto = {
 <section id="import-packages" class="level3">
 <h3 class="anchored" data-anchor-id="import-packages">Import packages</h3>
 <p>Importing packages in Python is like opening an application on your phone or your computer. When you want to write a paper or something similar, you might open Microsoft Word or Google Docs and then create your document. We open the application so we can <em>use it</em>, and importing is the same idea!</p>
-<div id="07ce1bc5" class="cell" data-execution_count="4">
+<div id="f87cd757" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
@@ -337,7 +333,7 @@ window.Quarto = {
 <section id="wrangle-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="wrangle-the-data">Wrangle the data</h2>
 <p>First, let’s read the data we downloaded into a Pandas DataFrame. Because the data is in our <code>data</code> folder, we need to tell Python to look inside that folder to find the <code>.csv</code> file. This is called a “relative path”, or “the path to get to the file we want from where we are”. The <code>/</code> indicates that <code>compas-scores-raw.csv</code> is <em>inside</em> the <code>data</code> folder. Once we’ve read in the file, we can take a look at the first 5 rows of the dataset using the pandas DataFrame <code>.head()</code> method:</p>
-<div id="3e924cfc" class="cell" data-execution_count="5">
+<div id="e30ec225" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>compas_data <span class="op">=</span> pd.read_csv(<span class="st">'data/compas-scores-raw.csv'</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>compas_data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -500,7 +496,7 @@ window.Quarto = {
 </div>
 </div>
 <p>To determine the number of unique persons there are in this dataset (we can see above that there are multiple rows - i.e., <em>observations</em> - per person), we can take the length of the set of the <code>Person_ID</code> column. Alternatively, we could use the <a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.unique.html"><code>pd.Series.unique</code></a> method demonstrated in the following step.</p>
-<div id="b27257ea" class="cell" data-execution_count="6">
+<div id="2f3338e8" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(<span class="bu">set</span>(compas_data.Person_ID))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>18610</code></pre>
@@ -509,7 +505,7 @@ window.Quarto = {
 <p>This tells us there are 18,610 unique (or distinct) IDs in the dataset; each ID corresponds to one defendant.</p>
 <p>The data come from ProPublica who released the initial study on this data. They state that “Each pre-trial defendant received at least three COMPAS scores: <code>Risk of Recidivism</code>, <code>Risk of Violence</code>, and <code>Risk of Failure to Appear</code>”.</p>
 <p>Because we are interested in modeling risk of violence by race, what races are represented in this data?</p>
-<div id="7e63adbf" class="cell" data-execution_count="7">
+<div id="847236d6" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>compas_data.Ethnic_Code_Text.unique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>&lt;StringArray&gt;
@@ -523,7 +519,7 @@ Length: 9, dtype: str</code></pre>
 <h3 class="anchored" data-anchor-id="update-the-race-and-ethnicity-labels">Update the race and ethnicity labels</h3>
 <p>The names used to represent the races/ethnic groups are both messy and/or antiquated. We’ll create a new column in our dataframe called <code>race_ethnicity</code> to contain our new attributes, to make a few adjustments that will, at least, partially improve the labels.</p>
 <p>To do this, we will use the <a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.replace.html"><code>pd.Series.replace</code></a> method. In order to replace multiple values at the same time, we’ll use a base Python object called a <code>dictionary</code>. It’s very similar to how it sounds: in a physical dictionary, we can find words mapped to definitions, right? A dictionary in Python is similar. In the context of <code>pd.Series.replace</code>, we provide a Python dictionary with the current value we want to replace mapped to what we want to replace it with. The format is <code>{&lt;to replace&gt;: &lt;replacement&gt;}</code>. In the context of our data, this looks like:</p>
-<div id="480bd0c7" class="cell" data-execution_count="8">
+<div id="41e0fc03" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Caucasian'</span>: <span class="st">'White'</span>,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'African-Am'</span>: <span class="st">'African-American'</span>,</span>
@@ -531,7 +527,7 @@ Length: 9, dtype: str</code></pre>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>So, let’s apply that to creating a new column <code>race_ethnicity</code>, where the antiquated or messy terms are replaced:</p>
-<div id="26862242" class="cell" data-execution_count="9">
+<div id="ce262d1a" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>compas_data[<span class="st">'race_ethnicity'</span>] <span class="op">=</span> compas_data[<span class="st">'Ethnic_Code_Text'</span>].replace(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    to_replace <span class="op">=</span> {<span class="st">'Caucasian'</span>: <span class="st">'White'</span>,</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'African-Am'</span>: <span class="st">'African-American'</span>,</span>
@@ -565,7 +561,7 @@ Length: 7, dtype: str</code></pre>
 <h3 class="anchored" data-anchor-id="filter-dataset-to-include-only-risk-of-violence-scores">Filter dataset to include only <code>Risk of Violence</code> scores</h3>
 <p>Let’s filter the data by Risk of Violence in the <code>DisplayText</code> column and then extract only the columns we’re interested in. To filter out rows, we need to write a <strong>condition</strong> that clarifies what we want in our subset.</p>
 <p>We clarify the condition using what we call a <strong>boolean expression</strong>. A <em>boolean</em> is a True or False value. So, if the expression evaluates to True for a given row, it’s included in our subset. We want all the rows where the value in the <code>DisplayText</code> column is equal to <code>Risk of Violence</code>, which looks like this:</p>
-<div id="5900f4aa" class="cell" data-execution_count="10">
+<div id="6642c1ad" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>compas_data[<span class="st">'DisplayText'</span>] <span class="op">==</span> <span class="st">'Risk of Violence'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>0         True
@@ -583,7 +579,7 @@ Name: DisplayText, Length: 60843, dtype: bool</code></pre>
 </div>
 </div>
 <p>The output shows a Series of <code>True</code> or <code>False</code> values. It’s <code>False</code> for rows where <code>DisplayText</code> does not equal <code>Risk of Violence</code>, and <code>True</code> otherwise.</p>
-<div id="6e743399" class="cell" data-execution_count="11">
+<div id="1b3bf04a" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>violence_risk <span class="op">=</span> compas_data[compas_data[<span class="st">'DisplayText'</span>] <span class="op">==</span> <span class="st">'Risk of Violence'</span>]</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>violence_risk.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
@@ -749,7 +745,7 @@ Name: DisplayText, Length: 60843, dtype: bool</code></pre>
 <section id="remove-rows-with-missing-score-value" class="level3">
 <h3 class="anchored" data-anchor-id="remove-rows-with-missing-score-value">Remove rows with “missing” score value</h3>
 <p>Let’s look at DecileScore, which represents the COMPAS score reported in deciles (i.e., increments of ten points). According to the <a href="https://archive.epic.org/algorithmic-transparency/crim-justice/EPIC-16-06-23-WI-FOIA-201600805-COMPASPractionerGuide.pdf">Practitioners Guide to COMPAS</a>, if a person scores a 4 on this scale, then 60% of the population looks more risky in that area than this person does, and 30% has been assessed as less risky. Typically a decile score of 1-4 is low (below average), 5-7 is moderate (average), and 8-10 is high (above average).</p>
-<div id="754e9ff8" class="cell" data-execution_count="12">
+<div id="b252aa6f" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>violence_risk.value_counts(<span class="st">'DecileScore'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>DecileScore
@@ -768,11 +764,11 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>A score of <code>-1</code> likely indicates missing data, so we’ll filter that out:</p>
-<div id="14ac2e1d" class="cell" data-execution_count="13">
+<div id="0436221b" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>violence_risk <span class="op">=</span> violence_risk[violence_risk[<span class="st">'DecileScore'</span>] <span class="op">!=</span> <span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now that we’ve created our subset, we can store the subset data for future use:</p>
-<div id="ec089030" class="cell" data-execution_count="14">
+<div id="3024a6b5" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>violence_risk.to_csv(<span class="st">'output/risk_of_violence.csv'</span>, index <span class="op">=</span> <span class="va">False</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># index = False says "don't include the row labels"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -788,7 +784,7 @@ Name: count, dtype: int64</code></pre>
 <h3 class="anchored" data-anchor-id="fitting-the-model">Fitting the model</h3>
 <p>First, we write out our formula (the <code>~</code> here can be read as “DecileScore <em><strong>as a function of</strong></em> race and sex”) and create the model. From there, we have to explicitly tell python to <code>.fit()</code> the model to the data, which provides the results. Then, we review the regression results by calling <code>results.summary()</code>.</p>
 <p>Remember that our race and ethnicity labels are Caucasian, African-American, Hispanic, Other, Asian, Native American, Arabic and the level African-American is the first level in the default alphabetical order. So every other level is displayed in relation to African-American people.</p>
-<div id="e3075991" class="cell" data-execution_count="15">
+<div id="3832991b" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit model and get average predictions by race</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>formula <span class="op">=</span> <span class="st">"DecileScore ~ race_ethnicity + Sex_Code_Text"</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize the model with the formula</span></span>
@@ -822,13 +818,13 @@ Name: count, dtype: int64</code></pre>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Date:</th>
-<td>Fri, 30 Oct 2026</td>
+<td>Mon, 16 Nov 2026</td>
 <th data-quarto-table-cell-role="th">Prob (F-statistic):</th>
 <td>0.00</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Time:</th>
-<td>15:34:07</td>
+<td>16:50:37</td>
 <th data-quarto-table-cell-role="th">Log-Likelihood:</th>
 <td>-45673.</td>
 </tr>
@@ -998,7 +994,7 @@ Name: count, dtype: int64</code></pre>
 <h2 class="anchored" data-anchor-id="investigating-the-model-effect-by-race-and-ethnicity">Investigating the model effect by race and ethnicity</h2>
 <p>Next, we want to understand the effect of the race and ethnicity, and sex on average Risk of Violence DecileScore predicted by the model.</p>
 <p>To do this, we can first calculate the Estimated Marginal Means (EMMs) which are model-predicted average values for the response variable (in this case, Risk of Violence <code>DecileScore</code>) at each level of a factor or categorical variable (<code>race_ethnicity</code>), adjusted for other variables in the statistical model.</p>
-<div id="49f1d3bb" class="cell" data-execution_count="16">
+<div id="d75b5117" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>emm <span class="op">=</span> emmeans(results, <span class="st">"race_ethnicity"</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>emm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
@@ -1014,7 +1010,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>Using the EMMs, we can plot the average <code>DecileScore</code>s for each race, along with the standard error associated with the estimate, to visualize differences between each group.</p>
-<div id="cfeb2827" class="cell" data-execution_count="17">
+<div id="da3b1d92" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plot <span class="op">=</span> (</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    ggplot(emm.frame, aes(x <span class="op">=</span> <span class="st">'reorder(race_ethnicity, emmean, ascending = True)'</span>, y <span class="op">=</span> <span class="st">'emmean'</span>))</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point(color <span class="op">=</span> <span class="st">'lightskyblue'</span>)</span>
@@ -1041,7 +1037,7 @@ Name: count, dtype: int64</code></pre>
 <section id="pairwise-comparisons" class="level3">
 <h3 class="anchored" data-anchor-id="pairwise-comparisons">Pairwise comparisons</h3>
 <p>We can more concretely identify whether there are statistically significant differences between pairs of races and ethnicities by completing a post-hoc test. <code>pairs</code> implements a <a href="https://www.socscistatistics.com/tutorials/tukey-hsd/">Tukey HSD (“Honestly Significant Difference”) test</a>, which is a post-hoc test to determine whether specific group means have significant differences from each other. We’ll filter the result to look at only the statistically significant differences (in this case, based on an <span class="math inline">\(\alpha = 0.05\)</span> threshold).</p>
-<div id="8cb6f657" class="cell" data-execution_count="18">
+<div id="a66f871d" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pairwise <span class="op">=</span> pairs(emm)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pairwise.frame[pairwise.frame[<span class="st">'p_value'</span>] <span class="op">&lt;</span> <span class="fl">0.05</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
@@ -1154,7 +1150,7 @@ Name: count, dtype: int64</code></pre>
 <section id="saving-the-plot" class="level2">
 <h2 class="anchored" data-anchor-id="saving-the-plot">Saving the plot</h2>
 <p>If you’d like to save the above plot, you can use the <code>plot.save</code> command to do so:</p>
-<div id="4a074a41" class="cell" data-execution_count="19">
+<div id="50f210ae" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>plot.save(<span class="st">'output/risk_of_violence_plot.png'</span>, dpi <span class="op">=</span> <span class="dv">300</span>, verbose <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -1250,7 +1246,8 @@ Name: count, dtype: int64</code></pre>
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
       // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
       for (var i=0; i<links.length; i++) {
         const link = links[i];
         if (!isInternal(link.href)) {
@@ -1259,8 +1256,69 @@ Name: count, dtype: int64</code></pre>
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+          if (!link.classList.contains('no-external-icon')) {
+          }
         }
       }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
       const config = {
         allowHTML: true,
@@ -1274,6 +1332,7 @@ Name: count, dtype: int64</code></pre>
         interactiveBorder: 10,
         theme: 'quarto',
         placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
       };
       if (contentFn) {
         config.content = contentFn;
@@ -1436,44 +1495,54 @@ Name: count, dtype: int64</code></pre>
           const lineIds = lines.map((line) => {
             return targetCell + "-" + line;
           })
-          let top = null;
-          let height = null;
-          let parent = null;
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
           if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
             }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
             }
+            placeBand(gutterDiv, el, lastEl);
             selectedAnnoteEl = annoteEl;
           }
         };
@@ -1571,6 +1640,9 @@ Name: count, dtype: int64</code></pre>
       }
     }
   });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
   </script>
 </div> <!-- /content -->
 <footer class="footer">
