@@ -17,7 +17,7 @@ The data that we'll be using for this tutorial is from [this work by ProPublica]
 3. Run a linear model using statsmodels
 4. Visualize predicted risk of violence scores with error bars
 
-Use [this link]("https://raw.githubusercontent.com/propublica/compas-analysis/master/compas-scores-raw.csv") to download the dataset (right-click on the link and select `Save As...`). Make sure to save it somewhere you'll remember, like your Desktop or Downloads. We'll be moving it somewhere else later.
+Use [this link](https://raw.githubusercontent.com/propublica/compas-analysis/master/compas-scores-raw.csv) to download the dataset (right-click on the link and select `Save As...`). Make sure to save it somewhere you'll remember, like your Desktop or Downloads. We'll be moving it somewhere else later.
 
 ## Setup {#sec-setup}
 
